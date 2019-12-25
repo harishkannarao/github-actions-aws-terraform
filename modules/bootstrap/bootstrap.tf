@@ -5,6 +5,7 @@
 # Build an S3 bucket to store TF state
 resource "aws_s3_bucket" "state_bucket" {
   bucket = var.name_of_s3_bucket
+  acl    = "private"
 
   # Tells AWS to encrypt the S3 bucket at rest by default
   server_side_encryption_configuration {
