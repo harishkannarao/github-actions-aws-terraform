@@ -16,9 +16,23 @@ provider "aws" {
   version = "~> 2.36.0"
 }
 
-# Call the seed_module to build our ADO seed info
-module "bootstrap" {
-  source                      = "./modules/bootstrap"
-  name_of_s3_bucket           = "github-actions-ci"
-  dynamo_db_table_name        = "github-actions-ci-locks"
-}
+# resource "aws_dynamodb_table" "tf_lock_state" {
+#   name = "test-dynamodb"
+
+#   # Pay per request is cheaper for low-i/o applications, like our TF lock state
+#   billing_mode = "PAY_PER_REQUEST"
+
+#   # Hash key is required, and must be an attribute
+#   hash_key = "LockID"
+
+#   # Attribute LockID is required for TF to use this table for lock state
+#   attribute {
+#     name = "LockID"
+#     type = "S"
+#   }
+
+#   tags = {
+#     Name    = "test-dynamodb"
+#     BuiltBy = "Terraform"
+#   }
+# }
