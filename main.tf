@@ -1,13 +1,13 @@
 # Require TF version to be same as or greater than 0.12.13
 terraform {
   required_version = ">=0.12.13"
-  #backend "s3" {
-  #  bucket         = "github-actions-ci"
-  #  key            = "terraform.tfstate"
-  #  region         = "eu-west-2"
-  #  dynamodb_table = "github-actions-ci-locks"
-  #  encrypt        = true
-  #}
+  backend "s3" {
+    bucket         = "github-actions-ci"
+    key            = "terraform.tfstate"
+    region         = "eu-west-2"
+    dynamodb_table = "github-actions-ci-locks"
+    encrypt        = true
+  }
 }
 
 # Download any stable version in AWS provider of 2.36.0 or higher in 2.36 train
