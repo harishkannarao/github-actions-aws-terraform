@@ -6,7 +6,8 @@ terraform {
     key            = "terraform.tfstate"
     region         = "eu-west-2"
     dynamodb_table = "github-actions-ci-locks"
-    encrypt        = true
+    # Optionally encrypt the state file (if encryption is enabled in s3 bucket)
+    # encrypt        = true
   }
 }
 

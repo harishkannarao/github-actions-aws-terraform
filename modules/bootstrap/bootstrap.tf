@@ -7,24 +7,24 @@ resource "aws_s3_bucket" "state_bucket" {
   bucket = var.name_of_s3_bucket
   acl    = "private"
 
-  # Tells AWS to encrypt the S3 bucket at rest by default
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
+  # Optionally tell AWS to encrypt the S3 bucket at rest by default
+  # server_side_encryption_configuration {
+  #   rule {
+  #     apply_server_side_encryption_by_default {
+  #       sse_algorithm = "AES256"
+  #     }
+  #   }
+  # }
 
   # Optionally Prevents Terraform from destroying or replacing this object - a great safety mechanism
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 
   # Optionally tell AWS to keep a version history of the state file
-  versioning {
-    enabled = true
-  }
+  # versioning {
+  #   enabled = true
+  # }
 
   tags = {
     Terraform = "true"
