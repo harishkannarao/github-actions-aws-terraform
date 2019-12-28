@@ -1,3 +1,5 @@
+# Setup
+
 ## Create AWS IAM Group using root user or adminstrator user
 
     aws iam create-group --group-name terraform-group
@@ -38,22 +40,27 @@
 
     aws s3api create-bucket --bucket github-actions-ci --acl private --create-bucket-configuration LocationConstraint=eu-west-2
 
-    # optionally enable versioning for s3 bucket
-    # aws s3api put-bucket-versioning --bucket github-actions-ci --versioning-configuration Status=Enabled
+## Optional - Enable versioning for AWS s3 bucket
+    aws s3api put-bucket-versioning --bucket github-actions-ci --versioning-configuration Status=Enabled
+
+## Create AWS dynamodb table for locking
 
     aws dynamodb create-table --table-name github-actions-ci-locks --attribute-definitions AttributeName=LockID,AttributeType=S --key-schema AttributeName=LockID,KeyType=HASH --billing-mode PAY_PER_REQUEST
 
-## Teardown AWS s3 bucket and dynamodb
+
+# Teardown
+
+## Delete dynamodb table
 
     aws dynamodb delete-table --table-name github-actions-ci-locks
+
+## Teardown AWS s3 bucket
 
     aws s3 rb s3://github-actions-ci --force
 
 ## Teardown AWS Terraform user
 
     aws iam remove-user-from-group --user-name terraform-user --group-name terraform-group
-
-Get the access keys and delete all access keys
 
     aws iam list-access-keys --user-name terraform-user | jq -r '.AccessKeyMetadata[].AccessKeyId' | xargs -I {} aws iam delete-access-key --user-name terraform-user --access-key-id {}
 
