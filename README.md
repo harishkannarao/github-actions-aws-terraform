@@ -13,8 +13,8 @@ Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraf
 
 ## Apply the changes
 
-    terraform apply -var-file="$ENV_NAME.tfvars" -auto-approve -input=false
+    terraform apply -var-file="variables/$ENV_NAME.tfvars" -auto-approve -input=false
 
 ## Destroy the changes
 
-    terraform destroy -var-file="$ENV_NAME.tfvars" -auto-approve -input=false
+    terraform destroy -var-file="variables/$ENV_NAME.tfvars" -auto-approve -input=false

@@ -24,6 +24,8 @@
 
     aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonRoute53FullAccess --group-name terraform-group
 
+    aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/IAMFullAccess --group-name terraform-group
+
 ## Create AWS IAM User using root user or adminstrator user
 
     aws iam create-user --user-name terraform-user
