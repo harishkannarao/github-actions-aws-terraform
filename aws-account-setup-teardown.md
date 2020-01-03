@@ -49,9 +49,11 @@
 
     aws dynamodb create-table --table-name github-actions-ci-locks --attribute-definitions AttributeName=LockID,AttributeType=S --key-schema AttributeName=LockID,KeyType=HASH --billing-mode PAY_PER_REQUEST
 
-## Create AWS ECS Service Role
+## Create AWS Service Roles
 
     aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
+
+    aws iam create-service-linked-role --aws-service-name elasticbeanstalk.amazonaws.com
 
 
 # Teardown
@@ -78,6 +80,8 @@
 
     aws iam delete-group --group-name terraform-group
 
-## Teardown AWS ECS Service role
+## Teardown AWS Service roles
 
     aws iam delete-service-linked-role --role-name AWSServiceRoleForECS
+
+    aws iam delete-service-linked-role --role-name AWSServiceRoleForElasticBeanstalk
