@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "test-dynamodb" {
-  name = var.dynamo_db_table_name
+  name = "${var.dynamo_db_table_name}"
 
   # Pay per request is cheaper for low-i/o applications, like our TF lock state
   billing_mode = "PAY_PER_REQUEST"
