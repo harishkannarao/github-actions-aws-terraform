@@ -5,11 +5,17 @@ Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraf
     
     export ENV_NAME=development
 
+    export TF_VAR_production_database_name=development_db
+
+    export TF_VAR_production_database_username=development_db_user
+
+    export TF_VAR_production_database_password=development_db_password
+
     terraform init -input=false environments/$ENV_NAME
 
 ## Do a dry run and preview the changes to be applied
 
-    terraform plan -input=false environments/$ENV_NAME
+    terraform plan -input=false -var-file="variables/$ENV_NAME.tfvars" environments/$ENV_NAME
 
 ## Apply the changes
 
