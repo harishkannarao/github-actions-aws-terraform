@@ -53,6 +53,8 @@
 
     aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
 
+    aws iam create-service-linked-role --aws-service-name ecs.application-autoscaling.amazonaws.com
+
     aws iam create-service-linked-role --aws-service-name elasticbeanstalk.amazonaws.com
 
 
@@ -83,5 +85,7 @@
 ## Teardown AWS Service roles
 
     aws iam delete-service-linked-role --role-name AWSServiceRoleForECS
+
+    aws iam delete-service-linked-role --role-name AWSServiceRoleForApplicationAutoScaling_ECSService
 
     aws iam delete-service-linked-role --role-name AWSServiceRoleForElasticBeanstalk
