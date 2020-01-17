@@ -16,10 +16,6 @@ variable "environment" {
   description = "The environment"
 }
 
-variable "region" {
-  description = "The region to launch the bastion host"
-}
-
 variable "availability_zones" {
   type        = "list"
   description = "The az that the resources will be launched"

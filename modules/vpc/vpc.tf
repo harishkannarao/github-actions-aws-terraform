@@ -29,18 +29,20 @@ resource "aws_internet_gateway" "ig" {
 
 /* Elastic IP for NAT */
 resource "aws_eip" "nat_eip" {
+  count      = "${length(var.availability_zones)}"
   vpc        = true
   depends_on = ["aws_internet_gateway.ig"]
 }
 
 /* NAT */
 resource "aws_nat_gateway" "nat" {
-  allocation_id = "${aws_eip.nat_eip.id}"
-  subnet_id     = "${element(aws_subnet.public_subnet.*.id, 0)}"
+  count      = "${length(var.availability_zones)}"
+  allocation_id = "${element(aws_eip.nat_eip.*.id, count.index)}"
+  subnet_id     = "${element(aws_subnet.public_subnet.*.id, count.index)}"
   depends_on    = ["aws_internet_gateway.ig"]
 
   tags = {
-    Name        = "${var.environment}-${element(var.availability_zones, 0)}-nat"
+    Name        = "${var.environment}-${element(var.availability_zones, count.index)}-nat"
     Environment = "${var.environment}"
   }
 }
@@ -48,7 +50,7 @@ resource "aws_nat_gateway" "nat" {
 /* Public subnet */
 resource "aws_subnet" "public_subnet" {
   vpc_id                  = "${aws_vpc.vpc.id}"
-  count                   = "${length(var.public_subnets_cidr)}"
+  count                   = "${length(var.availability_zones)}"
   cidr_block              = "${element(var.public_subnets_cidr, count.index)}"
   availability_zone       = "${element(var.availability_zones, count.index)}"
   map_public_ip_on_launch = true
@@ -75,10 +77,11 @@ resource "aws_subnet" "private_subnet" {
 
 /* Routing table for private subnet */
 resource "aws_route_table" "private" {
+  count  = "${length(var.availability_zones)}"
   vpc_id = "${aws_vpc.vpc.id}"
 
   tags = {
-    Name        = "${var.environment}-private-route-table"
+    Name        = "${var.environment}-${element(var.availability_zones, count.index)}-private-route-table"
     Environment = "${var.environment}"
   }
 }
@@ -100,22 +103,23 @@ resource "aws_route" "public_internet_gateway" {
 }
 
 resource "aws_route" "private_nat_gateway" {
-  route_table_id         = "${aws_route_table.private.id}"
+  count  = "${length(var.availability_zones)}"
+  route_table_id         = "${element(aws_route_table.private.*.id, count.index)}"
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = "${aws_nat_gateway.nat.id}"
+  nat_gateway_id         = "${element(aws_nat_gateway.nat.*.id, count.index)}"
 }
 
 /* Route table associations */
 resource "aws_route_table_association" "public" {
-  count          = "${length(var.public_subnets_cidr)}"
+  count          = "${length(var.availability_zones)}"
   subnet_id      = "${element(aws_subnet.public_subnet.*.id, count.index)}"
   route_table_id = "${aws_route_table.public.id}"
 }
 
 resource "aws_route_table_association" "private" {
-  count           = "${length(var.private_subnets_cidr)}"
+  count           = "${length(var.availability_zones)}"
   subnet_id       = "${element(aws_subnet.private_subnet.*.id, count.index)}"
-  route_table_id  = "${aws_route_table.private.id}"
+  route_table_id  = "${element(aws_route_table.private.*.id, count.index)}"
 }
 
 /*====
