@@ -22,14 +22,14 @@ variable "environment" {
   default = "development"
 }
 
-variable "production_database_name" {
+variable "database_name" {
   description = "The database name for Production"
 }
 
-variable "production_database_username" {
+variable "database_username" {
   description = "The username for the Production database"
 }
 
-variable "production_database_password" {
+variable "database_password" {
   description = "The user password for the Production database"
 }

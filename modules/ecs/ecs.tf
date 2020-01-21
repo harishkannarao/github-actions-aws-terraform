@@ -4,7 +4,7 @@ Cloudwatch Log Group
 resource "aws_cloudwatch_log_group" "openjobs" {
   name = "openjobs"
 
-  tags {
+  tags = {
     Environment = "${var.environment}"
     Application = "OpenJobs"
   }
@@ -32,9 +32,9 @@ ECS task definitions
 data "template_file" "web_task" {
   template = "${file("${path.module}/tasks/web_task_definition.json")}"
 
-  vars {
+  vars = {
     image           = "${aws_ecr_repository.openjobs_app.repository_url}"
-    secret_key_base = "${var.secret_key_base}"
+    region          = "${var.region}"
     database_url    = "postgresql://${var.database_username}:${var.database_password}@${var.database_endpoint}:5432/${var.database_name}?encoding=utf8&pool=40"
     log_group       = "${aws_cloudwatch_log_group.openjobs.name}"
   }
@@ -98,17 +98,17 @@ resource "aws_security_group" "web_inbound_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "${var.environment}-web-inbound-sg"
   }
 }
 
 resource "aws_alb" "alb_openjobs" {
   name            = "${var.environment}-alb-openjobs"
-  subnets         = ["${var.public_subnet_ids}"] 
-  security_groups = ["${var.security_groups_ids}", "${aws_security_group.web_inbound_sg.id}"]
+  subnets         = "${flatten(var.public_subnet_ids)}"
+  security_groups = "${flatten([var.security_groups_ids, aws_security_group.web_inbound_sg.id])}"
 
-  tags {
+  tags = {
     Name        = "${var.environment}-alb-openjobs"
     Environment = "${var.environment}"
   }
@@ -202,7 +202,7 @@ resource "aws_security_group" "ecs_service" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name        = "${var.environment}-ecs-service-sg"
     Environment = "${var.environment}"
   }
@@ -219,11 +219,11 @@ resource "aws_ecs_service" "web" {
   desired_count   = 2
   launch_type     = "FARGATE"
   cluster =       "${aws_ecs_cluster.cluster.id}"
-  depends_on      = ["aws_iam_role_policy.ecs_service_role_policy"]
+  depends_on      = ["aws_iam_role_policy.ecs_service_role_policy", "aws_alb_target_group.alb_target_group"]
 
   network_configuration {
-    security_groups = ["${var.security_groups_ids}", "${aws_security_group.ecs_service.id}"]
-    subnets         = ["${var.subnets_ids}"]
+    security_groups = "${flatten([var.security_groups_ids, aws_security_group.ecs_service.id])}"
+    subnets         = "${flatten(var.subnets_ids)}"
   }
 
   load_balancer {
@@ -231,8 +231,6 @@ resource "aws_ecs_service" "web" {
     container_name   = "web"
     container_port   = "80"
   }
-
-  depends_on = ["aws_alb_target_group.alb_target_group"]
 }
 
 
@@ -311,7 +309,7 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
   statistic           = "Maximum"
   threshold           = "85"
 
-  dimensions {
+  dimensions = {
     ClusterName = "${aws_ecs_cluster.cluster.name}"
     ServiceName = "${aws_ecs_service.web.name}"
   }

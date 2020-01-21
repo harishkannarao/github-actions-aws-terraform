@@ -14,7 +14,7 @@
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "${log_group}",
-          "awslogs-region": "eu-west-2",
+          "awslogs-region": "${region}",
           "awslogs-stream-prefix": "web"
         }
       },
@@ -22,10 +22,6 @@
         {
           "name": "DATABASE_URL",
           "value": "${database_url}"
-        },
-        {
-          "name": "SECRET_KEY_BASE",
-          "value": "${secret_key_base}"
         },
         {
           "name": "PORT",
