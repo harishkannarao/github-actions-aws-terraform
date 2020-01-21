@@ -11,6 +11,8 @@ Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraf
 
     export TF_VAR_database_password=development_db_password
 
+    export TF_VAR_image_tag=$ENV_NAME
+
     terraform init -input=false environments/$ENV_NAME
 
 ## Do a dry run and preview the changes to be applied

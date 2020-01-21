@@ -15,4 +15,5 @@ module "ecs" {
   database_username   = "${var.database_username}"
   database_password   = "${var.database_password}"
   repository_name     = "openjobs/${var.environment}"
+  image_tag           = "${var.image_tag}"
 }

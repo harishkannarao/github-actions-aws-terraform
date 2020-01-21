@@ -17,6 +17,11 @@ resource "aws_ecr_repository" "openjobs_app" {
   name = "${var.repository_name}"
 }
 
+resource "aws_ecr_lifecycle_policy" "openjobs_app_policy" {
+  repository = "${aws_ecr_repository.openjobs_app.name}"
+  policy = "${file("${path.module}/policies/ecr-lifecycle-policy.json")}"
+}
+
 /*====
 ECS cluster
 ======*/
@@ -33,7 +38,7 @@ data "template_file" "web_task" {
   template = "${file("${path.module}/tasks/web_task_definition.json")}"
 
   vars = {
-    image           = "${aws_ecr_repository.openjobs_app.repository_url}:${var.environment}"
+    image           = "${aws_ecr_repository.openjobs_app.repository_url}:${var.image_tag}"
     region          = "${var.region}"
     database_url    = "postgresql://${var.database_username}:${var.database_password}@${var.database_endpoint}:5432/${var.database_name}?encoding=utf8&pool=40"
     log_group       = "${aws_cloudwatch_log_group.openjobs.name}"

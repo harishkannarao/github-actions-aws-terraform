@@ -5,6 +5,9 @@ variable "environment" {
 variable "region" {
 }
 
+variable "image_tag" {
+}
+
 variable "vpc_id" {
   description = "The VPC id"
 }

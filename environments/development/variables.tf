@@ -33,3 +33,7 @@ variable "database_username" {
 variable "database_password" {
   description = "The user password for the Production database"
 }
+
+variable "image_tag" {
+  description = "The docker image tag to be deployed in ecs"
+}
