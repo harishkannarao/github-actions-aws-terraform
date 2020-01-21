@@ -33,7 +33,7 @@ data "template_file" "web_task" {
   template = "${file("${path.module}/tasks/web_task_definition.json")}"
 
   vars = {
-    image           = "${aws_ecr_repository.openjobs_app.repository_url}"
+    image           = "${aws_ecr_repository.openjobs_app.repository_url}:${var.environment}"
     region          = "${var.region}"
     database_url    = "postgresql://${var.database_username}:${var.database_password}@${var.database_endpoint}:5432/${var.database_name}?encoding=utf8&pool=40"
     log_group       = "${aws_cloudwatch_log_group.openjobs.name}"
@@ -60,7 +60,7 @@ resource "random_id" "target_group_sufix" {
 }
 
 resource "aws_alb_target_group" "alb_target_group" {
-  name     = "${var.environment}-alb-target-group-${random_id.target_group_sufix.hex}"
+  name     = "${var.environment}-atb-${random_id.target_group_sufix.hex}"
   port     = 80
   protocol = "HTTP"
   vpc_id   = "${var.vpc_id}"
@@ -215,7 +215,7 @@ data "aws_ecs_task_definition" "web" {
 
 resource "aws_ecs_service" "web" {
   name            = "${var.environment}-web"
-  task_definition = "${aws_ecs_task_definition.web.family}:${max("${aws_ecs_task_definition.web.revision}", "${data.aws_ecs_task_definition.web.revision}")}"
+  task_definition = "${aws_ecs_task_definition.web.family}"
   desired_count   = 2
   launch_type     = "FARGATE"
   cluster =       "${aws_ecs_cluster.cluster.id}"
