@@ -1,6 +1,12 @@
 /*====
 Cloudwatch Log Group
 ======*/
+data "aws_acm_certificate" "default" {
+  domain      = "harishkannarao.com"
+  statuses    = ["ISSUED"]
+  most_recent = true
+}
+
 resource "aws_cloudwatch_log_group" "openjobs" {
   name = "openjobs"
 
@@ -90,6 +96,13 @@ resource "aws_security_group" "web_inbound_sg" {
   }
 
   ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     from_port   = 8
     to_port     = 0
     protocol    = "icmp"
@@ -124,6 +137,19 @@ resource "aws_alb_listener" "openjobs" {
   port              = "80"
   protocol          = "HTTP"
   depends_on        = ["aws_alb_target_group.alb_target_group"]
+
+  default_action {
+    target_group_arn = "${aws_alb_target_group.alb_target_group.arn}"
+    type             = "forward"
+  }
+}
+
+resource "aws_alb_listener" "openjobs_ssl" {
+  load_balancer_arn = "${aws_alb.alb_openjobs.arn}"
+  port              = "443"
+  protocol          = "HTTPS"
+  depends_on        = ["aws_alb_target_group.alb_target_group"]
+  certificate_arn   = "${data.aws_acm_certificate.default.arn}"
 
   default_action {
     target_group_arn = "${aws_alb_target_group.alb_target_group.arn}"
@@ -211,11 +237,6 @@ resource "aws_security_group" "ecs_service" {
     Name        = "${var.environment}-ecs-service-sg"
     Environment = "${var.environment}"
   }
-}
-
-/* Simply specify the family to find the latest ACTIVE revision in that family */
-data "aws_ecs_task_definition" "web" {
-  task_definition = "${aws_ecs_task_definition.web.family}"
 }
 
 resource "aws_ecs_service" "web" {
