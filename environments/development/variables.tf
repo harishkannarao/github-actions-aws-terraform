@@ -1,13 +1,14 @@
+variable "vpc-cidr-block" {
+  default = "10.0.0.0/16"
+}
+
 variable "region" {
   default = "eu-west-2"
+  description = "AWS region"
 }
 
 variable "availability-zones" {
   default = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
-}
-
-variable "vpc-cidr-block" {
-  default = "10.0.0.0/16"
 }
 
 variable "public-subnet-cidr-block" {
@@ -19,19 +20,23 @@ variable "private-subnet-cidr-block" {
 }
 
 variable "environment" {
-  default = "development"
+  description = "The application environment"
+}
+
+variable "application_name" {
+  description = "The name of docker application"
 }
 
 variable "database_name" {
-  description = "The database name for Production"
+  description = "The database name"
 }
 
 variable "database_username" {
-  description = "The username for the Production database"
+  description = "The username for the database"
 }
 
 variable "database_password" {
-  description = "The user password for the Production database"
+  description = "The user password for the database"
 }
 
 variable "image_tag" {
