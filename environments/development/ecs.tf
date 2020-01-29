@@ -1,5 +1,6 @@
 module "ecs" {
   source              = "../../modules/ecs"
+  application_name    = "${var.application_name}"
   environment         = "${var.environment}"
   region              = "${var.region}"
   vpc_id              = "${module.vpc.vpc_id}"
@@ -14,6 +15,8 @@ module "ecs" {
   database_name       = "${var.database_name}"
   database_username   = "${var.database_username}"
   database_password   = "${var.database_password}"
-  repository_name     = "openjobs/${var.environment}"
+  repository_name     = "${var.application_name}/${var.environment}"
   image_tag           = "${var.image_tag}"
+  min_capacity        = 2
+  max_capacity        = 4
 }

@@ -1,25 +1,25 @@
 output "registry_id" {
-  value = "${aws_ecr_repository.openjobs_app.registry_id}"
+  value = "${aws_ecr_repository.docker_http_app.registry_id}"
 }
 
 output "repository_url" {
-  value = "${aws_ecr_repository.openjobs_app.repository_url}"
+  value = "${aws_ecr_repository.docker_http_app.repository_url}"
 }
 
 output "cluster_name" {
-  value = "${aws_ecs_cluster.cluster.name}"
+  value = "${aws_ecs_cluster.docker_http_app_cluster.name}"
 }
 
 output "service_name" {
-  value = "${aws_ecs_service.web.name}"
+  value = "${aws_ecs_service.docker_http_app.name}"
 }
 
 output "alb_dns_name" {
-  value = "${aws_alb.alb_openjobs.dns_name}"
+  value = "${aws_alb.docker_http_app.dns_name}"
 }
 
 output "alb_zone_id" {
-  value = "${aws_alb.alb_openjobs.zone_id}"
+  value = "${aws_alb.docker_http_app.zone_id}"
 }
 
 output "security_group_id" {

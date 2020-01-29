@@ -7,32 +7,32 @@ data "aws_acm_certificate" "default" {
   most_recent = true
 }
 
-resource "aws_cloudwatch_log_group" "openjobs" {
-  name = "openjobs"
+resource "aws_cloudwatch_log_group" "docker_http_app" {
+  name = "${var.application_name}-${var.environment}"
 
   tags = {
     Environment = "${var.environment}"
-    Application = "OpenJobs"
+    Application = "${var.application_name}"
   }
 }
 
 /*====
 ECR repository to store our Docker images
 ======*/
-resource "aws_ecr_repository" "openjobs_app" {
+resource "aws_ecr_repository" "docker_http_app" {
   name = "${var.repository_name}"
 }
 
-resource "aws_ecr_lifecycle_policy" "openjobs_app_policy" {
-  repository = "${aws_ecr_repository.openjobs_app.name}"
+resource "aws_ecr_lifecycle_policy" "docker_http_app_policy" {
+  repository = "${aws_ecr_repository.docker_http_app.name}"
   policy = "${file("${path.module}/policies/ecr-lifecycle-policy.json")}"
 }
 
 /*====
 ECS cluster
 ======*/
-resource "aws_ecs_cluster" "cluster" {
-  name = "${var.environment}-ecs-cluster"
+resource "aws_ecs_cluster" "docker_http_app_cluster" {
+  name = "${var.application_name}-${var.environment}-ecs-cluster"
 }
 
 /*====
@@ -40,20 +40,20 @@ ECS task definitions
 ======*/
 
 /* the task definition for the web service */
-data "template_file" "web_task" {
+data "template_file" "docker_http_app_task" {
   template = "${file("${path.module}/tasks/web_task_definition.json")}"
 
   vars = {
-    image           = "${aws_ecr_repository.openjobs_app.repository_url}:${var.image_tag}"
+    image           = "${aws_ecr_repository.docker_http_app.repository_url}:${var.image_tag}"
     region          = "${var.region}"
     database_url    = "postgresql://${var.database_username}:${var.database_password}@${var.database_endpoint}:5432/${var.database_name}?encoding=utf8&pool=40"
-    log_group       = "${aws_cloudwatch_log_group.openjobs.name}"
+    log_group       = "${aws_cloudwatch_log_group.docker_http_app.name}"
   }
 }
 
-resource "aws_ecs_task_definition" "web" {
-  family                   = "${var.environment}_web"
-  container_definitions    = "${data.template_file.web_task.rendered}"
+resource "aws_ecs_task_definition" "docker_http_app" {
+  family                   = "${var.application_name}_${var.environment}"
+  container_definitions    = "${data.template_file.docker_http_app_task.rendered}"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "256"
@@ -70,8 +70,8 @@ resource "random_id" "target_group_sufix" {
   byte_length = 2
 }
 
-resource "aws_alb_target_group" "alb_target_group" {
-  name     = "${var.environment}-atb-${random_id.target_group_sufix.hex}"
+resource "aws_alb_target_group" "docker_http_app_alb_target_group" {
+  name     = "${var.application_name}-${var.environment}-atb"
   port     = 80
   protocol = "HTTP"
   vpc_id   = "${var.vpc_id}"
@@ -83,8 +83,8 @@ resource "aws_alb_target_group" "alb_target_group" {
 }
 
 /* security group for ALB */
-resource "aws_security_group" "web_inbound_sg" {
-  name        = "${var.environment}-web-inbound-sg"
+resource "aws_security_group" "docker_http_app_inbound_sg" {
+  name        = "${var.application_name}-${var.environment}-inbound-sg"
   description = "Allow HTTP from Anywhere into ALB"
   vpc_id      = "${var.vpc_id}"
 
@@ -117,42 +117,42 @@ resource "aws_security_group" "web_inbound_sg" {
   }
 
   tags = {
-    Name = "${var.environment}-web-inbound-sg"
+    Name = "${var.application_name}-${var.environment}-inbound-sg"
   }
 }
 
-resource "aws_alb" "alb_openjobs" {
-  name            = "${var.environment}-alb-openjobs"
+resource "aws_alb" "docker_http_app" {
+  name            = "${var.application_name}-${var.environment}-alb"
   subnets         = "${flatten(var.public_subnet_ids)}"
-  security_groups = "${flatten([var.security_groups_ids, aws_security_group.web_inbound_sg.id])}"
+  security_groups = "${flatten([var.security_groups_ids, aws_security_group.docker_http_app_inbound_sg.id])}"
 
   tags = {
-    Name        = "${var.environment}-alb-openjobs"
+    Name        = "${var.application_name}-${var.environment}-alb"
     Environment = "${var.environment}"
   }
 }
 
-resource "aws_alb_listener" "openjobs" {
-  load_balancer_arn = "${aws_alb.alb_openjobs.arn}"
+resource "aws_alb_listener" "docker_http_app" {
+  load_balancer_arn = "${aws_alb.docker_http_app.arn}"
   port              = "80"
   protocol          = "HTTP"
-  depends_on        = ["aws_alb_target_group.alb_target_group"]
+  depends_on        = ["aws_alb_target_group.docker_http_app_alb_target_group"]
 
   default_action {
-    target_group_arn = "${aws_alb_target_group.alb_target_group.arn}"
+    target_group_arn = "${aws_alb_target_group.docker_http_app_alb_target_group.arn}"
     type             = "forward"
   }
 }
 
-resource "aws_alb_listener" "openjobs_ssl" {
-  load_balancer_arn = "${aws_alb.alb_openjobs.arn}"
+resource "aws_alb_listener" "docker_http_app_ssl" {
+  load_balancer_arn = "${aws_alb.docker_http_app.arn}"
   port              = "443"
   protocol          = "HTTPS"
-  depends_on        = ["aws_alb_target_group.alb_target_group"]
+  depends_on        = ["aws_alb_target_group.docker_http_app_alb_target_group"]
   certificate_arn   = "${data.aws_acm_certificate.default.arn}"
 
   default_action {
-    target_group_arn = "${aws_alb_target_group.alb_target_group.arn}"
+    target_group_arn = "${aws_alb_target_group.docker_http_app_alb_target_group.arn}"
     type             = "forward"
   }
 }
@@ -239,13 +239,13 @@ resource "aws_security_group" "ecs_service" {
   }
 }
 
-resource "aws_ecs_service" "web" {
-  name            = "${var.environment}-web"
-  task_definition = "${aws_ecs_task_definition.web.family}"
-  desired_count   = 2
+resource "aws_ecs_service" "docker_http_app" {
+  name            = "${var.application_name}-${var.environment}"
+  task_definition = "${aws_ecs_task_definition.docker_http_app.family}"
+  desired_count   = "${var.min_capacity}"
   launch_type     = "FARGATE"
-  cluster =       "${aws_ecs_cluster.cluster.id}"
-  depends_on      = ["aws_iam_role_policy.ecs_service_role_policy", "aws_alb_target_group.alb_target_group"]
+  cluster =       "${aws_ecs_cluster.docker_http_app_cluster.id}"
+  depends_on      = ["aws_iam_role_policy.ecs_service_role_policy", "aws_alb_target_group.docker_http_app_alb_target_group"]
 
   network_configuration {
     security_groups = "${flatten([var.security_groups_ids, aws_security_group.ecs_service.id])}"
@@ -253,7 +253,7 @@ resource "aws_ecs_service" "web" {
   }
 
   load_balancer {
-    target_group_arn = "${aws_alb_target_group.alb_target_group.arn}"
+    target_group_arn = "${aws_alb_target_group.docker_http_app_alb_target_group.arn}"
     container_name   = "web"
     container_port   = "80"
   }
@@ -276,17 +276,17 @@ resource "aws_iam_role_policy" "ecs_autoscale_role_policy" {
 
 resource "aws_appautoscaling_target" "target" {
   service_namespace  = "ecs"
-  resource_id        = "service/${aws_ecs_cluster.cluster.name}/${aws_ecs_service.web.name}"
+  resource_id        = "service/${aws_ecs_cluster.docker_http_app_cluster.name}/${aws_ecs_service.docker_http_app.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   role_arn           = "${aws_iam_role.ecs_autoscale_role.arn}"
-  min_capacity       = 2
-  max_capacity       = 4
+  min_capacity       = "${var.min_capacity}"
+  max_capacity       = "${var.max_capacity}"
 }
 
 resource "aws_appautoscaling_policy" "up" {
   name                    = "${var.environment}_scale_up"
   service_namespace       = "ecs"
-  resource_id             = "service/${aws_ecs_cluster.cluster.name}/${aws_ecs_service.web.name}"
+  resource_id             = "service/${aws_ecs_cluster.docker_http_app_cluster.name}/${aws_ecs_service.docker_http_app.name}"
   scalable_dimension      = "ecs:service:DesiredCount"
 
 
@@ -307,7 +307,7 @@ resource "aws_appautoscaling_policy" "up" {
 resource "aws_appautoscaling_policy" "down" {
   name                    = "${var.environment}_scale_down"
   service_namespace       = "ecs"
-  resource_id             = "service/${aws_ecs_cluster.cluster.name}/${aws_ecs_service.web.name}"
+  resource_id             = "service/${aws_ecs_cluster.docker_http_app_cluster.name}/${aws_ecs_service.docker_http_app.name}"
   scalable_dimension      = "ecs:service:DesiredCount"
 
   step_scaling_policy_configuration {
@@ -326,7 +326,7 @@ resource "aws_appautoscaling_policy" "down" {
 
 /* metric used for auto scale */
 resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
-  alarm_name          = "${var.environment}_openjobs_web_cpu_utilization_high"
+  alarm_name          = "${var.application_name}_${var.environment}_cpu_utilization_high"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "2"
   metric_name         = "CPUUtilization"
@@ -336,8 +336,8 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
   threshold           = "85"
 
   dimensions = {
-    ClusterName = "${aws_ecs_cluster.cluster.name}"
-    ServiceName = "${aws_ecs_service.web.name}"
+    ClusterName = "${aws_ecs_cluster.docker_http_app_cluster.name}"
+    ServiceName = "${aws_ecs_service.docker_http_app.name}"
   }
 
   alarm_actions = ["${aws_appautoscaling_policy.up.arn}"]

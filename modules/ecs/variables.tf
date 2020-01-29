@@ -2,6 +2,18 @@ variable "environment" {
   description = "The environment"
 }
 
+variable "application_name" {
+  description = "Application Name"
+}
+
+variable "min_capacity" {
+  description = "Mininum number of nodes"
+}
+
+variable "max_capacity" {
+  description = "Maximum number of nodes"
+}
+
 variable "region" {
 }
 
