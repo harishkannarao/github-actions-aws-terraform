@@ -2,6 +2,7 @@ module "ecs" {
   source              = "../../modules/ecs"
   application_name    = "${var.application_name}"
   environment         = "${var.environment}"
+  acm_cert_domain     = "${var.acm_cert_domain}"
   region              = "${var.region}"
   vpc_id              = "${module.vpc.vpc_id}"
   availability_zones  = "${var.availability-zones}"
@@ -17,6 +18,6 @@ module "ecs" {
   database_password   = "${var.database_password}"
   repository_name     = "${var.application_name}/${var.environment}"
   image_tag           = "${var.image_tag}"
-  min_capacity        = 2
-  max_capacity        = 4
+  min_capacity        = "${var.min_capacity}"
+  max_capacity        = "${var.max_capacity}"
 }

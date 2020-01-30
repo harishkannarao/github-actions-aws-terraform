@@ -27,6 +27,18 @@ variable "application_name" {
   description = "The name of docker application"
 }
 
+variable "acm_cert_domain" {
+  description = "The domain name used in AWS Certificate Manager"
+}
+
+variable "min_capacity" {
+  description = "Mininum number of nodes"
+}
+
+variable "max_capacity" {
+  description = "Maximum number of nodes"
+}
+
 variable "database_name" {
   description = "The database name"
 }
