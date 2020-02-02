@@ -172,9 +172,9 @@ resource "aws_ecs_cluster" "docker_http_app_cluster" {
 ECS task definitions
 ======*/
 
-/* the task definition for the web service */
+/* the task definition for the docker_http_app service */
 data "template_file" "docker_http_app_task" {
-  template = "${file("${path.module}/tasks/web_task_definition.json")}"
+  template = "${file("${path.module}/tasks/docker_http_app_task_definition.json")}"
 
   vars = {
     image           = "${aws_ecr_repository.docker_http_app.repository_url}:${var.image_tag}"
