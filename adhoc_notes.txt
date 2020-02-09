@@ -1,0 +1,15 @@
+$(aws ecr get-login --region ${region} --no-include-email)
+
+REPOSITORY_URI=${repository_url}
+
+IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+
+docker build --build-arg build_without="development test" --build-arg rails_env="production" -t $REPOSITORY_URI:latest .
+
+docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+
+docker push $REPOSITORY_URI:latest
+
+docker push $REPOSITORY_URI:$IMAGE_TAG
+
+aws ecs update-service --service my-http-service --cluster my-cluster --force-new-deployment
