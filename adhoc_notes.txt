@@ -1,15 +1,55 @@
-$(aws ecr get-login --region ${region} --no-include-email)
+export DOCKER_AWS_ACCOUNT_ID=<aws_account_id>
+export DOCKER_AWS_REGION=eu-west-2
+export ENVIRONMENT=development
+export APPLICATION_NAME=docker-http-app
 
-REPOSITORY_URI=${repository_url}
+# aws ecr get-login --registry-ids $DOCKER_AWS_ACCOUNT_ID --region $DOCKER_AWS_REGION --no-include-email
+$(aws ecr get-login --registry-ids $DOCKER_AWS_ACCOUNT_ID --region $DOCKER_AWS_REGION --no-include-email)
 
-IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+export REPOSITORY_URI=$DOCKER_AWS_ACCOUNT_ID.dkr.ecr.$DOCKER_AWS_REGION.amazonaws.com/$APPLICATION_NAME/$ENVIRONMENT
+export GIT_TAG=$(git rev-parse --verify HEAD)
 
-docker build --build-arg build_without="development test" --build-arg rails_env="production" -t $REPOSITORY_URI:latest .
+docker build --pull -t $REPOSITORY_URI:$GIT_TAG -f ignored/Dockerfile ignored
+docker push $REPOSITORY_URI:$GIT_TAG
 
-docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+docker tag $REPOSITORY_URI:$GIT_TAG $REPOSITORY_URI:$ENVIRONMENT
+docker push $REPOSITORY_URI:$ENVIRONMENT
 
-docker push $REPOSITORY_URI:latest
+# docker run --rm -it --name java-wiremock-server -p "8080:80" "$REPOSITORY_URI:$GIT_TAG"
 
-docker push $REPOSITORY_URI:$IMAGE_TAG
+aws ecs update-service --cluster $APPLICATION_NAME-$ENVIRONMENT-ecs-cluster --service $APPLICATION_NAME-$ENVIRONMENT --force-new-deployment
 
-aws ecs update-service --service my-http-service --cluster my-cluster --force-new-deployment
+-------
+
+/* the task definition for the db migration */
+data "template_file" "db_migrate_task" {
+  template = "${file("${path.module}/tasks/db_migrate_task_definition.json")}"
+
+  vars {
+    image           = "${aws_ecr_repository.openjobs_app.repository_url}"
+    secret_key_base = "${var.secret_key_base}"
+    database_url    = "postgresql://${var.database_username}:${var.database_password}@${var.database_endpoint}:5432/${var.database_name}?encoding=utf8&pool=40"
+    log_group       = "openjobs"
+  }
+}
+
+resource "aws_ecs_task_definition" "db_migrate" {
+  family                   = "${var.environment}_db_migrate"
+  container_definitions    = "${data.template_file.db_migrate_task.rendered}"
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = "256"
+  memory                   = "512"
+  execution_role_arn       = "${aws_iam_role.ecs_execution_role.arn}"
+  task_role_arn            = "${aws_iam_role.ecs_execution_role.arn}"
+}
+
+
+repository_url     = "$DOCKER_AWS_ACCOUNT_ID.dkr.ecr.$DOCKER_AWS_REGION.amazonaws.com/openjobs/$ENVIRONMENT"
+region             = "$DOCKER_AWS_REGION"
+cluster_name       = "$ENVIRONMENT-ecs-cluster"
+subnet_ids          = "<private_subnet_id_1>,<private_subnet_id_2>,<private_subnet_id_3>"
+security_group_ids = "<vpc_default_security_group_id>,<postgres_db_access_security_group_id>"
+
+
+aws ecs run-task --launch-type FARGATE --cluster $cluster_name --task-definition $ENVIRONMENT_db_migrate --network-configuration "awsvpcConfiguration={subnets=[$subnet_ids],securityGroups=[$security_group_ids]}"
