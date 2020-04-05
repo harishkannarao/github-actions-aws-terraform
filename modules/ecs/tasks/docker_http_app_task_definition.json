@@ -20,11 +20,19 @@
       },
       "environment": [
         {
-          "name": "DATABASE_URL",
+          "name": "SPRING_DATASOURCE_URL",
           "value": "${database_url}"
         },
         {
-          "name": "PORT",
+          "name": "SPRING_DATASOURCE_USERNAME",
+          "value": "${database_username}"
+        },
+        {
+          "name": "SPRING_DATASOURCE_PASSWORD",
+          "value": "${database_password}"
+        },
+        {
+          "name": "SERVER_PORT",
           "value": "80"
         }
       ]
