@@ -197,7 +197,7 @@ resource "aws_ecs_task_definition" "docker_http_app" {
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "256"
-  memory                   = "512"
+  memory                   = "1024"
   execution_role_arn       = "${aws_iam_role.docker_http_app_ecs_execution_role.arn}"
   task_role_arn            = "${aws_iam_role.docker_http_app_ecs_execution_role.arn}"
 }
@@ -238,6 +238,8 @@ resource "aws_ecs_service" "docker_http_app" {
   name            = "${var.application_name}-${var.environment}"
   task_definition = "${aws_ecs_task_definition.docker_http_app.family}"
   desired_count   = "${var.min_capacity}"
+  deployment_maximum_percent = "200"
+  deployment_minimum_healthy_percent = "50"
   launch_type     = "FARGATE"
   cluster =       "${aws_ecs_cluster.docker_http_app_cluster.id}"
   depends_on      = ["aws_iam_role_policy.docker_http_app_ecs_service_role_policy", "aws_alb_target_group.docker_http_app_alb_target_group"]
