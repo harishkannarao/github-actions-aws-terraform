@@ -1,0 +1,29 @@
+name: 'CI-aws-force-deploy-ecs-service-development'
+
+on:
+  repository_dispatch:
+    types: do-aws-force-deploy-ecs-service-development
+
+jobs:
+  aws-force-deploy-ecs-service-development-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30 # default 360
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        ref: 'master'
+        fetch-depth: '1'
+    - name: 'Print dependencies'
+      run: |
+        ./ci-print-dependencies.sh
+    - name: 'CI aws force deploy ecs service Command'
+      timeout-minutes: 20
+      env:
+        ENV_NAME: 'development'
+        APPLICATION_NAME: 'docker-http-app'
+        AWS_ACCESS_KEY_ID: ${{ secrets.AwsAccessKeyId }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AwsSecretAccessKey }}
+        AWS_DEFAULT_REGION: ${{ secrets.AwsRegion }}
+        AWS_DEFAULT_OUTPUT: 'json'
+      run: |
+        ./ci-aws-force-deploy-ecs-service.sh
