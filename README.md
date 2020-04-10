@@ -6,9 +6,9 @@ Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraf
 * AwsAccessKeyId
 * AwsSecretAccessKey
 * AwsRegion
-* database-name-development
-* database-user-development
-* database-password-development
+* DatabaseNameDevelopment
+* DatabaseUserDevelopment
+* DatabasePasswordDevelopment
 
 ## Trigger CI to setup, update and destroy
 
