@@ -21,10 +21,12 @@ aws ecs update-service --cluster $APPLICATION_NAME-$ENVIRONMENT-ecs-cluster --se
 
 -------
 Application Logs:
+
 fields @timestamp, @message
 | filter @message not like /ACCESS/
 
 Access Logs:
+
 fields @timestamp, @message
 | filter @message like /ACCESS/
 | stats count(@message) by bin(60s)

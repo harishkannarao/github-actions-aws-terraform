@@ -32,14 +32,6 @@ Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraf
     --data '{"event_type": "do-terraform-apply-aws-from-master-development"}' \
     'https://api.github.com/repos/harishkannarao/github-actions-aws-terraform/dispatches'
 
-### Aws force deploy ecs service through CI
-
-    curl -v -H "Accept: application/vnd.github.everest-preview+json" \
-    -H "Authorization: token $GITHUB_PERSONAL_ACCESS_TOKEN" \
-    --request POST \
-    --data '{"event_type": "do-aws-force-deploy-ecs-service-development"}' \
-    'https://api.github.com/repos/harishkannarao/github-actions-aws-terraform/dispatches'
-
 ### Terraform destroy through CI
 
     curl -v -H "Accept: application/vnd.github.everest-preview+json" \
