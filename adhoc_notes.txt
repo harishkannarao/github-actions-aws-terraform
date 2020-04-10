@@ -20,7 +20,27 @@ docker push $REPOSITORY_URI:$ENVIRONMENT
 aws ecs update-service --cluster $APPLICATION_NAME-$ENVIRONMENT-ecs-cluster --service $APPLICATION_NAME-$ENVIRONMENT --force-new-deployment
 
 -------
+Application Logs:
+fields @timestamp, @message
+| filter @message not like /ACCESS/
 
+Access Logs:
+fields @timestamp, @message
+| filter @message like /ACCESS/
+| stats count(@message) by bin(60s)
+
+fields @timestamp, @message
+| filter @message like /ACCESS/
+| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
+| filter status >= 200
+| filter status <= 299
+
+fields @timestamp, @message
+| filter @message like /ACCESS/
+| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
+| stats avg(resTime), pct(resTime, 95) by bin(60s)
+
+-------
 /* the task definition for the db migration */
 data "template_file" "db_migrate_task" {
   template = "${file("${path.module}/tasks/db_migrate_task_definition.json")}"
