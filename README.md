@@ -1,6 +1,14 @@
 # github-actions-aws-terraform
 Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraform
 
+## Required cli tools
+
+* `aws` cli
+* `terraform` cli
+* `curl` cli
+* `jq` cli
+* `git` cli
+
 ## Set the secrets for the repo
 
 * AwsAccessKeyId
