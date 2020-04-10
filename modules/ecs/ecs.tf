@@ -72,6 +72,17 @@ resource "aws_alb_target_group" "docker_http_app_alb_target_group" {
   lifecycle {
     create_before_destroy = true
   }
+
+  health_check {    
+    healthy_threshold   = 3    
+    unhealthy_threshold = 3    
+    timeout             = 5    
+    interval            = 10    
+    path                = "/health-check"    
+    port                = 80
+    protocol            = "HTTP"
+    matcher             = "200-299"  
+  }
 }
 
 /* security group for ALB */
