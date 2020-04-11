@@ -23,24 +23,40 @@ aws ecs update-service --cluster $APPLICATION_NAME-$ENVIRONMENT-ecs-cluster --se
 Application Logs:
 
 fields @timestamp, @message
-| filter @message not like /ACCESS/
+| filter @message not like /ACCESS_LOG/
 
 Access Logs:
 
 fields @timestamp, @message
-| filter @message like /ACCESS/
+| filter @message like /ACCESS_LOG/
 | stats count(@message) by bin(60s)
 
 fields @timestamp, @message
-| filter @message like /ACCESS/
+| filter @message like /ACCESS_LOG/
 | parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
 | filter status >= 200
 | filter status <= 299
 
 fields @timestamp, @message
-| filter @message like /ACCESS/
+| filter @message like /ACCESS_LOG/
 | parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
 | stats avg(resTime), pct(resTime, 95) by bin(60s)
+
+-------
+
+aws logs filter-log-events --log-group-name docker-http-app-development | jq -r '.events[].message'
+
+aws logs filter-log-events --filter-pattern '"ACCESS_LOG" - "/health-check"' --log-group-name docker-http-app-development | jq -r '.events[].message'
+
+aws logs filter-log-events --filter-pattern '"ACCESS_LOG"' --log-group-name docker-http-app-development --start-time 1586603083000 --end-time 1586603652000 | jq -r '.events[].message'
+
+aws logs filter-log-events --filter-pattern '- "ACCESS_LOG"' --log-group-name docker-http-app-development --start-time 1586603083000 --end-time 1586603652000 | jq -r '.events[].message'
+
+[date, time, message, resTime, byte, status, ip, reqId, method, url]
+[date, time, message, resTime, byte, status, ip, reqId, method=*GET*, url!=*health-check*]
+[date, time, message, resTime, byte, status>=400&&status<=599, ip, reqId, method, url]
+
+aws logs filter-log-events --filter-pattern '[date, time, message, resTime, byte, status, ip, reqId, method=*GET*, url!=*health-check*]' --log-group-name docker-http-app-development | jq -r '.events[].message'
 
 -------
 /* the task definition for the db migration */
