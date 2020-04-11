@@ -58,13 +58,17 @@ Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraf
 
     terraform init -input=false environments/$ENV_NAME
 
+## Validate the template
+
+    terraform validate -json environments/$ENV_NAME
+
 ## Do a dry run and preview the changes to be applied
 
     terraform plan -input=false -var-file="variables/$ENV_NAME.tfvars" environments/$ENV_NAME
 
 ## Apply the changes
 
-    terraform apply -auto-approve -input=false -var-file="variables/$ENV_NAME.tfvars" environments/$ENV_NAME
+    terraform apply -auto-approve -input=false -var database_password=$TF_VAR_database_password -var-file="variables/$ENV_NAME.tfvars" environments/$ENV_NAME
 
 ## Destroy the changes
 

@@ -2,7 +2,7 @@
 Get latest AWS certificate for the domain
 ======*/
 data "aws_acm_certificate" "default" {
-  domain      = "${var.acm_cert_domain}"
+  domain      = var.acm_cert_domain
   statuses    = ["ISSUED"]
   most_recent = true
 }
@@ -14,8 +14,8 @@ resource "aws_cloudwatch_log_group" "docker_http_app" {
   name = "${var.application_name}-${var.environment}"
 
   tags = {
-    Environment = "${var.environment}"
-    Application = "${var.application_name}"
+    Environment = var.environment
+    Application = var.application_name
   }
 }
 
@@ -36,26 +36,26 @@ data "aws_iam_policy_document" "ecs_service_role" {
 
 resource "aws_iam_role" "docker_http_app_ecs_role" {
   name               = "${var.application_name}_${var.environment}_ecs_role"
-  assume_role_policy = "${data.aws_iam_policy_document.ecs_service_role.json}"
+  assume_role_policy = data.aws_iam_policy_document.ecs_service_role.json
 }
 
 /* ecs service scheduler role */
 resource "aws_iam_role_policy" "docker_http_app_ecs_service_role_policy" {
   name   = "${var.application_name}_${var.environment}_ecs_service_role_policy"
-  policy = "${file("${path.module}/policies/ecs-service-role.json")}"
-  role   = "${aws_iam_role.docker_http_app_ecs_role.id}"
+  policy = file("${path.module}/policies/ecs-service-role.json")
+  role   = aws_iam_role.docker_http_app_ecs_role.id
 }
 
 /* role that the Amazon ECS container agent and the Docker daemon can assume */
 resource "aws_iam_role" "docker_http_app_ecs_execution_role" {
   name               = "${var.application_name}_${var.environment}_ecs_task_execution_role"
-  assume_role_policy = "${file("${path.module}/policies/ecs-task-execution-role.json")}"
+  assume_role_policy = file("${path.module}/policies/ecs-task-execution-role.json")
 }
 
 resource "aws_iam_role_policy" "docker_http_app_ecs_execution_role_policy" {
   name   = "${var.application_name}_${var.environment}_ecs_execution_role_policy"
-  policy = "${file("${path.module}/policies/ecs-execution-role-policy.json")}"
-  role   = "${aws_iam_role.docker_http_app_ecs_execution_role.id}"
+  policy = file("${path.module}/policies/ecs-execution-role-policy.json")
+  role   = aws_iam_role.docker_http_app_ecs_execution_role.id
 }
 
 /*====
@@ -66,7 +66,7 @@ resource "aws_alb_target_group" "docker_http_app_alb_target_group" {
   name     = "${var.application_name}-${var.environment}-atb"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = "${var.vpc_id}"
+  vpc_id   = var.vpc_id
   target_type = "ip"
 
   lifecycle {
@@ -89,7 +89,7 @@ resource "aws_alb_target_group" "docker_http_app_alb_target_group" {
 resource "aws_security_group" "docker_http_app_inbound_sg" {
   name        = "${var.application_name}-${var.environment}-inbound-sg"
   description = "Allow HTTP from Anywhere into ALB"
-  vpc_id      = "${var.vpc_id}"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 80
@@ -126,20 +126,20 @@ resource "aws_security_group" "docker_http_app_inbound_sg" {
 
 resource "aws_alb" "docker_http_app" {
   name            = "${var.application_name}-${var.environment}-alb"
-  subnets         = "${flatten(var.public_subnet_ids)}"
-  security_groups = "${flatten([var.security_groups_ids, aws_security_group.docker_http_app_inbound_sg.id])}"
+  subnets         = flatten(var.public_subnet_ids)
+  security_groups = flatten([var.security_groups_ids, aws_security_group.docker_http_app_inbound_sg.id])
 
   tags = {
     Name        = "${var.application_name}-${var.environment}-alb"
-    Environment = "${var.environment}"
+    Environment = var.environment
   }
 }
 
 resource "aws_alb_listener" "docker_http_app" {
-  load_balancer_arn = "${aws_alb.docker_http_app.arn}"
+  load_balancer_arn = aws_alb.docker_http_app.arn
   port              = "80"
   protocol          = "HTTP"
-  depends_on        = ["aws_alb_target_group.docker_http_app_alb_target_group"]
+  depends_on        = [aws_alb_target_group.docker_http_app_alb_target_group]
 
   default_action {
     type = "redirect"
@@ -153,14 +153,14 @@ resource "aws_alb_listener" "docker_http_app" {
 }
 
 resource "aws_alb_listener" "docker_http_app_ssl" {
-  load_balancer_arn = "${aws_alb.docker_http_app.arn}"
+  load_balancer_arn = aws_alb.docker_http_app.arn
   port              = "443"
   protocol          = "HTTPS"
-  depends_on        = ["aws_alb_target_group.docker_http_app_alb_target_group"]
-  certificate_arn   = "${data.aws_acm_certificate.default.arn}"
+  depends_on        = [aws_alb_target_group.docker_http_app_alb_target_group]
+  certificate_arn   = data.aws_acm_certificate.default.arn
 
   default_action {
-    target_group_arn = "${aws_alb_target_group.docker_http_app_alb_target_group.arn}"
+    target_group_arn = aws_alb_target_group.docker_http_app_alb_target_group.arn
     type             = "forward"
   }
 }
@@ -169,12 +169,12 @@ resource "aws_alb_listener" "docker_http_app_ssl" {
 ECR repository to store our Docker images
 ======*/
 resource "aws_ecr_repository" "docker_http_app" {
-  name = "${var.repository_name}"
+  name = var.repository_name
 }
 
 resource "aws_ecr_lifecycle_policy" "docker_http_app_policy" {
-  repository = "${aws_ecr_repository.docker_http_app.name}"
-  policy = "${file("${path.module}/policies/ecr-lifecycle-policy.json")}"
+  repository = aws_ecr_repository.docker_http_app.name
+  policy = file("${path.module}/policies/ecr-lifecycle-policy.json")
 }
 
 /*====
@@ -194,23 +194,23 @@ data "template_file" "docker_http_app_task" {
 
   vars = {
     image           = "${aws_ecr_repository.docker_http_app.repository_url}:${var.image_tag}"
-    region          = "${var.region}"
+    region          = var.region
     database_url    = "jdbc:postgresql://${var.database_endpoint}:5432/${var.database_name}"
-    database_username = "${var.database_username}"
-    database_password = "${var.database_password}"
-    log_group       = "${aws_cloudwatch_log_group.docker_http_app.name}"
+    database_username = var.database_username
+    database_password = var.database_password
+    log_group       = aws_cloudwatch_log_group.docker_http_app.name
   }
 }
 
 resource "aws_ecs_task_definition" "docker_http_app" {
   family                   = "${var.application_name}_${var.environment}"
-  container_definitions    = "${data.template_file.docker_http_app_task.rendered}"
+  container_definitions    = data.template_file.docker_http_app_task.rendered
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "256"
   memory                   = "1024"
-  execution_role_arn       = "${aws_iam_role.docker_http_app_ecs_execution_role.arn}"
-  task_role_arn            = "${aws_iam_role.docker_http_app_ecs_execution_role.arn}"
+  execution_role_arn       = aws_iam_role.docker_http_app_ecs_execution_role.arn
+  task_role_arn            = aws_iam_role.docker_http_app_ecs_execution_role.arn
 }
 
 
@@ -221,7 +221,7 @@ ECS service
 
 /* Security Group for ECS */
 resource "aws_security_group" "docker_http_app_ecs_service" {
-  vpc_id      = "${var.vpc_id}"
+  vpc_id      = var.vpc_id
   name        = "${var.environment}-ecs-service-sg"
   description = "Allow egress from container"
 
@@ -241,27 +241,27 @@ resource "aws_security_group" "docker_http_app_ecs_service" {
 
   tags = {
     Name        = "${var.environment}-ecs-service-sg"
-    Environment = "${var.environment}"
+    Environment = var.environment
   }
 }
 
 resource "aws_ecs_service" "docker_http_app" {
   name            = "${var.application_name}-${var.environment}"
-  task_definition = "${aws_ecs_task_definition.docker_http_app.family}"
-  desired_count   = "${var.min_capacity}"
+  task_definition = aws_ecs_task_definition.docker_http_app.family
+  desired_count   = var.min_capacity
   deployment_maximum_percent = "200"
   deployment_minimum_healthy_percent = "50"
   launch_type     = "FARGATE"
-  cluster =       "${aws_ecs_cluster.docker_http_app_cluster.id}"
-  depends_on      = ["aws_iam_role_policy.docker_http_app_ecs_service_role_policy", "aws_alb_target_group.docker_http_app_alb_target_group"]
+  cluster         = aws_ecs_cluster.docker_http_app_cluster.id
+  depends_on      = [aws_iam_role_policy.docker_http_app_ecs_service_role_policy, aws_alb_target_group.docker_http_app_alb_target_group]
 
   network_configuration {
-    security_groups = "${flatten([var.security_groups_ids, aws_security_group.docker_http_app_ecs_service.id])}"
-    subnets         = "${flatten(var.subnets_ids)}"
+    security_groups = flatten([var.security_groups_ids, aws_security_group.docker_http_app_ecs_service.id])
+    subnets         = flatten(var.subnets_ids)
   }
 
   load_balancer {
-    target_group_arn = "${aws_alb_target_group.docker_http_app_alb_target_group.arn}"
+    target_group_arn = aws_alb_target_group.docker_http_app_alb_target_group.arn
     container_name   = "web"
     container_port   = "80"
   }
@@ -273,22 +273,22 @@ Auto Scaling for ECS
 ======*/
 resource "aws_iam_role" "docker_http_app_ecs_autoscale_role" {
   name               = "${var.application_name}_${var.environment}_ecs_autoscale_role"
-  assume_role_policy = "${file("${path.module}/policies/ecs-autoscale-role.json")}"
+  assume_role_policy = file("${path.module}/policies/ecs-autoscale-role.json")
 }
 
 resource "aws_iam_role_policy" "docker_http_app_ecs_autoscale_role_policy" {
   name   = "${var.application_name}_${var.environment}_ecs_autoscale_role_policy"
-  policy = "${file("${path.module}/policies/ecs-autoscale-role-policy.json")}"
-  role   = "${aws_iam_role.docker_http_app_ecs_autoscale_role.id}"
+  policy = file("${path.module}/policies/ecs-autoscale-role-policy.json")
+  role   = aws_iam_role.docker_http_app_ecs_autoscale_role.id
 }
 
 resource "aws_appautoscaling_target" "docker_http_app_target" {
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.docker_http_app_cluster.name}/${aws_ecs_service.docker_http_app.name}"
   scalable_dimension = "ecs:service:DesiredCount"
-  role_arn           = "${aws_iam_role.docker_http_app_ecs_autoscale_role.arn}"
-  min_capacity       = "${var.min_capacity}"
-  max_capacity       = "${var.max_capacity}"
+  role_arn           = aws_iam_role.docker_http_app_ecs_autoscale_role.arn
+  min_capacity       = var.min_capacity
+  max_capacity       = var.max_capacity
 }
 
 resource "aws_appautoscaling_policy" "docker_http_app_up" {
@@ -309,7 +309,7 @@ resource "aws_appautoscaling_policy" "docker_http_app_up" {
     }
   }
 
-  depends_on = ["aws_appautoscaling_target.docker_http_app_target"]
+  depends_on = [aws_appautoscaling_target.docker_http_app_target]
 }
 
 resource "aws_appautoscaling_policy" "docker_http_app_down" {
@@ -329,7 +329,7 @@ resource "aws_appautoscaling_policy" "docker_http_app_down" {
     }
   }
 
-  depends_on = ["aws_appautoscaling_target.docker_http_app_target"]
+  depends_on = [aws_appautoscaling_target.docker_http_app_target]
 }
 
 /* metric used for auto scale */
@@ -344,10 +344,10 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_cpu_high" {
   threshold           = "85"
 
   dimensions = {
-    ClusterName = "${aws_ecs_cluster.docker_http_app_cluster.name}"
-    ServiceName = "${aws_ecs_service.docker_http_app.name}"
+    ClusterName = aws_ecs_cluster.docker_http_app_cluster.name
+    ServiceName = aws_ecs_service.docker_http_app.name
   }
 
-  alarm_actions = ["${aws_appautoscaling_policy.docker_http_app_up.arn}"]
-  ok_actions    = ["${aws_appautoscaling_policy.docker_http_app_down.arn}"]
+  alarm_actions = [aws_appautoscaling_policy.docker_http_app_up.arn]
+  ok_actions    = [aws_appautoscaling_policy.docker_http_app_down.arn]
 }
