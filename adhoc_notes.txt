@@ -29,17 +29,40 @@ Access Logs:
 
 fields @timestamp, @message
 | filter @message like /ACCESS_LOG/
+| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
+| filter url not like /\/health-check/
 | stats count(@message) by bin(60s)
 
 fields @timestamp, @message
 | filter @message like /ACCESS_LOG/
 | parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
+| filter url not like /\/health-check/
+| stats count(@message)
+
+fields @timestamp, @message
+| filter @message like /ACCESS_LOG/
+| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
+| filter url not like /\/health-check/
+| stats count(@message) by status
+
+fields @timestamp, @message
+| filter @message like /ACCESS_LOG/
+| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
+| filter url not like /\/health-check/
+| stats count(@message) as statusCount by status
+| sort statusCount desc
+
+fields @timestamp, @message
+| filter @message like /ACCESS_LOG/
+| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
+| filter url not like /\/health-check/
 | filter status >= 200
 | filter status <= 299
 
 fields @timestamp, @message
 | filter @message like /ACCESS_LOG/
 | parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
+| filter url not like /\/health-check/
 | stats avg(resTime), pct(resTime, 95) by bin(60s)
 
 -------
