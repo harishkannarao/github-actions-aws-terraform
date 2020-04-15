@@ -1,3 +1,9 @@
+docker run --rm -it -v $HOME/Technical/SourceCode/Personal/aws/aws_cli_docker/ignored/aws_credentials_terraform:/root/.aws -v $HOME/Technical/SourceCode/Personal/aws/aws_cli_docker/ignored/shared:/shared -v $HOME/Technical/SourceCode/Personal/aws/aws_cli_docker/ignored/key-pair:/key-pair -v $HOME/Technical/SourceCode/Personal/github-actions-aws-terraform:/github-actions-aws-terraform harishkannarao/awscli:latest /bin/bash
+
+cd /github-actions-aws-terraform/
+
+____________________________________________________________________
+
 export DOCKER_AWS_ACCOUNT_ID=<aws_account_id>
 export DOCKER_AWS_REGION=eu-west-2
 export ENVIRONMENT=development
