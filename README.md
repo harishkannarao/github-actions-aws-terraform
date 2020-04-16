@@ -46,13 +46,22 @@ Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraf
 
 ## Initialise the backend
     
-    export ENV_NAME=development
+    export AWS_ACCESS_KEY_ID='<aws_account_key_id>'
+    
+    export AWS_SECRET_ACCESS_KEY='<aws_account_secret_key>'
+    
+    export AWS_DEFAULT_REGION='eu-west-2'
+    
+    export AWS_DEFAULT_OUTPUT='json'
 
-    export TF_VAR_database_name=development_db
 
-    export TF_VAR_database_username=development_db_user
+    export ENV_NAME='development'
 
-    export TF_VAR_database_password=development_db_password
+    export TF_VAR_database_name='development_db'
+
+    export TF_VAR_database_username='development_db_user'
+
+    export TF_VAR_database_password='development_db_password'
 
     export TF_VAR_image_tag=$ENV_NAME
 
