@@ -123,6 +123,13 @@ terraform graph -type=plan-destroy environments/$ENV_NAME | dot -Tpng > ignored/
 
 -------------
 
+taskArn=$(aws ecs list-tasks --cluster "default" --service-name "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE" | jq -r '.taskArns[0]')
+
+aws ecs describe-tasks --cluster "default" --tasks "$taskArn" | jq -r '.tasks[0].containers[].networkInterfaces[].privateIpv4Address'
+
+--------------
+
+
 /* the task definition for the db migration */
 data "template_file" "db_migrate_task" {
   template = "${file("${path.module}/tasks/db_migrate_task_definition.json")}"
