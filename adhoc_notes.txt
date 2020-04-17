@@ -123,9 +123,9 @@ terraform graph -type=plan-destroy environments/$ENV_NAME | dot -Tpng > ignored/
 
 -------------
 
-taskArn=$(aws ecs list-tasks --cluster "default" --service-name "a1b2c3d4-5678-90ab-cdef-33333EXAMPLE" | jq -r '.taskArns[0]')
+taskArns=$(aws ecs list-tasks --cluster "docker-http-app-development-ecs-cluster" --service-name "docker-http-app-development" | jq -r '.taskArns[]' | tr '\n' ' ')
 
-aws ecs describe-tasks --cluster "default" --tasks "$taskArn" | jq -r '.tasks[0].containers[].networkInterfaces[].privateIpv4Address'
+aws ecs describe-tasks --cluster "docker-http-app-development-ecs-cluster" --tasks $taskArns | jq -r '.tasks[].containers[].networkInterfaces[].privateIpv4Address'
 
 --------------
 
