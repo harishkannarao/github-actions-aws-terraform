@@ -17,16 +17,6 @@
           "awslogs-stream-prefix": "web"
         }
       },
-      "healthCheck": {
-        "command": [
-          "CMD-SHELL",
-          "curl -f 'http://localhost/health-check' || exit 1"
-        ],
-        "startPeriod": 60,
-        "interval": 30,
-        "timeout": 2,
-        "retries": 10
-      },   
       "environment": [
         {
           "name": "SPRING_DATASOURCE_URL",
