@@ -14,7 +14,8 @@ export DOCKER_AWS_REGION='eu-west-2'
 export ENVIRONMENT='development'
 export APPLICATION_NAME='docker-http-app'
 
-# aws ecr get-login --registry-ids $DOCKER_AWS_ACCOUNT_ID --region $DOCKER_AWS_REGION --no-include-email
+aws ecr get-login --registry-ids $DOCKER_AWS_ACCOUNT_ID --region $DOCKER_AWS_REGION --no-include-email
+
 $(aws ecr get-login --registry-ids $DOCKER_AWS_ACCOUNT_ID --region $DOCKER_AWS_REGION --no-include-email)
 
 export REPOSITORY_URI=$DOCKER_AWS_ACCOUNT_ID.dkr.ecr.$DOCKER_AWS_REGION.amazonaws.com/$APPLICATION_NAME/$ENVIRONMENT
