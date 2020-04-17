@@ -51,6 +51,10 @@ variable "database_password" {
   description = "The user password for the database"
 }
 
+variable "third_party_ping_url" {
+  description = "The third party url to ping"
+}
+
 variable "image_tag" {
   description = "The docker image tag to be deployed in ecs"
 }
