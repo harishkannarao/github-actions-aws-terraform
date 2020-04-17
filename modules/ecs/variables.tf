@@ -64,3 +64,7 @@ variable "database_name" {
 variable "repository_name" {
   description = "The name of the repisitory"
 }
+
+variable "third_party_ping_url" {
+  description = "The third party url to ping"
+}

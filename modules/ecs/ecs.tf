@@ -198,6 +198,7 @@ data "template_file" "docker_http_app_task" {
     database_url    = "jdbc:postgresql://${var.database_endpoint}:5432/${var.database_name}"
     database_username = var.database_username
     database_password = var.database_password
+    third_party_ping_url = var.third_party_ping_url
     log_group       = aws_cloudwatch_log_group.docker_http_app.name
   }
 }

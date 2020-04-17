@@ -17,6 +17,7 @@ module "ecs" {
   database_username   = var.database_username
   database_password   = var.database_password
   repository_name     = "${var.application_name}/${var.environment}"
+  third_party_ping_url = var.third_party_ping_url
   image_tag           = var.image_tag
   min_capacity        = var.min_capacity
   max_capacity        = var.max_capacity

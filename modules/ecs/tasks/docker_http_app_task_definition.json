@@ -43,6 +43,10 @@
         {
           "name": "SERVER_PORT",
           "value": "80"
+        },
+        {
+          "name": "THIRDPARTY_PING_URL",
+          "value": "${third_party_ping_url}"
         }
       ]
     }
