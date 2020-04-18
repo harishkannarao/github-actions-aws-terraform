@@ -1,15 +1,22 @@
-docker run --rm -it -v $HOME/Technical/SourceCode/Personal/aws/aws_cli_docker/ignored/aws_credentials_terraform:/root/.aws -v $HOME/Technical/SourceCode/Personal/aws/aws_cli_docker/ignored/shared:/shared -v $HOME/Technical/SourceCode/Personal/aws/aws_cli_docker/ignored/key-pair:/key-pair -v $HOME/Technical/SourceCode/Personal/github-actions-aws-terraform:/github-actions-aws-terraform harishkannarao/awscli:latest /bin/bash
+docker run --rm -it -v $HOME/professional/learning/aws_cli_docker/ignored/aws_credentials_terraform:/root/.aws -v $HOME/professional/learning/aws_cli_docker/ignored/shared:/shared -v $HOME/professional/learning/aws_cli_docker/ignored/key-pair:/key-pair -v $HOME/professional/learning/github-actions-aws-terraform:/github-actions-aws-terraform harishkannarao/awscli:latest /bin/bash
 
 cd /github-actions-aws-terraform/
 
 ____________________________________________________________________
+
+# Set AWS environment variables for login
 
 export AWS_ACCESS_KEY_ID='<aws_account_key_id>'
 export AWS_SECRET_ACCESS_KEY='<aws_account_secret_key>'
 export AWS_DEFAULT_REGION='eu-west-2'
 export AWS_DEFAULT_OUTPUT='json'
 
-export DOCKER_AWS_ACCOUNT_ID='<aws_account_id>'
+# Test aws cli login
+
+aws configure list
+aws sts get-caller-identity 
+
+export DOCKER_AWS_ACCOUNT_ID="$AWS_ACCESS_KEY_ID"
 export DOCKER_AWS_REGION='eu-west-2'
 export ENVIRONMENT='development'
 export APPLICATION_NAME='docker-http-app'
