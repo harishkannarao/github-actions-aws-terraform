@@ -136,6 +136,15 @@ aws ecs describe-tasks --cluster "docker-http-app-development-ecs-cluster" --tas
 
 --------------
 
+mkdir -p ignored/ssh_keys
+
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ignored/ssh_keys/aws_terraform_key
+
+export TF_VAR_ssh_public_key=$(cat ignored/ssh_keys/aws_terraform_key.pub)
+
+aws ec2 describe-images --owners self amazon | jq -r '.Images[].ImageId'
+
+----------------
 
 /* the task definition for the db migration */
 data "template_file" "db_migrate_task" {
