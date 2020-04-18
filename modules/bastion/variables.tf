@@ -18,3 +18,7 @@ variable "vpc_id" {
 variable "security_groups_ids" {
   description = "The SGs to use"
 }
+
+variable "public_subnet_ids" {
+  description = "The public subnets to use"
+}
