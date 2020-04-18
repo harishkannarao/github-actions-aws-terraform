@@ -134,6 +134,10 @@ taskArns=$(aws ecs list-tasks --cluster "docker-http-app-development-ecs-cluster
 
 aws ecs describe-tasks --cluster "docker-http-app-development-ecs-cluster" --tasks $taskArns | jq -r '.tasks[].containers[].networkInterfaces[].privateIpv4Address'
 
+aws ec2 describe-instances --filters "Name=tag:Type,Values=development-bastion" | jq -r '.Reservations[].Instances[].PublicIpAddress'
+
+ssh -i ignored/ssh_keys/aws_terraform_key ec2@35.177.200.194
+
 --------------
 
 mkdir -p ignored/ssh_keys
@@ -142,7 +146,7 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ignored/ssh_keys/aws_te
 
 export TF_VAR_ssh_public_key=$(cat ignored/ssh_keys/aws_terraform_key.pub)
 
-aws ec2 describe-images --owners self amazon | jq -r '.Images[].ImageId'
+
 
 ----------------
 
