@@ -23,6 +23,10 @@ variable "environment" {
   description = "The application environment"
 }
 
+variable "ssh_public_key" {
+  description = "SSH public key"
+}
+
 variable "application_name" {
   description = "The name of docker application"
 }

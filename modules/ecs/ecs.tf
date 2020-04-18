@@ -106,6 +106,13 @@ resource "aws_security_group" "docker_http_app_inbound_sg" {
   }
 
   ingress {
+    protocol    = "tcp"
+    from_port   = 22
+    to_port     = 22
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     from_port   = 8
     to_port     = 0
     protocol    = "icmp"
