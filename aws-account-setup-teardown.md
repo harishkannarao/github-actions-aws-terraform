@@ -124,4 +124,4 @@ Create cname entries with your domain registrar and get the domain/certificate s
 
 #### Delete all keys
 
-    aws ec2 delete-key-pair | jq -r '.KeyPairs[].KeyName' | xargs -I {} aws ec2 delete-key-pair --key-name {}
+    aws ec2 describe-key-pairs | jq -r '.KeyPairs[].KeyName' | xargs -I {} aws ec2 delete-key-pair --key-name {}
