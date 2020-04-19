@@ -134,9 +134,9 @@ taskArns=$(aws ecs list-tasks --cluster "docker-http-app-development-ecs-cluster
 
 aws ecs describe-tasks --cluster "docker-http-app-development-ecs-cluster" --tasks $taskArns | jq -r '.tasks[].containers[].networkInterfaces[].privateIpv4Address'
 
-aws ec2 describe-instances --filters "Name=tag:Type,Values=development-bastion" | jq -r '.Reservations[].Instances[].PublicIpAddress' | grep -E '\S'
+aws ec2 describe-instances --filters "Name=tag:Type,Values=development-bastion" | jq -r '.Reservations[].Instances[].PublicIpAddress' | grep -E '\S' | grep -v 'null'
 
-ssh -i ignored/ssh-key-development.pem ec2@35.177.200.194
+ssh -i ignored/ssh-key-development.pem ec2-user@35.177.200.194
 
 ---------------
 
