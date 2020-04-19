@@ -136,6 +136,8 @@ aws ecs describe-tasks --cluster "docker-http-app-development-ecs-cluster" --tas
 
 aws ec2 describe-instances --filters "Name=tag:Type,Values=development-bastion" | jq -r '.Reservations[].Instances[].PublicIpAddress' | grep -E '\S' | grep -v 'null'
 
+chmod 400 ssh-key-development.pem
+
 ssh -i ignored/ssh-key-development.pem ec2-user@35.177.200.194
 
 ---------------
