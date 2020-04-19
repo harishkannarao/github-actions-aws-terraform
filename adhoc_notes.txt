@@ -134,11 +134,19 @@ taskArns=$(aws ecs list-tasks --cluster "docker-http-app-development-ecs-cluster
 
 aws ecs describe-tasks --cluster "docker-http-app-development-ecs-cluster" --tasks $taskArns | jq -r '.tasks[].containers[].networkInterfaces[].privateIpv4Address'
 
+aws rds describe-db-instances --db-instance-identifier development-database | jq -r '.DBInstances[].Endpoint.Address'
+
 aws ec2 describe-instances --filters "Name=tag:Type,Values=development-bastion" | jq -r '.Reservations[].Instances[].PublicIpAddress' | grep -E '\S' | grep -v 'null'
 
-chmod 400 ssh-key-development.pem
+chmod 400 ignored/ssh-key-development.pem
 
-ssh -i ignored/ssh-key-development.pem ec2-user@35.177.200.194
+ssh -A -L 8180:10.0.10.35:80 -L 10006:10.0.10.35:10006 -L 5432:development-database.cqntfjo5fd4k.eu-west-2.rds.amazonaws.com:5432 -i ignored/ssh-key-development.pem ec2-user@35.178.66.242
+
+ssh ec2-user@10.0.10.35
+
+curl -s 'http://localhost:8180' | jq
+
+Visual VM: service:jmx:rmi:///jndi/rmi://localhost:10006/jmxrmi
 
 ---------------
 
