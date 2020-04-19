@@ -136,19 +136,9 @@ aws ecs describe-tasks --cluster "docker-http-app-development-ecs-cluster" --tas
 
 aws ec2 describe-instances --filters "Name=tag:Type,Values=development-bastion" | jq -r '.Reservations[].Instances[].PublicIpAddress' | grep -E '\S'
 
-ssh -i ignored/ssh_keys/aws_terraform_key ec2@35.177.200.194
+ssh -i ignored/ssh-key-development.pem ec2@35.177.200.194
 
---------------
-
-mkdir -p ignored/ssh_keys
-
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ignored/ssh_keys/aws_terraform_key
-
-export TF_VAR_ssh_public_key=$(cat ignored/ssh_keys/aws_terraform_key.pub)
-
-
-
-----------------
+---------------
 
 /* the task definition for the db migration */
 data "template_file" "db_migrate_task" {
