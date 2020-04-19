@@ -26,7 +26,7 @@ resource "aws_instance" "bastion" {
     count                       = length(var.availability_zones)
     availability_zone           = element(var.availability_zones, count.index)
     subnet_id                   = element(flatten(var.public_subnet_ids), count.index)
-    ami                         = "${data.aws_ami.amazon.id}"
+    ami                         = data.aws_ami.amazon.id
     instance_type               = "t2.micro"
     security_groups             = flatten([var.security_groups_ids, aws_security_group.bastion-sg.id])
     key_name                    = "ssh-key-${var.environment}"
