@@ -75,6 +75,14 @@
 
 Create cname entries with your domain registrar and get the domain/certificate status as validated
 
+## Create SSH key pair per environment
+
+    aws ec2 create-key-pair --key-name ssh-key-development --query 'KeyMaterial' --output text > ssh-key-development.pem
+
+    chmod 400 ssh-key-development.pem
+
+    aws ec2 describe-key-pairs --key-name ssh-key-development
+
 
 # Teardown
 
@@ -107,3 +115,13 @@ Create cname entries with your domain registrar and get the domain/certificate s
     aws iam delete-service-linked-role --role-name AWSServiceRoleForApplicationAutoScaling_ECSService
 
     aws iam delete-service-linked-role --role-name AWSServiceRoleForElasticBeanstalk
+
+## Delete SSH key pairs for all environments
+
+#### Delete using key name
+
+    aws ec2 delete-key-pair --key-name ssh-key-development
+
+#### Delete all keys
+
+    aws ec2 delete-key-pair | jq -r '.KeyPairs[].KeyName' | xargs -I {} aws ec2 delete-key-pair --key-name {}

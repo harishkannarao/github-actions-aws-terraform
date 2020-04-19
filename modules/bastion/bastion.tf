@@ -3,11 +3,6 @@ data "aws_ami" "amazon" {
     owners  = ["self","amazon"]
 }
 
-resource "aws_key_pair" "bastion_key" {
-  key_name   = "ssh-key-${var.environment}"
-  public_key = var.ssh_public_key
-}
-
 resource "aws_security_group" "bastion-sg" {
   name   = "bastion-security-group-${var.environment}"
   vpc_id = var.vpc_id
@@ -34,7 +29,7 @@ resource "aws_instance" "bastion" {
     ami                         = "${data.aws_ami.amazon.id}"
     instance_type               = "t2.micro"
     security_groups             = flatten([var.security_groups_ids, aws_security_group.bastion-sg.id])
-    key_name                    = "${aws_key_pair.bastion_key.key_name}"
+    key_name                    = "ssh-key-${var.environment}"
     associate_public_ip_address = true
 
     tags = {
