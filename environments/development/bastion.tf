@@ -8,6 +8,6 @@ module "bastion" {
   security_groups_ids = [
     module.vpc.security_groups_ids,
     module.postgres-rds.db_access_sg_id,
-    module.ecs.app_inbound_security_group_id
+    module.ecs.ecs_access_sg_id
   ]
 }

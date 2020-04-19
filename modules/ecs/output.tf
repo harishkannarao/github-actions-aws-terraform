@@ -29,3 +29,7 @@ output "security_group_id" {
 output "app_inbound_security_group_id" {
   value = "${aws_security_group.docker_http_app_inbound_sg.id}"
 }
+
+output "ecs_access_sg_id" {
+  value = "${aws_security_group.ecs_access_sg.id}"
+}

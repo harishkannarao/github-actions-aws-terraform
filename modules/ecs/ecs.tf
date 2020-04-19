@@ -106,13 +106,6 @@ resource "aws_security_group" "docker_http_app_inbound_sg" {
   }
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 22
-    to_port     = 22
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
     from_port   = 8
     to_port     = 0
     protocol    = "icmp"
@@ -134,7 +127,7 @@ resource "aws_security_group" "docker_http_app_inbound_sg" {
 resource "aws_alb" "docker_http_app" {
   name            = "${var.application_name}-${var.environment}-alb"
   subnets         = flatten(var.public_subnet_ids)
-  security_groups = flatten([var.security_groups_ids, aws_security_group.docker_http_app_inbound_sg.id])
+  security_groups = flatten([var.security_groups_ids, aws_security_group.docker_http_app_inbound_sg.id, aws_security_group.ecs_access_sg.id])
 
   tags = {
     Name        = "${var.application_name}-${var.environment}-alb"
@@ -226,6 +219,17 @@ resource "aws_ecs_task_definition" "docker_http_app" {
 /*====
 ECS service
 ======*/
+/* Security Group for resources that want to access the ECS */
+resource "aws_security_group" "ecs_access_sg" {
+  vpc_id      = var.vpc_id
+  name        = "${var.environment}-ecs-access-sg"
+  description = "Allow access to ECS"
+
+  tags = {
+    Name        = "${var.environment}-ecs-access-sg"
+    Environment = var.environment
+  }
+}
 
 /* Security Group for ECS */
 resource "aws_security_group" "docker_http_app_ecs_service" {
@@ -240,11 +244,19 @@ resource "aws_security_group" "docker_http_app_ecs_service" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  // allows traffic from the SG itself
   ingress {
-    from_port   = 8
+      from_port = 0
+      to_port = 0
+      protocol = "-1"
+      self = true
+  }
+
+  ingress {
+    from_port   = 0
     to_port     = 0
-    protocol    = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
+    protocol    = "-1"
+    security_groups = [aws_security_group.ecs_access_sg.id]
   }
 
   tags = {
