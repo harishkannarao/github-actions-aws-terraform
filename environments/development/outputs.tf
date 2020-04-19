@@ -13,7 +13,3 @@ output "ecr-repository-url" {
 output "alb-dns-name" {
   value = "${module.ecs.alb_dns_name}"
 }
-
-output "bastion-public-ips" {
-  value = "${module.bastion.bastion_public_ips}"
-}
