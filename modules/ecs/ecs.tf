@@ -79,7 +79,6 @@ resource "aws_alb_target_group" "docker_http_app_alb_target_group" {
     timeout             = 5    
     interval            = 10    
     path                = "/health-check"    
-    port                = 80
     protocol            = "HTTP"
     matcher             = "200-299"  
   }
