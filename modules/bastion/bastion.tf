@@ -29,7 +29,7 @@ resource "aws_instance" "bastion" {
     ami                         = data.aws_ami.amazon.id
     instance_type               = "t2.micro"
     security_groups             = flatten([var.security_groups_ids, aws_security_group.bastion-sg.id])
-    key_name                    = "ssh-key-${var.environment}"
+    key_name                    = var.ssh_key_pair_name
     associate_public_ip_address = true
 
     tags = {

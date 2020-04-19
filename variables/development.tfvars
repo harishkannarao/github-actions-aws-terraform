@@ -6,3 +6,4 @@ min_capacity = "2"
 max_capacity = "4"
 third_party_ping_url = "http://www.example.org"
 database_multi_az = false
+ssh_key_pair_name = "ssh-key-development"

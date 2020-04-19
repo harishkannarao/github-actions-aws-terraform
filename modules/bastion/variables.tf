@@ -7,10 +7,6 @@ variable "availability_zones" {
   description = "The az that the resources will be launched"
 }
 
-variable "ssh_public_key" {
-  description = "SSH public key"
-}
-
 variable "vpc_id" {
   description = "The VPC id"
 }
@@ -21,4 +17,8 @@ variable "security_groups_ids" {
 
 variable "public_subnet_ids" {
   description = "The public subnets to use"
+}
+
+variable "ssh_key_pair_name" {
+  description = "SSH keypair to use"
 }

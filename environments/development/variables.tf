@@ -23,8 +23,8 @@ variable "environment" {
   description = "The application environment"
 }
 
-variable "ssh_public_key" {
-  description = "SSH public key"
+variable "ssh_key_pair_name" {
+  description = "SSH key pair name"
 }
 
 variable "application_name" {
