@@ -81,6 +81,8 @@ Create cname entries with your domain registrar and get the domain/certificate s
 
     chmod 400 ssh-key-development.pem
 
+    ssh-keygen -y -f ssh-key-development.pem > ssh-key-development.pub
+
     aws ec2 describe-key-pairs --key-name ssh-key-development
 
 
