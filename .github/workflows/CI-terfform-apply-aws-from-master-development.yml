@@ -24,6 +24,7 @@ jobs:
         TF_VAR_database_name: ${{ secrets.DatabaseNameDevelopment }}
         TF_VAR_database_username: ${{ secrets.DatabaseUserDevelopment }}    
         TF_VAR_database_password: ${{ secrets.DatabasePasswordDevelopment }}
+        TF_VAR_ssh_public_key: ${{ secrets.SshPublicKey }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AwsAccessKeyId }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AwsSecretAccessKey }}
         AWS_DEFAULT_REGION: ${{ secrets.AwsRegion }}

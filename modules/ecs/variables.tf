@@ -68,3 +68,7 @@ variable "repository_name" {
 variable "third_party_ping_url" {
   description = "The third party url to ping"
 }
+
+variable "ssh_public_key" {
+  description = "SSH public key for Fargate containers"
+}

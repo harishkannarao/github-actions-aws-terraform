@@ -21,4 +21,5 @@ module "ecs" {
   image_tag           = var.image_tag
   min_capacity        = var.min_capacity
   max_capacity        = var.max_capacity
+  ssh_public_key      = var.ssh_public_key
 }

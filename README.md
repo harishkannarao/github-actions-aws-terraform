@@ -66,6 +66,8 @@ Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraf
 
     export TF_VAR_image_tag=$ENV_NAME
 
+    export TF_VAR_ssh_public_key='<ssh_public_key>'
+
     terraform init -input=false environments/$ENV_NAME
 
 ## Validate the template

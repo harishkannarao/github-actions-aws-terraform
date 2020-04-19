@@ -27,6 +27,10 @@ variable "ssh_key_pair_name" {
   description = "SSH key pair name"
 }
 
+variable "ssh_public_key" {
+  description = "SSH public key for fargate containers"
+}
+
 variable "application_name" {
   description = "The name of docker application"
 }
