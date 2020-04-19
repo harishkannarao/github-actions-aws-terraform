@@ -207,8 +207,8 @@ resource "aws_ecs_task_definition" "docker_http_app" {
   container_definitions    = data.template_file.docker_http_app_task.rendered
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = "256"
-  memory                   = "1024"
+  cpu                      = "512"
+  memory                   = "2048"
   execution_role_arn       = aws_iam_role.docker_http_app_ecs_execution_role.arn
   task_role_arn            = aws_iam_role.docker_http_app_ecs_execution_role.arn
 }
