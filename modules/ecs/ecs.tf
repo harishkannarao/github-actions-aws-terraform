@@ -78,7 +78,7 @@ resource "aws_alb_target_group" "docker_http_app_alb_target_group" {
     unhealthy_threshold = 3    
     timeout             = 5    
     interval            = 30    
-    path                = "/health-check-alb"    
+    path                = "/health-check"    
     protocol            = "HTTP"
     matcher             = "200-299"  
   }
