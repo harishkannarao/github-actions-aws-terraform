@@ -150,11 +150,11 @@ terraform graph -type=plan-destroy environments/$ENV_NAME | dot -Tpng > ignored/
 
 -------------
 
+aws rds describe-db-instances --db-instance-identifier development-database | jq -r '.DBInstances[].Endpoint.Address'
+
 taskArns=$(aws ecs list-tasks --cluster "docker-http-app-development-ecs-cluster" --service-name "docker-http-app-development" | jq -r '.taskArns[]' | grep -E '\S' | tr '\n' ' ')
 
 aws ecs describe-tasks --cluster "docker-http-app-development-ecs-cluster" --tasks $taskArns | jq -r '.tasks[].containers[].networkInterfaces[].privateIpv4Address'
-
-aws rds describe-db-instances --db-instance-identifier development-database | jq -r '.DBInstances[].Endpoint.Address'
 
 aws ec2 describe-instances --filters "Name=tag:Type,Values=development-bastion" | jq -r '.Reservations[].Instances[].PublicIpAddress' | grep -E '\S' | grep -v 'null'
 
