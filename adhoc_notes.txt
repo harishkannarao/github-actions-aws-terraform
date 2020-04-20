@@ -168,6 +168,8 @@ ssh root@10.0.10.35
 
 curl -s 'http://localhost:8180' | jq
 
+curl -s 'http://docker-http-app-development' | jq
+
 Visual VM: service:jmx:rmi:///jndi/rmi://localhost:10006/jmxrmi
 
 ---------------
