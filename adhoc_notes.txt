@@ -144,7 +144,7 @@ ssh -A -L 8180:10.0.10.35:80 -L 10006:10.0.10.35:10006 -L 5432:development-datab
 
 ssh -A -i ignored/ssh-key-development.pem ec2-user@35.178.66.242
 
-ssh ec2-user@10.0.10.35
+ssh root@10.0.10.35
 
 curl -s 'http://localhost:8180' | jq
 
