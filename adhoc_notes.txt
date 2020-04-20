@@ -47,12 +47,14 @@ Application Logs:
 
 fields @timestamp, @message
 | filter @message not like /ACCESS_LOG/
+| sort @timestamp desc
 | display @message
 
 Access Logs:
 
 fields @timestamp, @message
 | filter @message like /ACCESS_LOG/
+| sort @timestamp desc
 | display @message
 
 fields @timestamp, @message
@@ -91,6 +93,24 @@ fields @timestamp, @message
 | parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
 | filter url not like /\/health-check/
 | filter status like /[2-3]../
+
+fields @timestamp, @message
+| filter @message like /ACCESS_LOG/
+| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
+| filter url not like /\/health-check/
+| filter (status>=500 or resTime>=60)
+
+fields @timestamp, @message
+| filter @message like /ACCESS_LOG/
+| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
+| filter url not like /\/health-check/
+| filter status in [400,401,404]
+
+fields @timestamp, @message
+| filter @message like /ACCESS_LOG/
+| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
+| filter url not like /\/health-check/
+| filter status not in [200,204]
 
 fields @timestamp, @message
 | filter @message like /ACCESS_LOG/
