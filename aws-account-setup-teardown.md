@@ -75,6 +75,19 @@
 
 Create cname entries with your domain registrar and get the domain/certificate status as validated
 
+CNAME Name:
+
+    aws acm describe-certificate --certificate-arn <certificate_arn> | jq -r '.Certificate.DomainValidationOptions[0].ResourceRecord.Name' | sed  s/.$//
+
+CNAME Value:
+
+    aws acm describe-certificate --certificate-arn <certificate_arn> | jq -r '.Certificate.DomainValidationOptions[0].ResourceRecord.Value' | sed  s/.$//
+
+Check ACM validation status:
+
+    aws acm describe-certificate --certificate-arn <certificate_arn> | jq -r '.Certificate.DomainValidationOptions[0].ValidationStatus'
+
+
 ## Create SSH key pair per environment
 
     aws ec2 create-key-pair --key-name ssh-key-development --query 'KeyMaterial' --output text > ssh-key-development.pem
