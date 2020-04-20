@@ -72,3 +72,7 @@ variable "third_party_ping_url" {
 variable "ssh_public_key" {
   description = "SSH public key for Fargate containers"
 }
+
+variable "log_retention_in_days" {
+  description = "No of days to retain logs"
+}

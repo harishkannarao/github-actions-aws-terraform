@@ -22,4 +22,5 @@ module "ecs" {
   min_capacity        = var.min_capacity
   max_capacity        = var.max_capacity
   ssh_public_key      = var.ssh_public_key
+  log_retention_in_days = var.log_retention_in_days
 }

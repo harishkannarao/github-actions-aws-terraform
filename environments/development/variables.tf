@@ -70,3 +70,7 @@ variable "third_party_ping_url" {
 variable "image_tag" {
   description = "The docker image tag to be deployed in ecs"
 }
+
+variable "log_retention_in_days" {
+  description = "No of days to retain logs"
+}

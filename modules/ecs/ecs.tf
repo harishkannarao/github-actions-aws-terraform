@@ -12,7 +12,7 @@ Cloudwatch Log Group
 ======*/
 resource "aws_cloudwatch_log_group" "docker_http_app" {
   name = "${var.application_name}-${var.environment}"
-
+  retention_in_days = var.log_retention_in_days
   tags = {
     Environment = var.environment
     Application = var.application_name
