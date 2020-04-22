@@ -1,6 +1,9 @@
 #!/bin/bash
 chown root:root /home
 chmod 755 /home
-chown ec2-user:ec2-user /home/ec2-user -R
-chmod 700 /home/ec2-user /home/ec2-user/.ssh
-chmod 600 /home/ec2-user/.ssh/authorized_keys
+chown ubuntu:ubuntu /home/ubuntu -R
+chmod 700 /home/ubuntu /home/ubuntu/.ssh
+chmod 600 /home/ubuntu/.ssh/authorized_keys
+sudo apt-get update
+sudo apt-get install -y jq
+sudo apt-get install -y openjdk-11-jre-headless
