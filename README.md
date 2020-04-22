@@ -16,7 +16,7 @@ Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraf
 * DatabaseNameDevelopment
 * DatabaseUserDevelopment
 * DatabasePasswordDevelopment
-* SshPublicKey
+* SshPublicKeyDevelopment
 
 ## Trigger CI to setup, update and destroy
 
