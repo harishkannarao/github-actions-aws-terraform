@@ -26,7 +26,7 @@ jobs:
         TF_VAR_ssh_public_key: ${{ secrets.SshPublicKey }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AwsAccessKeyId }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AwsSecretAccessKey }}
-        AWS_DEFAULT_REGION: ${{ secrets.AwsRegion }}
+        AWS_DEFAULT_REGION: 'eu-west-2'
         AWS_DEFAULT_OUTPUT: 'json'
       run: |
         ./ci-terraform-init-plan-apply.sh

@@ -13,7 +13,6 @@ Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraf
 
 * AwsAccessKeyId
 * AwsSecretAccessKey
-* AwsRegion
 * DatabaseNameDevelopment
 * DatabaseUserDevelopment
 * DatabasePasswordDevelopment

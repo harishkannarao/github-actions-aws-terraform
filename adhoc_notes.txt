@@ -4,6 +4,11 @@ cd /github-actions-aws-terraform/
 
 ____________________________________________________________________
 
+Change region and availability zone
+
+grep -rn 'eu-west-2' .
+
+----------------------
 # Set AWS environment variables for login
 
 export AWS_ACCESS_KEY_ID='<aws_account_key_id>'

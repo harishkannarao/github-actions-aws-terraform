@@ -1,10 +1,14 @@
 region = "eu-west-2"
+availability-zones = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
+vpc-cidr-block = "10.0.0.0/16"
+public-subnet-cidr-block = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+private-subnet-cidr-block = ["10.0.10.0/24", "10.0.20.0/24", "10.0.30.0/24"]
 environment = "development"
 image_tag = "development"
 application_name = "docker-http-app"
 acm_cert_domain = "harishkannarao.com"
 min_capacity = "2"
-max_capacity = "4"
+max_capacity = "3"
 third_party_ping_url = "http://www.example.org"
 database_multi_az = false
 ssh_key_pair_name = "ssh-key-development"
