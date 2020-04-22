@@ -196,9 +196,11 @@ aws ec2 describe-instances --filters "Name=tag:Type,Values=development-bastion" 
 
 chmod 400 ignored/ssh-key-development.pem
 
-ssh -i ignored/ssh-key-development.pem ubuntu@3.8.158.100
+ssh -o StrictHostKeyChecking=no -i ignored/ssh-key-development.pem ubuntu@3.8.158.100
 
-ssh -A -L 8180:10.0.30.51:80 -L 10006:10.0.30.51:10006 -L 5432:development-database.cqntfjo5fd4k.eu-west-2.rds.amazonaws.com:5432 -i ignored/ssh-key-development.pem ubuntu@3.8.158.100
+ssh -o StrictHostKeyChecking=no -L 5432:development-database.cqntfjo5fd4k.eu-west-2.rds.amazonaws.com:5432 -i ignored/ssh-key-development.pem ubuntu@35.178.181.176
+
+ssh -o StrictHostKeyChecking=no -L 8180:10.0.30.51:80 -L 10006:10.0.30.51:10006 -L 5432:development-database.cqntfjo5fd4k.eu-west-2.rds.amazonaws.com:5432 -i ignored/ssh-key-development.pem ubuntu@3.8.158.100
 
 Visual VM: service:jmx:rmi:///jndi/rmi://localhost:10006/jmxrmi
 
@@ -212,7 +214,7 @@ ssh-add ignored/ssh-key-development.pem
 
 ssh-add -L
 
-ssh -A ubuntu@35.178.23.17
+ssh -o StrictHostKeyChecking=no -A ubuntu@35.178.23.17
 
 ssh-add -L
 
