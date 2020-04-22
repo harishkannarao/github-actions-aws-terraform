@@ -196,6 +196,8 @@ aws ec2 describe-instances --filters "Name=tag:Type,Values=development-bastion" 
 
 chmod 400 ignored/ssh-key-development.pem
 
+ssh -i ignored/ssh-key-development.pem ec2-user@3.8.158.100
+
 ssh -A -L 8180:10.0.30.51:80 -L 10006:10.0.30.51:10006 -L 5432:development-database.cqntfjo5fd4k.eu-west-2.rds.amazonaws.com:5432 -i ignored/ssh-key-development.pem ec2-user@3.8.158.100
 
 Visual VM: service:jmx:rmi:///jndi/rmi://localhost:10006/jmxrmi
@@ -204,11 +206,13 @@ export PGPASSWORD=development_db_password && psql -h localhost -p 5432 -d develo
 
 --------
 
+chmod 400 ignored/ssh-key-development.pem
+
 ssh-add ignored/ssh-key-development.pem
 
 ssh-add -L
 
-ssh -A ec2-user@3.8.158.100
+ssh -A ec2-user@35.178.23.17
 
 ssh-add -L
 
@@ -226,7 +230,15 @@ curl -s 'https://docker-http-app-development.harishkannarao.com/health-check' | 
 
 curl --insecure -s 'https://docker-http-app-development-alb-271831461.eu-west-2.elb.amazonaws.com/health-check' | jq
 
+---------------
 
+ssh-keygen -t rsa -f ignored/mynew_key
+
+chmod 400 ignored/mynew_key
+
+aws ec2-instance-connect send-ssh-public-key --region eu-west-2 --instance-id i-08fea708eb9c53fa0 --availability-zone eu-west-2b --instance-os-user ec2-user --ssh-public-key file://ignored/mynew_key.pub
+
+ssh -i mynew_key ec2-user@3.8.181.133
 
 ---------------
 

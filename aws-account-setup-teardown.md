@@ -32,6 +32,8 @@
 
     aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AWSElasticBeanstalkFullAccess --group-name terraform-group-2
 
+    aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/EC2InstanceConnect --group-name terraform-group-2
+
 ## Create AWS IAM User using root user or adminstrator user
 
     aws iam create-user --user-name terraform-user
@@ -90,11 +92,13 @@ Check ACM validation status:
 
 ## Create SSH key pair per environment
 
-    aws ec2 create-key-pair --key-name ssh-key-development --query 'KeyMaterial' --output text > ssh-key-development.pem
+    aws ec2 create-key-pair --key-name ssh-key-development --query 'KeyMaterial' --output text > ignored/ssh-key-development.pem
 
-    chmod 400 ssh-key-development.pem
+    chmod 400 ignored/ssh-key-development.pem
 
-    ssh-keygen -y -f ssh-key-development.pem > ssh-key-development.pub
+    ssh-keygen -y -f ignored/ssh-key-development.pem > ignored/ssh-key-development.pub
+
+    chmod 400 ignored/ssh-key-development.pub
 
     aws ec2 describe-key-pairs --key-name ssh-key-development
 
