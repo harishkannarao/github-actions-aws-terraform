@@ -44,6 +44,10 @@ Repository to practise Infrastructur-As-Code with Github Actions, AWS and Terraf
 
     aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" ignored/terraform-development.tfstate
 
+ALB Dns Name:
+
+    aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" /dev/stdout | jq -r '.outputs["alb-dns-name"].value' | grep -E '\S' | grep -v 'null'
+
 ## Initialise the backend
     
     export AWS_ACCESS_KEY_ID='<aws_account_key_id>'
