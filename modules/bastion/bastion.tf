@@ -1,6 +1,17 @@
-data "aws_ami" "amazon" {
-    most_recent     = true
-    owners  = ["self","amazon"]
+data "aws_ami" "ubuntu" {
+    most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
 }
 
 resource "aws_security_group" "bastion-sg" {
@@ -26,7 +37,7 @@ resource "aws_instance" "bastion" {
     count                       = length(var.availability_zones)
     availability_zone           = element(var.availability_zones, count.index)
     subnet_id                   = element(flatten(var.public_subnet_ids), count.index)
-    ami                         = data.aws_ami.amazon.id
+    ami                         = data.aws_ami.ubuntu.id
     user_data                   = file("${path.module}/bastion_setup.sh")
     instance_type               = "t2.micro"
     security_groups             = flatten([var.security_groups_ids, aws_security_group.bastion-sg.id])
