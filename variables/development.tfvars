@@ -1,5 +1,6 @@
 region = "eu-west-2"
 environment = "development"
+image_tag = "development"
 application_name = "docker-http-app"
 acm_cert_domain = "harishkannarao.com"
 min_capacity = "2"

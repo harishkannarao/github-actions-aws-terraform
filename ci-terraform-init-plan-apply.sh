@@ -10,6 +10,4 @@ terraform init -input=false environments/$ENV_NAME
 
 terraform plan -input=false -var-file="variables/$ENV_NAME.tfvars" environments/$ENV_NAME
 
-echo "Database password: $TF_VAR_database_password"
-
 terraform apply -auto-approve -input=false -var database_password=$TF_VAR_database_password -var-file="variables/$ENV_NAME.tfvars" environments/$ENV_NAME
