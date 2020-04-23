@@ -235,11 +235,11 @@ ssh-add ignored/ssh-key-development.pem
 
 ssh-add -L
 
-ssh -o StrictHostKeyChecking=no -A ubuntu@35.178.23.17
+ssh -o StrictHostKeyChecking=no -A -i ignored/ssh-key-development.pem ubuntu@35.178.23.17
 
 ssh-add -L
 
-ssh root@10.0.30.51
+ssh -o StrictHostKeyChecking=no root@10.0.30.51
 
 ssh-add -D
 
