@@ -63,7 +63,7 @@ App Load Balancer
 ======*/
 
 resource "aws_alb_target_group" "docker_http_app_alb_target_group" {
-  name     = "${var.application_name}-${var.environment}-atb"
+  name     = "${var.application_name}-${var.environment}-atg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id

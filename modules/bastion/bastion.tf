@@ -39,7 +39,7 @@ resource "aws_instance" "bastion" {
     subnet_id                   = element(flatten(var.public_subnet_ids), count.index)
     ami                         = data.aws_ami.ubuntu.id
     user_data                   = file("${path.module}/bastion_setup.sh")
-    instance_type               = "t2.micro"
+    instance_type               = "t2.nano"
     security_groups             = flatten([var.security_groups_ids, aws_security_group.bastion-sg.id])
     key_name                    = var.ssh_key_pair_name
     associate_public_ip_address = true
