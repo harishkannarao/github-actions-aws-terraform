@@ -221,7 +221,7 @@ ssh -o StrictHostKeyChecking=no -i ignored/ssh-key-development.pem ubuntu@3.8.15
 
 ssh -o StrictHostKeyChecking=no -L 5432:development-database.cqntfjo5fd4k.eu-west-2.rds.amazonaws.com:5432 -i ignored/ssh-key-development.pem ubuntu@35.178.181.176
 
-ssh -o StrictHostKeyChecking=no -L 8180:10.0.30.51:80 -L 10006:10.0.30.51:10006 -L 5432:development-database.cqntfjo5fd4k.eu-west-2.rds.amazonaws.com:5432 -i ignored/ssh-key-development.pem ubuntu@3.8.158.100
+ssh -o StrictHostKeyChecking=no -L 8180:10.0.20.183:80 -L 10006:10.0.20.183:10006 -i ignored/ssh-key-development.pem ubuntu@3.8.233.106
 
 Visual VM: service:jmx:rmi:///jndi/rmi://localhost:10006/jmxrmi
 
