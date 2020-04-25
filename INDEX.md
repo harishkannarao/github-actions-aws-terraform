@@ -70,3 +70,11 @@ Repository to demonstrate Infrastructur-As-Code using:
 ### Quick roll back of deployment
 
 ### Change region and availaibility zones
+
+## Further things to explore
+
+### Internal ALB in private Subnets for internal services
+
+### CloudWatch Alarms + Notifications + Alerts from Application Logs
+
+### CloudWatch Dashboards
