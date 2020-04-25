@@ -6,7 +6,26 @@ Repository to demonstrate Infrastructur-As-Code using:
 * AWS
 * Terraform
 
-### Required Tools
+## AWS Cost Warning
+
+Provisioning cloud resources in AWS will incur cost. Please teardown the cloud resources once the usage is completed.
+
+It is advisable to setup billing alerts or billing threshold in AWS account as a reminder to teardown of cloud resources. This will avoid incurring significant bills.
+
+### Accounts Required
+
+* `AWS Account` (Root or IAM)
+* `Github Account` (Personal or Enterprise)
+
+### Tools Required
+
+* `git` cli (any version)
+* `aws` cli (minimum version `1.18.40`)
+* `terraform` cli (minimum version `0.12.24`)
+* `docer` cli (minimum version `19.03.8`)
+* `curl` cli (any version)
+* `jq` cli (any version)
+
 
 # Prerequisites
 
