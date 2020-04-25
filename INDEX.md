@@ -6,19 +6,34 @@ Repository to demonstrate Infrastructur-As-Code using:
 * AWS
 * Terraform
 
-## AWS Cost Warning
+# AWS Cost Warning
 
 Provisioning cloud resources in AWS will incur cost. Please teardown the cloud resources once the usage is completed.
 
 It is advisable to setup billing alerts or billing threshold in AWS account as a reminder to teardown of cloud resources. This will avoid incurring significant bills.
 
-### Accounts Required
+# Highlights / Acheivements
+
+* Zero downtime release (using `Immutable Rolling Deployment`)
+* Auto scaling of `ECS Fargate Tasks` based on `cpu` usage
+* High Availability AWS resources (`multi availability zones`)
+    * Postgres RDS instance
+    * NAT Gateway instance
+    * ECS Fargate Tasks
+    * Bastion Jumpoff instance
+* Log analysis and visualizations with `CloudWatch`
+* Provision of multiple environments with reusable `terraform modules`
+* `HTTPS` redirection from `HTTP`
+* Swagger v2 / OpenApi v3
+* `CORS` restriction
+
+## Accounts Required
 
 * `AWS Account` (Root or IAM)
 * `Github Account` (Personal or Enterprise)
 * Domain Name with any provider (e.g `GoDaddy`)
 
-### Tools Required
+## Tools Required
 
 * `git` cli (any version)
 * `aws` cli (minimum version `1.18.40`)
@@ -26,7 +41,6 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 * `docer` cli (minimum version `19.03.8`)
 * `curl` cli (any version)
 * `jq` cli (any version)
-
 
 # Prerequisites
 
@@ -63,6 +77,8 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 
 ### Provision environment from Github Actions Pipeline
 
+### Deploy sample Java backend application
+
 ## Destorying environment
 
 ### Destroy environment from local machine
@@ -95,8 +111,14 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 
 ## Further things to explore
 
-### Internal ALB in private Subnets for internal services
+* Internal ALB in private Subnets for internal services
 
-### CloudWatch Alarms + Notifications + Alerts from Application Logs
+* CloudWatch Alarms + Notifications + Alerts from Application Logs
 
-### CloudWatch Dashboards
+* CloudWatch Dashboards
+
+* Deploy sample node frontend app (React / VueJS)
+    * S3 Bucket
+    * CDN
+    * Domain
+    * HTTPS only
