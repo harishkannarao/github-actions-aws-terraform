@@ -49,6 +49,10 @@
         {
           "name": "SSH_PUBLIC_KEY",
           "value": "${ssh_public_key}"
+        },
+        {
+          "name": "APP_CORS_ORIGINS",
+          "value": "${app_cors_origins}"
         }
       ]
     }
