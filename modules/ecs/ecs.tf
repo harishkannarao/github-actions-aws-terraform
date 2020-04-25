@@ -201,6 +201,7 @@ data "template_file" "docker_http_app_task" {
     log_group       = aws_cloudwatch_log_group.docker_http_app.name
     ssh_public_key  = var.ssh_public_key
     app_cors_origins = "https://${var.application_name}-${var.environment}.harishkannarao.com:443,https://${var.application_name}-${var.environment}.harishkannarao.com"
+    app_openapi_url = "https://${var.application_name}-${var.environment}.harishkannarao.com"
   }
 }
 

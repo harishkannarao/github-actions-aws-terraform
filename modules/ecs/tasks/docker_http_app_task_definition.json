@@ -53,6 +53,10 @@
         {
           "name": "APP_CORS_ORIGINS",
           "value": "${app_cors_origins}"
+        },
+        {
+          "name": "APP_OPENAPI_URL",
+          "value": "${app_openapi_url}"
         }
       ]
     }
