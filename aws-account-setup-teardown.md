@@ -34,6 +34,12 @@
 
     aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/EC2InstanceConnect --group-name terraform-group-2
 
+    aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonRoute53FullAccess --group-name terraform-group-2
+
+    aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonRoute53DomainsFullAccess --group-name terraform-group-2
+
+    aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonRoute53ResolverFullAccess --group-name terraform-group-2
+
 ## Create AWS IAM User using root user or adminstrator user
 
     aws iam create-user --user-name terraform-user
