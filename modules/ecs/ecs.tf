@@ -164,21 +164,6 @@ resource "aws_alb_listener" "docker_http_app_ssl" {
   }
 }
 
-resource "aws_route53_zone" "private_route53_zone" {
-  name = "${var.application_name}-${var.environment}-route53-zone"
-  vpc {
-    vpc_id = var.vpc_id
-  }
-}
-
-resource "aws_route53_record" "internal_cname_route53_record" {
-  zone_id = aws_route53_zone.private_route53_zone.zone_id
-  name    = "internal-${var.application_name}-${var.environment}.harishkannarao.com"
-  type    = "CNAME"
-  ttl     = "60"
-  records = [aws_alb.docker_http_app.dns_name]
-}
-
 /*====
 ECR repository to store our Docker images
 ======*/
