@@ -71,6 +71,8 @@ Repository to demonstrate Infrastructur-As-Code using:
 
 ### Change region and availaibility zones
 
+### Adhoc notes
+
 ## Further things to explore
 
 ### Internal ALB in private Subnets for internal services
