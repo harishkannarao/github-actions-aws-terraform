@@ -16,6 +16,7 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 
 * `AWS Account` (Root or IAM)
 * `Github Account` (Personal or Enterprise)
+* Domain Name with any provider (e.g `GoDaddy`)
 
 ### Tools Required
 
