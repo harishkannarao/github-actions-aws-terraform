@@ -143,19 +143,7 @@ fields @timestamp, @message
 | filter @message like /ACCESS_LOG/
 | parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
 | filter url not like /\/health-check/
-| filter (status>=500 or resTime>=60)
-
-fields @timestamp, @message
-| filter @message like /ACCESS_LOG/
-| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
-| filter url not like /\/health-check/
-| filter (status>=200 and status<=399)
-
-fields @timestamp, @message
-| filter @message like /ACCESS_LOG/
-| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url
-| filter url not like /\/health-check/
-| filter (status>=400 and status<=599)
+| filter (resTime>=6000)
 
 fields @timestamp, @message
 | filter @message like /ACCESS_LOG/
