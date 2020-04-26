@@ -1,0 +1,1 @@
+# AWS terraform apply from local machine

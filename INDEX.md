@@ -182,6 +182,12 @@ Login to `aws` cli as described below:
 
 [AWS cli login](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_cli_login.md)
 
+Verify login:
+
+    aws configure list
+
+    aws sts get-caller-identity
+
 
 ## Provisioning environment
 
@@ -195,12 +201,48 @@ Login to `aws` cli as described below:
     --data '{"event_type": "do-terraform-apply-aws-from-master-development"}' \
     'https://api.github.com/repos/harishkannarao/github-actions-aws-terraform/dispatches'
 
+View the running pipeline at:
+
+[Infrastructure Pipeline](https://github.com/harishkannarao/github-actions-aws-terraform/actions)
+
 
 ### Provision environment from local machine
 
+Provision infrastructure using terraform from local machine as described below:
+
+[AWS terraform apply](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_terraform_apply.md)
+
+
 ### Setup cname with domain registrar
 
-### Deploy sample Java backend application
+Get `ALB public dns domain`
+
+    aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" /dev/stdout | jq -r '.outputs["alb-dns-name"].value' | grep -E '\S' | grep -v 'null'
+
+Setup `cname` with domain registrar as:
+
+* cname: `docker-http-app-development`
+* Pointing to: `ALB public dns domain`
+
+### Deploy sample http application using Application Pipeline
+
+    export GITHUB_PERSONAL_ACCESS_TOKEN=<<your_personal_token>>
+
+    curl -v -H "Accept: application/vnd.github.everest-preview+json" \
+    -H "Authorization: token $GITHUB_PERSONAL_ACCESS_TOKEN" \
+    --request POST \
+    --data '{"event_type": "do-deploy-master-to-aws-development", "client_payload": { "transaction_id": "some reference"}}' \
+    'https://api.github.com/repos/harishkannarao/MySpringBoot/dispatches'
+
+View the running pipeline at:
+
+[Application Pipeline](https://github.com/harishkannarao/MySpringBoot/actions)
+
+After successful run, the application will be accessible at:
+
+    https://docker-http-app-development.harishkannarao.com/health-check
+
+    https://docker-http-app-development.harishkannarao.com/swagger-ui/index.html?configUrl=/api-docs/swagger-config
 
 
 ## Destorying environment
@@ -243,6 +285,8 @@ Login to `aws` cli as described below:
 ### Create terraform graphs with GraphViz
 
 ### Quick roll back of deployment
+
+### Get remote terraform state file
 
 ### Change region and availaibility zones
 
