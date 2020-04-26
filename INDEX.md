@@ -1,4 +1,4 @@
-# github-actions-aws-terraform
+# Github Actions + AWS + Terraform
 
 Repository to demonstrate Infrastructur-As-Code using:
 
@@ -14,11 +14,16 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 
 # Highlights / Acheivements
 
+* Pipelines
+    * Application Pipeline
+    * Infrastructure Pipeline
+    * QA Pipeline
+    * Auto triggering QA Pipeline after Deployment
 * Zero downtime release (using `Immutable Rolling Deployment`)
 * Auto scaling of `ECS Fargate Tasks` based on `cpu` usage
 * High Availability AWS resources (`multi availability zones`)
     * Postgres RDS instance
-    * NAT Gateway instance
+    * NAT Gateway instance with Elastic IP
     * ECS Fargate Tasks
     * Bastion Jumpoff instance
 * Log analysis and visualizations with `CloudWatch`
@@ -27,11 +32,35 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 * Swagger v2 / OpenApi v3
 * `CORS` restriction
 
+# AWS Components
+
+* Simple Storage Service (s3)
+* Dynamo DB
+* AWS Certificate Manager (ACM)
+* Virtual Private Cloud (VPC)
+* Public Subnets
+* Private Subnets
+* Internet Gateways (IG)
+* NAT Gateways + Elastic IPs
+* Application Load Balancer (ALB)
+* Security Groups (SG)
+* Relational Database Service (RDS)
+* Elastic Container Registry (ECR)
+* Elastic Container Service (ECS) + Fargate
+* Auto Scaling Group (ASG)
+* Elastic Cloud Compute (EC2) Bastion
+* AWS Key Pair
+* Cloudwatch Logs
+* Cloudwatch Metrics
+* Cloudwatch Alarms
+
+# Documentation
+
 ## Accounts Required
 
 * `AWS Account` (Root or IAM)
 * `Github Account` (Personal or Enterprise)
-* Domain Name with any provider (e.g `GoDaddy`)
+* Registered `Domain` with any provider
 
 ## Tools Required
 
@@ -109,6 +138,14 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 
 ### Adhoc notes
 
+## Cost Optimisations
+
+* Resue `ALB` between multiple `ECS` services using multiple `target groups` through:
+    * `Host` based routing
+    * `Path` based routing
+* Reuse `ECS` cluster between multiple `ECS` services
+
+
 ## Further things to explore
 
 * Internal ALB in private Subnets for internal services
@@ -119,6 +156,6 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 
 * Deploy sample node frontend app (React / VueJS)
     * S3 Bucket
-    * CDN
-    * Domain
+    * Cloudfront CDN
+    * Custom Domain
     * HTTPS only
