@@ -245,7 +245,7 @@ After successful run, the application will be accessible at:
     https://docker-http-app-development.harishkannarao.com/swagger-ui/index.html?configUrl=/api-docs/swagger-config
 
 
-## Destorying environment
+## Destroying environment
 
 ### Destroy environment from Github Actions Pipeline
 
