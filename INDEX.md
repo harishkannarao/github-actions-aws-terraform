@@ -94,6 +94,10 @@ Setup AWS account with `s3 bucket` and `dynamo db` for `terraform` to remotely s
 
 [S3 and Dynamo DB](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/s3_dynamo_db.md)
 
+Setup AWS SSL certificate using `ACM` and validate it as described below:
+
+[AWS SSL Certificate](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_ssl_certificate.md)
+
 
 ### One-off GitHub Actions setup
 
@@ -101,18 +105,29 @@ Add the following values of your AWS account to the GitHub secrets of the reposi
 
 [Github Secrets](https://github.com/harishkannarao/github-actions-aws-terraform/settings/secrets)
 
-| Secret Key            | Secret Value  |
-|---                    |---            |
-| AwsAccessKeyId        | Access Key of AWS IAM user |
-| AwsSecretAccessKey    | Secret of the Key of AWS IAM user |
+| Secret Key | Secret Value |
+|---|---|
+| AwsAccessKeyId  Access Key of AWS IAM user |
+| AwsSecretAccessKey | Secret of the Key of AWS IAM user |
 
 ### One-off AWS Environment setup
 
+Create a SSH key pair per environment as described below:
+
+[AWS SSH Key Pair](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_ssh_key_pair.md)
 
 ### One-off GitHub Actions Environment setup
 
+Add the following valuesto the GitHub secrets of the repository at
 
-### One-off AWS ACM Certificate for domain
+[Github Secrets](https://github.com/harishkannarao/github-actions-aws-terraform/settings/secrets)
+
+| Secret Key | Secret Value |
+|---|---|
+| DatabaseNameDevelopment | development_db |
+| DatabaseUserDevelopment | development_db_user |
+| DatabasePasswordDevelopment | development_db_password |
+| SshPublicKeyDevelopment | Public key extracted from `.pem` file of AWS Key Pair |
 
 
 ## Teardown
