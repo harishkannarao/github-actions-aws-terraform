@@ -16,11 +16,11 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 
 # Highlights / Acheivements
 
-* Pipelines
-    * Application Pipeline
-    * Infrastructure Pipeline
-    * QA Pipeline
-    * Auto triggering QA Pipeline after Deployment
+* Isolated `Containerised` Pipelines
+    * Application `CI+CD` Pipeline
+    * Infrastructure `CD` Pipeline
+    * QA `CI` Pipeline
+    * Auto triggering `QA CI Pipeline` after every `successful` Deployment
 * Zero downtime release (using `Immutable Rolling Deployment`)
 * Auto scaling of `ECS Fargate Tasks` based on `cpu` usage
 * High Availability AWS resources (`multi availability zones`)
