@@ -290,6 +290,8 @@ After successful run, the application will be accessible at:
 
 ### Change region and availaibility zones
 
+### Changing domain and references
+
 ### Adhoc notes
 
 
