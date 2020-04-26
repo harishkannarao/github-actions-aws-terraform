@@ -60,7 +60,7 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 
 * `AWS Account` (Root or IAM)
 * `Github Account` (Personal or Enterprise)
-* Registered `Domain` with any provider
+* Registered `Domain` with any Domain Registerar
 
 ## Tools Required
 
@@ -76,6 +76,14 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 ## Setup
 
 ### One-off AWS account setup
+
+Setup AWS account with a `IAM user` as described below:
+
+[IAM User Setup](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/IAM_User_Setup.md)
+
+Setup AWS account with `s3 bucket` and `dynamo db` for `terraform` to remotely store the `terraform state` file as described below:
+
+[S3 and Dynamo DB](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/s3_dynamo_db.md)
 
 ### One-off GitHub Actions setup
 
