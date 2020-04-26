@@ -6,11 +6,13 @@ Repository to demonstrate Infrastructur-As-Code using:
 * AWS
 * Terraform
 
+
 # AWS Cost Warning
 
 Provisioning cloud resources in AWS will incur cost. Please teardown the cloud resources once the usage is completed.
 
 It is advisable to setup billing alerts or billing threshold in AWS account as a reminder to teardown of cloud resources. This will avoid incurring significant bills.
+
 
 # Highlights / Acheivements
 
@@ -32,7 +34,8 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 * Swagger v2 / OpenApi v3
 * `CORS` restriction
 
-# AWS Components
+
+# AWS Components Used
 
 * Simple Storage Service (s3)
 * Dynamo DB
@@ -54,13 +57,16 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 * Cloudwatch Metrics
 * Cloudwatch Alarms
 
+
 # Documentation
+
 
 ## Accounts Required
 
 * `AWS Account` (Root or IAM)
 * `Github Account` (Personal or Enterprise)
 * Registered `Domain` with any Domain Registerar
+
 
 ## Tools Required
 
@@ -71,9 +77,12 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 * `curl` cli (any version)
 * `jq` cli (any version)
 
+
 # Prerequisites
 
+
 ## Setup
+
 
 ### One-off AWS account setup
 
@@ -85,28 +94,39 @@ Setup AWS account with `s3 bucket` and `dynamo db` for `terraform` to remotely s
 
 [S3 and Dynamo DB](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/s3_dynamo_db.md)
 
+
 ### One-off GitHub Actions setup
+
 
 ### One-off AWS Environment setup
 
+
 ### One-off GitHub Actions Environment setup
 
-### One-off CNAME entry with domain provider
+
+### One-off AWS ACM Certificate for domain
+
 
 ## Teardown
 
+
 ### One-off AWS Environment tear down
+
 
 ### One-off GitHub Actions Environment tear down
 
+
 ### One-off GitHub Actions tear down
+
 
 ### One-off AWS account tear down
 
 
 # Documentation
 
+
 ### aws cli login & configuration
+
 
 ## Provisioning environment
 
@@ -116,13 +136,15 @@ Setup AWS account with `s3 bucket` and `dynamo db` for `terraform` to remotely s
 
 ### Deploy sample Java backend application
 
+
 ## Destorying environment
 
 ### Destroy environment from local machine
 
 ### Destroy environment from Github Actions Pipeline
 
-## Operational Stuffs
+
+## Operational Goodies
 
 ### Log analysis and visualization with Insights
 
@@ -145,6 +167,7 @@ Setup AWS account with `s3 bucket` and `dynamo db` for `terraform` to remotely s
 ### Change region and availaibility zones
 
 ### Adhoc notes
+
 
 ## Cost Optimisations
 
