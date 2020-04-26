@@ -178,6 +178,10 @@ Clean up AWS account as described below:
 
 ### aws cli login & configuration
 
+Login to `aws` cli as described below:
+
+[AWS cli login](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_cli_login.md)
+
 
 ## Provisioning environment
 
