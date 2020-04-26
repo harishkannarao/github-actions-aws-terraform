@@ -92,11 +92,11 @@ Setup AWS account with a `IAM user` as described below:
 
 Setup AWS account with `s3 bucket` and `dynamo db` for `terraform` to remotely store the `terraform state` file as described below:
 
-[S3 and Dynamo DB](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/s3_dynamo_db.md)
+[S3 and Dynamo DB Setup](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/s3_dynamo_db_setup.md)
 
 Setup AWS SSL certificate using `ACM` and validate it as described below:
 
-[AWS SSL Certificate](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_ssl_certificate.md)
+[AWS SSL Certificate Setup](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_ssl_certificate_setup.md)
 
 
 ### One-off GitHub Actions setup
@@ -114,7 +114,7 @@ Add the following values of your AWS account to the GitHub secrets of the reposi
 
 Create a SSH key pair per environment as described below:
 
-[AWS SSH Key Pair](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_ssh_key_pair.md)
+[AWS SSH Key Pair Setup](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_ssh_key_pair_setup.md)
 
 ### One-off GitHub Actions Environment setup
 
