@@ -97,6 +97,14 @@ Setup AWS account with `s3 bucket` and `dynamo db` for `terraform` to remotely s
 
 ### One-off GitHub Actions setup
 
+Add the following values of your AWS account to the GitHub secrets of the repository at
+
+[Github Secrets](https://github.com/harishkannarao/github-actions-aws-terraform/settings/secrets)
+
+| Secret Key            | Secret Value  |
+|---                    |---            |
+| AwsAccessKeyId        | Access Key of AWS IAM user |
+| AwsSecretAccessKey    | Secret of the Key of AWS IAM user |
 
 ### One-off AWS Environment setup
 
