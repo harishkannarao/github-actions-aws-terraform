@@ -135,14 +135,42 @@ Add the following valuesto the GitHub secrets of the repository at
 
 ### One-off AWS Environment tear down
 
+Delete SSH Key Pair generated for the environment as described below:
+
+[AWS SSH Key Pair Teardown](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_ssh_key_pair_teardown.md)
+
 
 ### One-off GitHub Actions Environment tear down
+
+Delete the following secret keys from
+
+[Github Secrets](https://github.com/harishkannarao/github-actions-aws-terraform/settings/secrets)
+
+**Keys:**
+
+* DatabaseNameDevelopment
+* DatabaseUserDevelopment
+* DatabasePasswordDevelopment
+* SshPublicKeyDevelopment
 
 
 ### One-off GitHub Actions tear down
 
+Delete the following secret keys from
+
+[Github Secrets](https://github.com/harishkannarao/github-actions-aws-terraform/settings/secrets)
+
+**Keys:**
+
+* AwsAccessKeyId
+* AwsSecretAccessKey
+
 
 ### One-off AWS account tear down
+
+Clean up AWS account as described below:
+
+[AWS Account Teardown](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_account_teardown.md)
 
 
 # Documentation
