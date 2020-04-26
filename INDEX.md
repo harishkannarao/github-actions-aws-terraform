@@ -194,6 +194,8 @@ Add the following valuesto the GitHub secrets of the repository at
 
 ## Cost Optimisations
 
+The following items can be improved or optimised to reduce AWS cost per environment:
+
 * Resue `ALB` between multiple `ECS` services using multiple `target groups` through:
     * `Host` based routing
     * `Path` based routing
