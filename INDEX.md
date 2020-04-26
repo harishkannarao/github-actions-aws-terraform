@@ -14,7 +14,7 @@ Provisioning cloud resources in AWS will incur cost. Please teardown the cloud r
 It is advisable to setup billing alerts or billing threshold in AWS account as a reminder to teardown of cloud resources. This will avoid incurring significant bills.
 
 
-# Highlights / Acheivements
+# Highlights / Achievements
 
 * Isolated `Containerised` Pipelines
     * Application `CI+CD` Pipeline
@@ -185,18 +185,37 @@ Login to `aws` cli as described below:
 
 ## Provisioning environment
 
+### Provision environment from Github Actions Pipeline
+
+    export GITHUB_PERSONAL_ACCESS_TOKEN=<<your_personal_token>>
+
+    curl -v -H "Accept: application/vnd.github.everest-preview+json" \
+    -H "Authorization: token $GITHUB_PERSONAL_ACCESS_TOKEN" \
+    --request POST \
+    --data '{"event_type": "do-terraform-apply-aws-from-master-development"}' \
+    'https://api.github.com/repos/harishkannarao/github-actions-aws-terraform/dispatches'
+
+
 ### Provision environment from local machine
 
-### Provision environment from Github Actions Pipeline
+### Setup cname with domain registrar
 
 ### Deploy sample Java backend application
 
 
 ## Destorying environment
 
-### Destroy environment from local machine
-
 ### Destroy environment from Github Actions Pipeline
+
+    export GITHUB_PERSONAL_ACCESS_TOKEN=<<your_personal_token>>
+
+    curl -v -H "Accept: application/vnd.github.everest-preview+json" \
+    -H "Authorization: token $GITHUB_PERSONAL_ACCESS_TOKEN" \
+    --request POST \
+    --data '{"event_type": "do-terfform-destroy-aws-from-master-development"}' \
+    'https://api.github.com/repos/harishkannarao/github-actions-aws-terraform/dispatches'
+
+### Destroy environment from local machine
 
 
 ## Operational Goodies
@@ -221,7 +240,7 @@ Login to `aws` cli as described below:
 
 ### SSH into ECS Fargate Tasks
 
-### Create graphs with GraphViz
+### Create terraform graphs with GraphViz
 
 ### Quick roll back of deployment
 
