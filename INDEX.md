@@ -107,7 +107,7 @@ Add the following values of your AWS account to the GitHub secrets of the reposi
 
 | Secret Key | Secret Value |
 |---|---|
-| AwsAccessKeyId  Access Key of AWS IAM user |
+| AwsAccessKeyId | Access Key of AWS IAM user |
 | AwsSecretAccessKey | Secret of the Key of AWS IAM user |
 
 ### One-off AWS Environment setup
