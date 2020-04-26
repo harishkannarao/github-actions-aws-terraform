@@ -169,6 +169,12 @@ Add the following valuesto the GitHub secrets of the repository at
 
 ## Operational Goodies
 
+### Actions CI / CD Pipelines
+
+**Application Pipelines**
+
+**Infrastructure Pipelines**
+
 ### Log analysis and visualization with Insights
 
 ### Log analysis and visualization with Cloudwatch
