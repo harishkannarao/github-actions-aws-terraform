@@ -76,7 +76,7 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 * `docer` cli (minimum version `19.03.8`)
 * `curl` cli (any version)
 * `jq` cli (any version)
-
+* `psql` cli (any version) or any Postgres compatible DB client
 
 # Prerequisites
 
