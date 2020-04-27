@@ -89,17 +89,6 @@ docker push $REPOSITORY_URI:$ENVIRONMENT
 
 aws ecs update-service --cluster $APPLICATION_NAME-$ENVIRONMENT-ecs-cluster --service $APPLICATION_NAME-$ENVIRONMENT --force-new-deployment
 
--------
-
-Terraform graphs using GraphViz(https://www.graphviz.org)
-
-terraform graph -type=refresh environments/$ENV_NAME | dot -Tpng > ignored/refresh_graph.png
-
-terraform graph -type=plan environments/$ENV_NAME | dot -Tpng > ignored/plan_graph.png
-
-terraform graph -type=apply environments/$ENV_NAME | dot -Tpng > ignored/apply_graph.png
-
-terraform graph -type=plan-destroy environments/$ENV_NAME | dot -Tpng > ignored/plan_destroy_graph.png
 
 -------------
 
