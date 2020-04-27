@@ -339,6 +339,9 @@ Visualize AWS Infrastructure through Terraform
 
 [Rollback a deployment](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/deployment_rollback.md)
 
+### Copying files to bastion
+
+[Copy files to bastion](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/copy_files_to_bastion.md)
 
 ### Get remote terraform state file
 
