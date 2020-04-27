@@ -233,11 +233,12 @@ Setup `cname` with domain registrar as:
 
 Open Source Sample Java Spring Boot Application at Github
 
-[MySpringBoot](https://github.com/harishkannarao/MySpringBoot)
+* [MySpringBoot](https://github.com/harishkannarao/MySpringBoot)
+* [CI Configuration](https://github.com/harishkannarao/MySpringBoot/blob/master/.github/workflows/CI-deploy-master-to-aws-development.yml)
+* [Building Docker Image](https://github.com/harishkannarao/MySpringBoot/blob/master/ci-build-docker.sh)
+* [Push Docker Image and Update ECS Service](https://github.com/harishkannarao/MySpringBoot/blob/master/ci-push-docker.sh)
 
-
-
-Generate github personal access token with `repo` scope at
+#### Generate github personal access token with `repo` scope at
 
 [Generate Github Personal Token](https://github.com/settings/tokens)
 
@@ -250,7 +251,7 @@ Generate github personal access token with `repo` scope at
     --data '{"event_type": "do-deploy-master-to-aws-development", "client_payload": { "transaction_id": "some reference"}}' \
     'https://api.github.com/repos/harishkannarao/MySpringBoot/dispatches'
 
-View the running pipeline at:
+#### View the running pipeline at:
 
 [Application Pipeline](https://github.com/harishkannarao/MySpringBoot/actions)
 
