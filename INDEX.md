@@ -302,7 +302,17 @@ Download Cloudwatch Logs to local machine
 
 ### Remote monitoring ECS Fargate JVM
 
+Monitor remote JVM using VisualVM
+
+[VisualVM Remote JVM Monitoring](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/remote_jvm_monitoring.md)
+
+
 ### Local port forwarding to ECS Fargate Tasks
+
+Local port forwarding to ECS sercice task
+
+[Local Port Forwarding](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/local_port_forwarding.md)
+
 
 ### Connecting to AWS RDS instance
 
@@ -335,9 +345,23 @@ The following items can be improved or optimised to reduce AWS cost per environm
 
 * Internal ALB in private Subnets for internal services
 
-* CloudWatch Alarms + Notifications + Alerts from Application Logs
-
 * CloudWatch Dashboards
+    * Total requests count (excluding health checks)
+    * 4XX errors count
+    * 5XX errors count
+    * 95 Percentile Response time
+    * Avg Response time
+    * Slow Response count
+    * ECS CPU Utilization
+    * RDS Disk Space
+    * RDS CPU Utilization
+
+* Cloudwatch Alarms and Alerts
+    * 5XX errors
+    * Slow Response count
+    * ECS CPU Utilization
+    * RDS Disk Space
+    * RDS CPU Utilization
 
 * Deploy sample node frontend app (React / VueJS)
     * S3 Bucket
