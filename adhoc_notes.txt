@@ -27,7 +27,13 @@ ____________________________________________________________________
 
 Change region and availability zone
 
+Preview the changes
+
 grep -rn 'eu-west-2' .
+
+Replace the region
+
+grep -rl 'eu-west-2' . | xargs -I {}  sed -i '' -E 's/eu-west-2/us-east-1/g' {}
 
 ----------------------
 # Set AWS environment variables for login
