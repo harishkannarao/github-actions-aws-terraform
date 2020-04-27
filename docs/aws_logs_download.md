@@ -12,7 +12,7 @@
 
     aws logs filter-log-events --log-group-name docker-http-app-development --start-time 1586603083000 --end-time 1586603652000 | jq -r '.events[].message'
 
-## Filter logs using patterns
+## Filter logs using AWS Metric Filter patterns
 
     aws logs filter-log-events --filter-pattern '{filter_pattern}' --log-group-name docker-http-app-development | jq -r '.events[].message'
 
@@ -20,7 +20,7 @@ Example:
 
     aws logs filter-log-events --filter-pattern '"ACCESS_LOG" - "/health-check"' --log-group-name docker-http-app-development | jq -r '.events[].message'
 
-### useful filter patterns
+### useful metric filter patterns
 
 Application Logs
 
