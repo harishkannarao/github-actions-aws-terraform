@@ -316,20 +316,55 @@ Local port forwarding to ECS sercice task
 
 ### Connecting to AWS RDS instance
 
-### SSH into ECS Fargate Tasks
+Connecting to remote RDS database from local
+
+[Connecting to RDS database](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/connect_to_rds.md)
+
+
+### SSH into Application Instance
+
+SSH into ECS Fargate Service Task
+
+[ssh into Application](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/ssh_into_application.md)
+
 
 ### Create terraform graphs with GraphViz
 
+Visualize AWS Infrastructure through Terraform
+
+[AWS Graph](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_terraform_graph.md)
+
+
 ### Quick roll back of deployment
+
+[Rollback a deployment](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/deployment_rollback.md)
+
 
 ### Get remote terraform state file
 
+    aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" ignored/terraform-development.tfstate
+
 ### Change region and availaibility zones
 
-### Changing domain and references
+Preview the changes
+
+    grep -rn 'eu-west-2' .
+
+Replace the region as `us-east-1`
+
+    find . -type f -print0 | xargs -0 sed -i '' 's/eu-west-2/us-east-1/g'
+
+
+### Other Terraform Commands
+
+Validate the terraform template config and syntax
+
+    terraform validate -json environments/$ENV_NAME
+
 
 ### Adhoc notes
 
+[Other Adhoc Notes](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/adhoc_notes.md)
 
 ## Cost Optimisations
 
