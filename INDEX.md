@@ -259,6 +259,10 @@ After successful run, the application will be accessible at:
 
 ### Destroy environment from Github Actions Pipeline
 
+Generate github personal access token with `repo` scope at
+
+[Generate Github Personal Token](https://github.com/settings/tokens)
+
     export GITHUB_PERSONAL_ACCESS_TOKEN=<<your_personal_token>>
 
     curl -v -H "Accept: application/vnd.github.everest-preview+json" \
