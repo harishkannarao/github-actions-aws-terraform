@@ -1,0 +1,1 @@
+# Destroy AWS resources using terraform from local machine

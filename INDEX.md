@@ -273,6 +273,9 @@ Generate github personal access token with `repo` scope at
 
 ### Destroy environment from local machine
 
+Destroy infrastructure using terraform from local machine as described below:
+
+[AWS terraform destroy](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_terraform_destroy.md)
 
 ## Operational Goodies
 
