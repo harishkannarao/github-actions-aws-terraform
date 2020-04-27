@@ -3,6 +3,13 @@ name: 'CI-terraform-apply-aws-from-master-development'
 on:
   repository_dispatch:
     types: do-terraform-apply-aws-from-master-development
+# push:
+#   branches:
+#     - master
+#   tags:
+#     - v1
+# schedule:
+#   - cron:  '0 17 * * *' # runs on every day at 5pm UTC
 
 jobs:
   terraform-apply-aws-from-master-development-build:
