@@ -33,7 +33,7 @@ grep -rn 'eu-west-2' .
 
 Replace the region
 
-grep -rl 'eu-west-2' . | xargs -I {}  sed -i '' -E 's/eu-west-2/us-east-1/g' {}
+find . -type f -print0 | xargs -0 sed -i '' 's/eu-west-2/us-east-1/g'
 
 ----------------------
 # Set AWS environment variables for login
