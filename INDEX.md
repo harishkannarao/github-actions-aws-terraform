@@ -193,6 +193,11 @@ Verify login:
 
 ### Provision environment from Github Actions Pipeline
 
+Generate github personal access token with `repo` scope at
+
+[Generate Github Personal Token](https://github.com/settings/tokens)
+
+
     export GITHUB_PERSONAL_ACCESS_TOKEN=<<your_personal_token>>
 
     curl -v -H "Accept: application/vnd.github.everest-preview+json" \
@@ -225,6 +230,11 @@ Setup `cname` with domain registrar as:
 * Pointing to: `ALB public dns domain`
 
 ### Deploy sample http application using Application Pipeline
+
+Generate github personal access token with `repo` scope at
+
+[Generate Github Personal Token](https://github.com/settings/tokens)
+
 
     export GITHUB_PERSONAL_ACCESS_TOKEN=<<your_personal_token>>
 
