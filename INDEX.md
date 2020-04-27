@@ -279,17 +279,26 @@ Destroy infrastructure using terraform from local machine as described below:
 
 ## Operational Goodies
 
-### Actions CI / CD Pipelines
-
-**Application Pipelines**
-
-**Infrastructure Pipelines**
-
 ### Log analysis and visualization with Insights
 
-### Log analysis and visualization with Cloudwatch
+Using Cloudwatch Logs Insights
+
+[AWS Cloudwatch Logs Insights](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_logs_insights.md)
+
+
+### Log analysis with Cloudwatch Logs
+
+Using Cloudwatch Logs Analysis
+
+[AWS Cloudwatch Logs Analysis](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_logs_analysis.md)
+
 
 ### Download logs to local machine
+
+Download Cloudwatch Logs to local machine
+
+[Download Cloudwatch Logs](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_logs_download.md)
+
 
 ### Remote monitoring ECS Fargate JVM
 
