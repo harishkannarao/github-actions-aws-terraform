@@ -21,3 +21,7 @@
 Example:
 
     ssh -o StrictHostKeyChecking=no -L 8180:10.0.20.183:80 -i ignored/ssh-key-development.pem ubuntu@3.8.233.106
+
+## Verify local port forwarding
+
+    curl -s 'http://localhost:8180/health-check'
