@@ -231,6 +231,12 @@ Setup `cname` with domain registrar as:
 
 ### Deploy sample http application using Application Pipeline
 
+Open Source Sample Java Spring Boot Application at Github
+
+[MySpringBoot](https://github.com/harishkannarao/MySpringBoot)
+
+
+
 Generate github personal access token with `repo` scope at
 
 [Generate Github Personal Token](https://github.com/settings/tokens)
