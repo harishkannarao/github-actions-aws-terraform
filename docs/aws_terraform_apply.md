@@ -16,7 +16,7 @@
 
     terraform init -input=false environments/$ENV_NAME
 
-## Preview the changes to be applied
+## Preview the resourced to be created/updated/destroyed
 
     terraform plan -input=false -var-file="variables/$ENV_NAME.tfvars" environments/$ENV_NAME
 
