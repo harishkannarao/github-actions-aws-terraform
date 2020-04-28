@@ -6,8 +6,13 @@ on:
 # push:
 #   branches:
 #     - master
+#     - 'story-*'  # Push events to branches matching story-1001
+#     - 'releases/**'  # Push events to branches matching refs/heads/releases/10
 #   tags:
 #     - v1
+#     - v*   # Push events to branches matching v1, v1.1, v10
+#     - v**   # Push events to branches matching version/1, v/2
+#     - v1.* # Push events to tags v1.0, v1.1, and v1.9
 # schedule:
 #   - cron:  '0 17 * * *' # runs on every day at 5pm UTC
 
