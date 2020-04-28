@@ -28,7 +28,7 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
     * NAT Gateway instance with Elastic IP
     * ECS Fargate Tasks
     * Bastion Jumpoff instance
-* Log analysis and visualizations with `CloudWatch`
+* Monitoring Dashboard, Visualizations and Log analysis with `CloudWatch`
 * Provision of multiple environments with reusable `terraform modules`
 * `HTTPS` redirection from `HTTP`
 * Swagger v2 / OpenApi v3
@@ -53,6 +53,7 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 * Auto Scaling Group (ASG)
 * Elastic Cloud Compute (EC2) Bastion
 * AWS Key Pair
+* Cloudwatch Dashboard
 * Cloudwatch Logs
 * Cloudwatch Metrics
 * Cloudwatch Alarms
@@ -389,17 +390,6 @@ The following items can be improved or optimised to reduce AWS cost per environm
 ## Further things to explore
 
 * Internal ALB in private Subnets for internal services
-
-* CloudWatch Dashboards
-    * Total requests count (excluding health checks)
-    * 4XX errors count
-    * 5XX errors count
-    * 95 Percentile Response time
-    * Avg Response time
-    * Slow Response count
-    * ECS CPU Utilization
-    * RDS Disk Space
-    * RDS CPU Utilization
 
 * Cloudwatch Alarms and Alerts
     * 5XX errors
