@@ -11,7 +11,7 @@
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/ECS", "CPUUtilization", "ServiceName", "${var.application_name}-${var.environment}", "ClusterName", "${var.application_name}-${var.environment}-ecs-cluster" ]
+                    [ "AWS/ECS", "CPUUtilization", "ServiceName", "${application_name}-${environment}", "ClusterName", "${application_name}-${environment}-ecs-cluster" ]
                 ],
                 "region": "eu-west-2",
                 "title": "ECS-Cpu-Utilization"
@@ -27,7 +27,7 @@
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/ECS", "MemoryUtilization", "ServiceName", "${var.application_name}-${var.environment}", "ClusterName", "${var.application_name}-${var.environment}-ecs-cluster" ]
+                    [ "AWS/ECS", "MemoryUtilization", "ServiceName", "${application_name}-${environment}", "ClusterName", "${application_name}-${environment}-ecs-cluster" ]
                 ],
                 "region": "eu-west-2",
                 "title": "ECS-Memory-Utilization"
@@ -43,7 +43,7 @@
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/RDS", "FreeStorageSpace", "DBInstanceIdentifier", "${var.environment}-database" ]
+                    [ "AWS/RDS", "FreeStorageSpace", "DBInstanceIdentifier", "${environment}-database" ]
                 ],
                 "region": "eu-west-2",
                 "title": "RDS-Available-Disk-Space"
@@ -59,7 +59,7 @@
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "AWS/RDS", "CPUUtilization", "DBInstanceIdentifier", "${var.environment}-database" ]
+                    [ "AWS/RDS", "CPUUtilization", "DBInstanceIdentifier", "${environment}-database" ]
                 ],
                 "region": "eu-west-2",
                 "title": "RDS-Cpu-Utilization"
@@ -72,7 +72,7 @@
             "width": 6,
             "height": 6,
             "properties": {
-                "query": "SOURCE '${var.application_name}-${var.environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| stats count(@message) by bin(60s)",
+                "query": "SOURCE '${application_name}-${environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| stats count(@message) by bin(60s)",
                 "region": "eu-west-2",
                 "title": "Total-Requests",
                 "view": "timeSeries",
@@ -86,7 +86,7 @@
             "width": 6,
             "height": 6,
             "properties": {
-                "query": "SOURCE '${var.application_name}-${var.environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| stats avg(resTime) as avg, pct(resTime, 95) as pct95 by bin(60s)",
+                "query": "SOURCE '${application_name}-${environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| stats avg(resTime) as avg, pct(resTime, 95) as pct95 by bin(60s)",
                 "region": "eu-west-2",
                 "title": "Response-Time",
                 "view": "timeSeries",
@@ -100,7 +100,7 @@
             "width": 6,
             "height": 6,
             "properties": {
-                "query": "SOURCE '${var.application_name}-${var.environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| stats count(@message) as statusCount by status\n| sort statusCount desc",
+                "query": "SOURCE '${application_name}-${environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| stats count(@message) as statusCount by status\n| sort statusCount desc",
                 "region": "eu-west-2",
                 "title": "Request-Count-By-Status",
                 "view": "bar"
@@ -113,7 +113,7 @@
             "width": 6,
             "height": 6,
             "properties": {
-                "query": "SOURCE '${var.application_name}-${var.environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| filter status like /[4]../\n| stats count(@message) by bin(60s)",
+                "query": "SOURCE '${application_name}-${environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| filter status like /[4]../\n| stats count(@message) by bin(60s)",
                 "region": "eu-west-2",
                 "title": "Client-Errors",
                 "view": "timeSeries",
@@ -127,7 +127,7 @@
             "width": 6,
             "height": 6,
             "properties": {
-                "query": "SOURCE '${var.application_name}-${var.environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| filter status like /[5]../\n| stats count(@message) by bin(60s)",
+                "query": "SOURCE '${application_name}-${environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| filter status like /[5]../\n| stats count(@message) by bin(60s)",
                 "region": "eu-west-2",
                 "title": "Server-Errors",
                 "view": "timeSeries",
@@ -141,7 +141,7 @@
             "width": 6,
             "height": 6,
             "properties": {
-                "query": "SOURCE '${var.application_name}-${var.environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| filter (resTime>=6000)\n| stats avg(resTime) as avg, pct(resTime, 95) as pct95 by bin(60s)",
+                "query": "SOURCE '${application_name}-${environment}' | fields @timestamp, @message\n| filter @message like /ACCESS_LOG/\n| parse '* * * * * * * * * *' as date, time, message, resTime, byte, status, ip, reqId, method, url\n| filter url not like /\\/health-check/\n| filter (resTime>=6000)\n| stats avg(resTime) as avg, pct(resTime, 95) as pct95 by bin(60s)",
                 "region": "eu-west-2",
                 "title": "Slow-Responses",
                 "view": "timeSeries",
@@ -155,7 +155,7 @@
             "width": 6,
             "height": 6,
             "properties": {
-                "query": "SOURCE '${var.application_name}-${var.environment}' | fields @timestamp, @message\n| filter @message not like /ACCESS_LOG/\n| filter @message like / ERROR /\n| stats count(@message) by bin(60s)",
+                "query": "SOURCE '${application_name}-${environment}' | fields @timestamp, @message\n| filter @message not like /ACCESS_LOG/\n| filter @message like / ERROR /\n| stats count(@message) by bin(60s)",
                 "region": "eu-west-2",
                 "title": "Application-Error-Events",
                 "view": "timeSeries",
