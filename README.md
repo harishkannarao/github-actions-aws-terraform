@@ -287,6 +287,13 @@ Destroy infrastructure using terraform from local machine as described below:
 
 ## Operational Goodies
 
+### Monitoring Dashboard and Alarms
+
+[Monitoring Dashboard](https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#dashboards:name=dashboard-docker-http-app-development)
+
+[Alarms](https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#alarmsV2:)
+
+
 ### Log analysis and visualization with Insights
 
 Using Cloudwatch Logs Insights
