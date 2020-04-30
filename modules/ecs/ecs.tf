@@ -337,7 +337,7 @@ resource "aws_appautoscaling_policy" "docker_http_app_down" {
 
 /* metric used for auto scale */
 resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_cpu_high" {
-  alarm_name          = "${var.application_name}_${var.environment}_cpu_utilization_high"
+  alarm_name          = "${var.application_name}_${var.environment}_cpu_utilization_high_auto_scaling"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "2"
   metric_name         = "CPUUtilization"

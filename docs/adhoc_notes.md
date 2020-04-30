@@ -36,3 +36,30 @@
     aws ec2-instance-connect send-ssh-public-key --region eu-west-2 --instance-id i-08fea708eb9c53fa0 --availability-zone eu-west-2b --instance-os-user ubuntu --ssh-public-key file://ignored/mynew_key.pub
 
     ssh -i mynew_key ubuntu@3.8.181.133
+
+### SNS topic subscription
+
+#### Get topic arn
+
+    snsTopicArn=$(aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" /dev/stdout | jq -r '.outputs["alarm_topic_arn"].value')
+
+    echo $snsTopicArn
+
+#### List existing subscriptions for this topic
+
+    aws sns list-subscriptions-by-topic --topic-arn "$snsTopicArn" --no-paginate
+
+#### Subscribe an email
+
+    aws sns subscribe --topic-arn "$snsTopicArn" --protocol email --notification-endpoint your_email@example.com
+
+Note: **Confirm the subscription by validating the link sent to the email**
+
+#### Unsubscribe an email
+
+Get the subscription arn by email
+
+    aws sns list-subscriptions-by-topic --topic-arn "$snsTopicArn" --no-paginate --output text | grep 'your_email@example.com'
+
+    aws sns unsubscribe --subscription-arn <subscription_arn_for_email>
+
