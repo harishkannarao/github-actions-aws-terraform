@@ -200,8 +200,8 @@ data "template_file" "docker_http_app_task" {
     third_party_ping_url = var.third_party_ping_url
     log_group       = aws_cloudwatch_log_group.docker_http_app.name
     ssh_public_key  = var.ssh_public_key
-    app_cors_origins = "http://localhost:8180,https://${var.application_name}-${var.environment}.harishkannarao.com:443,https://${var.application_name}-${var.environment}.harishkannarao.com"
-    app_openapi_url = "https://${var.application_name}-${var.environment}.harishkannarao.com"
+    app_openapi_url = var.app_openapi_url
+    app_cors_origins = var.app_cors_origins
   }
 }
 

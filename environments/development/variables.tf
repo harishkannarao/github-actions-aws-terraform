@@ -73,3 +73,11 @@ variable "image_tag" {
 variable "log_retention_in_days" {
   description = "No of days to retain logs"
 }
+
+variable "app_cors_origins" {
+  description = "Comma separated values of permittied origins allowed for CORS"
+}
+
+variable "app_openapi_url" {
+  description = "Open API url for Swagger configuration"
+}

@@ -13,3 +13,5 @@ third_party_ping_url = "http://www.example.org"
 database_multi_az = false
 ssh_key_pair_name = "ssh-key-development"
 log_retention_in_days = 180
+app_cors_origins = "http://localhost:8180,https://docker-http-app-development.harishkannarao.com:443,https://docker-http-app-development.harishkannarao.com"
+app_openapi_url = "https://docker-http-app-development.harishkannarao.com"

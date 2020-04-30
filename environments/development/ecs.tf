@@ -23,4 +23,6 @@ module "ecs" {
   max_capacity        = var.max_capacity
   ssh_public_key      = var.ssh_public_key
   log_retention_in_days = var.log_retention_in_days
+  app_cors_origins    = var.app_cors_origins
+  app_openapi_url     = var.app_openapi_url
 }
