@@ -355,17 +355,3 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_cpu_high" {
   ok_actions    = [aws_appautoscaling_policy.docker_http_app_down.arn]
 }
 
-data "template_file" "cloudwatch_dashboard_source" {
-  template = "${file("${path.module}/cloudwatch/dashboard.json")}"
-
-  vars = {
-    application_name = var.application_name
-    environment = var.environment
-  }
-}
-
-resource "aws_cloudwatch_dashboard" "app-dashboard" {
-  dashboard_name = "dashboard-${var.application_name}-${var.environment}"
-
-  dashboard_body = data.template_file.cloudwatch_dashboard_source.rendered
-}
