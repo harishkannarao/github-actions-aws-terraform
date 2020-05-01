@@ -17,3 +17,7 @@ variable "application_ecs_cluster_name" {
 variable "application_ecs_service_name" {
   description = "Application's ECS service name"
 }
+
+variable "rds_database_identifier" {
+  description = "RDS database identifier"
+}
