@@ -1,8 +1,8 @@
-name: 'CI-terfform-destroy-aws-from-master-development'
+name: 'CI-terraform-destroy-aws-from-master-development'
 
 on:
   repository_dispatch:
-    types: do-terfform-destroy-aws-from-master-development
+    types: do-terraform-destroy-aws-from-master-development
 
 jobs:
   terfform-destroy-aws-from-master-development-build:
