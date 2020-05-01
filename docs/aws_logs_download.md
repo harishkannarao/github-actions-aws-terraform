@@ -28,7 +28,7 @@ Application Logs
 
 Error level application logs
 
-    - "ACCESS_LOG" "ERROR"
+    - "ACCESS_LOG" " ERROR "
 
 All access Logs
 

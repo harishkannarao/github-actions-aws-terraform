@@ -13,9 +13,9 @@ resource "aws_cloudwatch_dashboard" "app-dashboard" {
   dashboard_body = data.template_file.cloudwatch_dashboard_source.rendered
 }
 
-resource "aws_cloudwatch_log_metric_filter" "yada" {
+resource "aws_cloudwatch_log_metric_filter" "app_error_event_countn_filter" {
   name           = "AppErrorEventCountFilter"
-  pattern        = "- \"ACCESS_LOG\" \"ERROR\""
+  pattern        = "- \"ACCESS_LOG\" \" ERROR \""
   log_group_name = "${var.application_name}-${var.environment}"
 
   metric_transformation {

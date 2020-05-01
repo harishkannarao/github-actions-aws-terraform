@@ -32,7 +32,7 @@ Display only application logs
 
 Display only `ERROR` level application logs
 
-    - "ACCESS_LOG" "ERROR"
+    - "ACCESS_LOG" " ERROR "
 
 Display only `RuntimeException` application logs
 
