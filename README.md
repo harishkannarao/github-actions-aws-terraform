@@ -278,7 +278,7 @@ Generate github personal access token with `repo` scope at
     curl -v -H "Accept: application/vnd.github.everest-preview+json" \
     -H "Authorization: token $GITHUB_PERSONAL_ACCESS_TOKEN" \
     --request POST \
-    --data '{"event_type": "do-terfform-destroy-aws-from-master-development"}' \
+    --data '{"event_type": "do-terraform-destroy-aws-from-master-development"}' \
     'https://api.github.com/repos/harishkannarao/github-actions-aws-terraform/dispatches'
 
 ### Destroy environment from local machine

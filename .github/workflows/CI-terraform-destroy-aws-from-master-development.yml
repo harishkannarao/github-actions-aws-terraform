@@ -5,7 +5,7 @@ on:
     types: do-terraform-destroy-aws-from-master-development
 
 jobs:
-  terfform-destroy-aws-from-master-development-build:
+  terraform-destroy-aws-from-master-development-build:
     runs-on: ubuntu-latest
     timeout-minutes: 30 # default 360
     steps:
