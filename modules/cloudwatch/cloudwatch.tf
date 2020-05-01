@@ -16,7 +16,7 @@ resource "aws_cloudwatch_dashboard" "app-dashboard" {
 resource "aws_cloudwatch_log_metric_filter" "app_error_event_countn_filter" {
   name           = "AppErrorEventCountFilter"
   pattern        = "- \"ACCESS_LOG\" \" ERROR \""
-  log_group_name = "${var.application_name}-${var.environment}"
+  log_group_name = var.application_log_group_name
 
   metric_transformation {
     name      = "AppErrorEventCount"
@@ -43,11 +43,11 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_cpu_high" {
   namespace           = "AWS/ECS"
   period              = "60"
   statistic           = "Maximum"
-  threshold           = "20"
+  threshold           = "10"
 
   dimensions = {
-    ClusterName = "${var.application_name}-${var.environment}-ecs-cluster"
-    ServiceName = "${var.application_name}-${var.environment}"
+    ClusterName = var.application_ecs_cluster_name
+    ServiceName = var.application_ecs_service_name
   }
 
   alarm_actions = [aws_sns_topic.alarm_topic.arn]

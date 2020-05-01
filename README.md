@@ -260,6 +260,8 @@ After successful run, the application will be accessible at:
 
     https://docker-http-app-development.harishkannarao.com/health-check
 
+    https://docker-http-app-development.harishkannarao.com/swagger-ui.html
+
     https://docker-http-app-development.harishkannarao.com/swagger-ui/index.html?configUrl=/api-docs/swagger-config
 
 
