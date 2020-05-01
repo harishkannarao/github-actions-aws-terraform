@@ -28,24 +28,24 @@ Application Logs
 
 Error level application logs
 
-    - "ACCESS_LOG" " ERROR "
+    [date, time, logLevel=ERROR, message]
 
 All access Logs
 
-    [date, time, message=ACCESS_LOG, resTime, byte, status, ip, reqId, method, url]
+    [date, time, logLevel=ACCESS_LOG, resTime, byte, status, ip, reqId, method, url]
 
 All non-health check access logs
 
-    [date, time, message=ACCESS_LOG, resTime, byte, status, ip, reqId, method, url!=*health-check*]
+    [date, time, logLevel=ACCESS_LOG, resTime, byte, status, ip, reqId, method, url!=*health-check*]
 
 All `GET` operations in access logs
 
-    [date, time, message=ACCESS_LOG, resTime, byte, status, ip, reqId, method=*GET*, url]
+    [date, time, logLevel=ACCESS_LOG, resTime, byte, status, ip, reqId, method=*GET*, url]
 
 All errors in access logs
 
-    [date, time, message=ACCESS_LOG, resTime, byte, status>=400&&status<=599, ip, reqId, method, url]
+    [date, time, logLevel=ACCESS_LOG, resTime, byte, status>=400&&status<=599, ip, reqId, method, url]
 
 All access logs with response time greater than 2 minutes (120000 millis)
 
-    [date, time, message=ACCESS_LOG, resTime>=120000, byte, status, ip, reqId, method, url!=*health-check*]
+    [date, time, logLevel=ACCESS_LOG, resTime>=120000, byte, status, ip, reqId, method, url!=*health-check*]
