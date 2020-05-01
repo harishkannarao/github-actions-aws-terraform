@@ -295,6 +295,8 @@ Destroy infrastructure using terraform from local machine as described below:
 
 [Alarms](https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#alarmsV2:)
 
+[Subscribe an email to SNS Notifications of Alarms](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/alarm_notify_email.md)
+
 
 ### Log analysis and visualization with Insights
 
