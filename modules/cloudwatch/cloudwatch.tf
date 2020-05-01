@@ -61,7 +61,7 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_error_count_high" {
   metric_name         = "AppErrorEventCount"
   namespace           = "${var.application_name}/${var.environment}"
   period              = "60"
-  statistic           = "Maximum"
+  statistic           = "Sum"
   threshold           = "6"
   treat_missing_data  = "breaching"
 

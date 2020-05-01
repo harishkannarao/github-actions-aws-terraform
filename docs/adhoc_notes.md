@@ -41,7 +41,7 @@
 
 #### Get topic arn
 
-    snsTopicArn=$(aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" /dev/stdout | jq -r '.outputs["alarm_topic_arn"].value')
+    snsTopicArn=$(aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" /dev/stdout | jq -r '.outputs["alarm_topic_arn"].value' | grep -E '\S' | grep -v 'null')
 
     echo $snsTopicArn
 
