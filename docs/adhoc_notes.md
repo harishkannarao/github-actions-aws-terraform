@@ -59,7 +59,9 @@ Note: **Confirm the subscription by validating the link sent to the email**
 
 Get the subscription arn by email
 
-    aws sns list-subscriptions-by-topic --topic-arn "$snsTopicArn" --no-paginate --output text | grep 'your_email@example.com'
+    subscriptionArn=$(aws sns list-subscriptions-by-topic --topic-arn "$snsTopicArn" --no-paginate --output text | grep 'your_email@example.com' | cut -f 5)
 
-    aws sns unsubscribe --subscription-arn <subscription_arn_for_email>
+    echo $subscriptionArn
+
+    aws sns unsubscribe --subscription-arn $subscriptionArn
 
