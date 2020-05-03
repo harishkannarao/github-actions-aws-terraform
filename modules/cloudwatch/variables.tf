@@ -21,3 +21,7 @@ variable "application_ecs_service_name" {
 variable "rds_database_identifier" {
   description = "RDS database identifier"
 }
+
+variable "ecs_min_task_count" {
+  description = "Minimum number of running ECS tasks"
+}

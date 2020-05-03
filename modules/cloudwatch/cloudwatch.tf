@@ -93,6 +93,44 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_cpu_high" {
   ok_actions    = [aws_sns_topic.alarm_topic.arn]
 }
 
+resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_memory_high" {
+  alarm_name          = "${var.application_name}_${var.environment}_ecs_memory_utilization_high_notification"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "3"
+  metric_name         = "MemoryUtilization"
+  namespace           = "AWS/ECS"
+  period              = "60"
+  statistic           = "Maximum"
+  threshold           = "75"
+
+  dimensions = {
+    ClusterName = var.application_ecs_cluster_name
+    ServiceName = var.application_ecs_service_name
+  }
+
+  alarm_actions = [aws_sns_topic.alarm_topic.arn]
+  ok_actions    = [aws_sns_topic.alarm_topic.arn]
+}
+
+resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_task_count_low" {
+  alarm_name          = "${var.application_name}_${var.environment}_ecs_task_count_low_notification"
+  comparison_operator = "LessThanThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/ECS"
+  period              = "60"
+  statistic           = "SampleCount"
+  threshold           = var.ecs_min_task_count
+
+  dimensions = {
+    ClusterName = var.application_ecs_cluster_name
+    ServiceName = var.application_ecs_service_name
+  }
+
+  alarm_actions = [aws_sns_topic.alarm_topic.arn]
+  ok_actions    = [aws_sns_topic.alarm_topic.arn]
+}
+
 resource "aws_cloudwatch_metric_alarm" "docker_http_app_rds_cpu_high" {
   alarm_name          = "${var.application_name}_${var.environment}_rds_cpu_utilization_high_notification"
   comparison_operator = "GreaterThanOrEqualToThreshold"
