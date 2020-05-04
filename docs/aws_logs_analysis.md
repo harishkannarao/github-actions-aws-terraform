@@ -37,3 +37,21 @@ Display only `ERROR` level application logs
 Display only `RuntimeException` application logs
 
     - "ACCESS_LOG" "RuntimeException"
+
+## Rest Client Access Logs
+
+All access logs
+
+    [date, time, logLevel, ignore1, ignore2, ignore3, ignore4, ignore5, reqId, message=REST_CLIENT_ACCESS_LOG, responseTime, status, method, uri]
+
+Display only `GET` operations
+
+    [date, time, logLevel, ignore1, ignore2, ignore3, ignore4, ignore5, reqId, message=REST_CLIENT_ACCESS_LOG, responseTime, status, method=GET, uri]
+
+Display access logs with status code between `400` and `599`
+
+    [date, time, logLevel, ignore1, ignore2, ignore3, ignore4, ignore5, reqId, message=REST_CLIENT_ACCESS_LOG, responseTime, status>=400&&status<=599, method=GET, uri]
+
+Display access logs with timeout errors
+
+    [date, time, logLevel, ignore1, ignore2, ignore3, ignore4, ignore5, reqId, message=REST_CLIENT_ACCESS_LOG, responseTime, status=0, method=GET, uri]
