@@ -49,7 +49,7 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
     * Critical Application Metrics
 * Log Visualizations and Log analysis with `CloudWatch`
 * Provision of multiple environments with reusable `terraform modules`
-* `HTTPS` redirection from `HTTP`
+* `HTTPS` redirection from `HTTP` through `ALB` listener rule
 * Swagger v2 + OpenApi v3
 * `CORS` restriction
 
