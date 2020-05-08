@@ -6,6 +6,11 @@ Repository to demonstrate Infrastructur-As-Code using:
 * AWS
 * Terraform
 
+# Blog about this repository
+
+Please read my blog to know about the background and purpose of this sample repository
+
+[Empowering Backend Engineering Team](https://blogs.harishkannarao.com/2020/05/things-that-empower-backend-engineering.html)
 
 # AWS Cost Warning
 
