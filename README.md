@@ -23,11 +23,19 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 
 * Isolated `Containerised` Pipelines
     * Application `CI+CD` Pipeline
+        * [Screen Shot 1](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/application_pipeline.png)
+        * [Screen Shot 2](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/application_pipeline_steps.png)
     * Infrastructure `CD` Pipeline
+        * [Screen Shot 1](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/infrastructure_pipeline.png)
+        * [Screen Shot 2](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/infrastructure_pipeline_steps.png)
     * QA `CI` Pipeline
+        * [Screen Shot 1](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/qa_acceptance_pipeline.png)
+        * [Screen Shot 2](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/qa_acceptance_pipeline_steps.png)
     * Auto triggering `QA CI Pipeline` after every `successful` Deployment
 * Zero downtime release (using `Immutable Rolling Deployment`)
 * Auto scaling of `ECS Fargate Tasks` based on `cpu` usage
+* Remote JVM Monitoring
+    * [Screen Shot](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/visual_vm_jvm_monitoring.png)
 * High Availability AWS resources (`multi availability zones`)
     * Postgres RDS instance
     * NAT Gateway instance with Elastic IP
