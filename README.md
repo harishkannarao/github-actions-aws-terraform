@@ -33,21 +33,30 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
         * [Screen Shot 2](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/qa_acceptance_pipeline_steps.png)
     * Auto triggering `QA CI Pipeline` after every `successful` Deployment
 * Zero downtime release (using `Immutable Rolling Deployment`)
+    * [Screen Shot](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/ecs_rolling_deployment.png)
 * Auto scaling of `ECS Fargate Tasks` based on `cpu` usage
+    * [Screen Shot 1](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/ecs_auto_scaling.png)
+    * [Screen Shot 2](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/ecs_auto_scaling_tasks.png)
 * Remote JVM Monitoring
     * [Screen Shot](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/visual_vm_jvm_monitoring.png)
 * High Availability AWS resources (`multi availability zones`)
     * Postgres RDS instance
+        * [Screen Shot](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/rds_db_configuration.png)
     * NAT Gateway instance with Elastic IP
     * ECS Fargate Tasks
     * Bastion Jumpoff instance
 * Cloudwatch Dashboard
     * Infrastructure Dashboard
     * Application Dashboard
+    * [Screen Shot 1](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/cloudwatch_dashboard_1.png)
+    * [Screen Shot 2](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/cloudwatch_dashboard_2.png)
+    * [Screen Shot 3](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/cloudwatch_dashboard_3.png)
 * Cloudwatch Alerts to Email
     * Critical Infrastructure Metrics
     * Critical Application Metrics
+    * [Screen Shot](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/cloudwatch_alarms.png)
 * Log Visualizations and Log analysis with `CloudWatch`
+    * [Screen Shot](https://raw.githubusercontent.com/harishkannarao/github-actions-aws-terraform/master/screenshots/cloudwatch_log_insights.png)
 * Provision of multiple environments with reusable `terraform modules`
 * `HTTPS` redirection from `HTTP` through `ALB` listener rule
 * Swagger v2 + OpenApi v3
