@@ -33,20 +33,35 @@ resource "aws_security_group" "bastion-sg" {
   }
 }
 
-resource "aws_instance" "bastion" {
-    count                       = length(var.availability_zones)
-    availability_zone           = element(var.availability_zones, count.index)
-    subnet_id                   = element(flatten(var.public_subnet_ids), count.index)
-    ami                         = data.aws_ami.ubuntu.id
-    user_data                   = file("${path.module}/bastion_setup.sh")
-    instance_type               = "t2.nano"
-    security_groups             = flatten([var.security_groups_ids, aws_security_group.bastion-sg.id])
-    key_name                    = var.ssh_key_pair_name
-    associate_public_ip_address = true
+resource "aws_launch_configuration" "bastion_launch_configuration" {
+  name = "${var.environment}-bastion-launch-configuration"
+  image_id = data.aws_ami.ubuntu.id
+  instance_type = "t2.micro"
+  user_data = file("${path.module}/bastion_setup.sh")
+  security_groups = flatten([var.security_groups_ids, aws_security_group.bastion-sg.id])
+  key_name = var.ssh_key_pair_name
+  associate_public_ip_address = true
+  
+  lifecycle {
+    create_before_destroy = true
+  }
+}
 
-    tags = {
-        Name            = "${var.environment}-bastion-${element(var.availability_zones, count.index)}"
-        Type            = "${var.environment}-bastion"
-        Environment     = var.environment
-    }
+resource "aws_autoscaling_group" "bastion_asg" {
+  name                 = "${var.environment}-bastion-asg"
+  launch_configuration = aws_launch_configuration.bastion_launch_configuration.name
+  health_check_type    = "EC2"
+  vpc_zone_identifier  = flatten([var.public_subnet_ids])
+  min_size             = 1
+  max_size             = 1
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tag {
+    key                 = "Type"
+    value               = "${var.environment}-bastion"
+    propagate_at_launch = true
+  }
 }
