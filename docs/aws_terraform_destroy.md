@@ -10,8 +10,6 @@
 
     export TF_VAR_database_password='development_db_password'
 
-    export TF_VAR_ssh_public_key='<ssh_public_key_from_key_pair>'
-
 ## Initialise terraform
 
     terraform init -input=false environments/$ENV_NAME

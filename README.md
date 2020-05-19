@@ -157,7 +157,6 @@ Add the following valuesto the GitHub secrets of the repository at
 | DatabaseNameDevelopment | development_db |
 | DatabaseUserDevelopment | development_db_user |
 | DatabasePasswordDevelopment | development_db_password |
-| SshPublicKeyDevelopment | Public key extracted from `.pem` file of AWS Key Pair |
 
 
 ## Teardown
@@ -181,8 +180,6 @@ Delete the following secret keys from
 * DatabaseNameDevelopment
 * DatabaseUserDevelopment
 * DatabasePasswordDevelopment
-* SshPublicKeyDevelopment
-
 
 ### One-off GitHub Actions tear down
 
