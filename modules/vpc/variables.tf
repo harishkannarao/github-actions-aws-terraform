@@ -2,10 +2,6 @@ variable "vpc_cidr" {
   description = "The CIDR block of the vpc"
 }
 
-variable "vpc_subnet_cidr" {
-  description = "The subnet CIDR block of the vpc"
-}
-
 variable "public_subnets_cidr" {
   type        = list(string)
   description = "The CIDR block for the public subnet"

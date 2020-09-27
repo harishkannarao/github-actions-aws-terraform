@@ -1,22 +1,8 @@
 region = "eu-west-2"
-vpc_cidr_block = "10.0.0.0/16"
-vpc_subnet_block = [
-    {
-        "availablity_zone": "eu-west-2a",
-        "public_subnet_cidr": "10.0.1.0/24",
-        "private_subnet_cidr": "10.0.10.0/24"
-    },
-    {
-        "availablity_zone": "eu-west-2b",
-        "public_subnet_cidr": "10.0.2.0/24",
-        "private_subnet_cidr": "10.0.20.0/24"
-    },
-    {
-        "availablity_zone": "eu-west-2c",
-        "public_subnet_cidr": "10.0.3.0/24",
-        "private_subnet_cidr": "10.0.30.0/24"
-    }
-]
+availability-zones = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
+vpc-cidr-block = "10.0.0.0/16"
+public-subnet-cidr-block = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+private-subnet-cidr-block = ["10.0.10.0/24", "10.0.20.0/24", "10.0.30.0/24"]
 environment = "development"
 image_tag = "development"
 application_name = "docker-http-app"
