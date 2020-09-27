@@ -5,7 +5,6 @@ module "ecs" {
   acm_cert_domain     = var.acm_cert_domain
   region              = var.region
   vpc_id              = module.vpc.vpc_id
-  availability_zones  = var.availability-zones
   security_groups_ids = [
     module.vpc.security_groups_ids,
     module.postgres-rds.db_access_sg_id

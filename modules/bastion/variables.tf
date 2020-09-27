@@ -2,11 +2,6 @@ variable "environment" {
   description = "The environment"
 }
 
-variable "availability_zones" {
-  type        = list(string)
-  description = "The az that the resources will be launched"
-}
-
 variable "vpc_id" {
   description = "The VPC id"
 }

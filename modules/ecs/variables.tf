@@ -28,11 +28,6 @@ variable "vpc_id" {
   description = "The VPC id"
 }
 
-variable "availability_zones" {
-  type        = list(string)
-  description = "The azs to use"
-}
-
 variable "security_groups_ids" {
   description = "The SGs to use"
 }
