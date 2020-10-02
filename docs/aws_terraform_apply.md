@@ -12,7 +12,7 @@
 
 ## Initialise terraform
 
-    terraform init -input=false environments/$ENV_NAME
+    terraform init -reconfigure -input=false environments/$ENV_NAME
 
 ## Preview the resourced to be created/updated/destroyed
 

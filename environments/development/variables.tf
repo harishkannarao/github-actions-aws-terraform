@@ -1,21 +1,13 @@
-variable "vpc-cidr-block" {
+variable "vpc_cidr_block" {
   description = "VPC cidr block"
+}
+
+variable "vpc_subnet_block" {
+  description = "VPC subnet block"
 }
 
 variable "region" {
   description = "AWS region"
-}
-
-variable "availability-zones" {
-  description = "AWS region's availability zones"
-}
-
-variable "public-subnet-cidr-block" {
-  description = "Public Subnet cidr block"
-}
-
-variable "private-subnet-cidr-block" {
-  description = "Private Subnet cidr block"
 }
 
 variable "environment" {
