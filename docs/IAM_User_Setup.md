@@ -44,6 +44,8 @@
 
     aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonSNSFullAccess --group-name terraform-group-2
 
+    aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/CloudFrontFullAccess --group-name terraform-group-2
+
 ## Create AWS IAM User using root user or adminstrator user
 
     aws iam create-user --user-name terraform-user
