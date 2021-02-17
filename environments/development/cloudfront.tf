@@ -1,6 +1,5 @@
 module "cloudfront" {
   source            = "../../modules/cloudfront"
-  region            = var.region
   www_domain_name   = var.www_domain_name
   www_cloudfront_alias = var.www_cloudfront_alias
   s3_www_website_endpoint = module.s3.s3_www_website_endpoint
