@@ -73,3 +73,11 @@ variable "app_cors_origins" {
 variable "app_openapi_url" {
   description = "Open API url for Swagger configuration"
 }
+
+variable "www_domain_name" {
+  description = "Domain name to access front end website"
+}
+
+variable "www_cloudfront_alias" {
+  description = "Cloudfront alias"
+}

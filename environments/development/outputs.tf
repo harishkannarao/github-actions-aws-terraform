@@ -17,3 +17,7 @@ output "alb-dns-name" {
 output "alarm_topic_arn" {
   value = "${module.cloudwatch.alarm_topic_arn}"
 }
+
+output "www_distribution_domain_name" {
+  value = "${module.cloudfront.www_distribution_domain_name}"
+}
