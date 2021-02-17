@@ -10,6 +10,7 @@ resource "aws_s3_bucket" "www" {
   bucket = "${var.www_domain_name}"
   acl    = "public-read"
   policy = data.template_file.www_s3_bucket_policy.rendered
+  force_destroy = true
 
   website {
     index_document = "index.html"
