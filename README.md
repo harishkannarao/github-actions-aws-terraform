@@ -258,7 +258,7 @@ Get `Cloudfront public dns domain`
 Setup `cname` with domain registrar as:
 
 * cname: `docker-http-app-development` pointing to: `ALB public dns domain`
-* cname: `docker-http-web-development` pointing to: `Cloudfront public dns domain`
+* cname: `http-web-development` pointing to: `Cloudfront public dns domain`
 
 ### Deploy sample http application using Application Pipeline
 
