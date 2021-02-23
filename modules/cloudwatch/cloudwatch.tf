@@ -1,5 +1,5 @@
 data "template_file" "cloudwatch_dashboard_source" {
-  template = "${file("${path.module}/dashboard/dashboard.json")}"
+  template = file("${path.module}/dashboard/dashboard.json")
 
   vars = {
     application_name = var.application_name
@@ -66,7 +66,7 @@ resource "aws_cloudwatch_log_metric_filter" "app_5XX_status_count_filter" {
 }
 
 data "template_file" "alarm_topic_source" {
-  template = "${file("${path.module}/topic/http-delivery.json")}"
+  template = file("${path.module}/topic/http-delivery.json")
 }
 
 resource "aws_sns_topic" "alarm_topic" {
