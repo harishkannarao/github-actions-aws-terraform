@@ -260,9 +260,9 @@ Setup `cname` with domain registrar as:
 * cname: `docker-http-app-development` pointing to: `ALB public dns domain`
 * cname: `http-web-development` pointing to: `Cloudfront public dns domain`
 
-### Deploy sample http application using Application Pipeline
+### Deploy sample http API using Application Pipeline
 
-Open Source Sample Java Spring Boot Application at Github
+Open Source Sample Java Spring Boot (API) Application at Github
 
 * [MySpringBoot](https://github.com/harishkannarao/MySpringBoot)
 * [CI Configuration](https://github.com/harishkannarao/MySpringBoot/blob/master/.github/workflows/CI-deploy-master-to-aws-development.yml)
@@ -279,7 +279,7 @@ Open Source Sample Java Spring Boot Application at Github
     curl -v -H "Accept: application/vnd.github.everest-preview+json" \
     -H "Authorization: token $GITHUB_PERSONAL_ACCESS_TOKEN" \
     --request POST \
-    --data '{"event_type": "do-deploy-master-to-aws-development", "client_payload": { "transaction_id": "some reference"}}' \
+    --data '{"event_type": "do-deploy-master-to-aws-development"}' \
     'https://api.github.com/repos/harishkannarao/MySpringBoot/dispatches'
 
 #### View the running pipeline at:
@@ -293,6 +293,35 @@ After successful run, the application will be accessible at:
     https://docker-http-app-development.harishkannarao.com/swagger-ui.html
 
     https://docker-http-app-development.harishkannarao.com/swagger-ui/index.html?configUrl=/api-docs/swagger-config
+
+
+### Deploy sample frontent web application using Application Pipeline
+
+Open Source Sample ReactJs + NextJs + NodeJs web application at Github
+
+* [react-nextjs-rest-api](https://github.com/harishkannarao/react-nextjs-rest-api)
+* [CI Configuration](https://github.com/harishkannarao/react-nextjs-rest-api/blob/main/.github/workflows/CI-deploy-main-to-aws-development.yml)
+
+#### Generate github personal access token with `repo` scope at
+
+[Generate Github Personal Token](https://github.com/settings/tokens)
+
+
+    export GITHUB_PERSONAL_ACCESS_TOKEN=<<your_personal_token>>
+
+    curl -v -H "Accept: application/vnd.github.everest-preview+json" \
+    -H "Authorization: token $GITHUB_PERSONAL_ACCESS_TOKEN" \
+    --request POST \
+    --data '{"event_type": "do-deploy-main-to-aws-development"}' \
+    'https://api.github.com/repos/harishkannarao/react-nextjs-rest-api/dispatches'
+
+#### View the running pipeline at:
+
+[Application Pipeline](https://github.com/harishkannarao/react-nextjs-rest-api/actions)
+
+After successful run, the application will be accessible at:
+
+    https://http-web-development.harishkannarao.com
 
 
 ## Destroying environment
