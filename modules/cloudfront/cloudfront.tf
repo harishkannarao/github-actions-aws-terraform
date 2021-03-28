@@ -31,8 +31,8 @@ resource "aws_cloudfront_distribution" "www_distribution" {
     cached_methods         = ["GET", "HEAD"]
     target_origin_id       = var.www_domain_name
     min_ttl                = 0
-    default_ttl            = 86400
-    max_ttl                = 31536000
+    default_ttl            = 120
+    max_ttl                = 600
 
     forwarded_values {
       query_string = true
