@@ -2,11 +2,17 @@
 
 ### Run aws and terraform in docker
 
+    minikube start
+
+    minikube mount $HOME/professional/learning/github-actions-aws-terraform:/github-actions-aws-terraform
+
     cd $HOME/professional/learning
 
     git clone git@github.com:harishkannarao/aws_cli_docker.git
 
     cd aws_cli_docker
+
+    eval $(minikube -p minikube docker-env)
 
     docker build --pull -t harishkannarao/awscli:latest -f Dockerfile .
 
@@ -18,7 +24,7 @@
     -e "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_TERRAFORM" \
     -e "AWS_DEFAULT_REGION=eu-west-2" \
     -e "AWS_DEFAULT_OUTPUT=json" \
-    -v $HOME/professional/learning/github-actions-aws-terraform:/github-actions-aws-terraform \
+    -v /github-actions-aws-terraform:/github-actions-aws-terraform \
     harishkannarao/awscli:latest /bin/bash
 
     cd /github-actions-aws-terraform/

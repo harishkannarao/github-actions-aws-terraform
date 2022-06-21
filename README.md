@@ -461,8 +461,4 @@ The following items can be improved or optimised to reduce AWS cost per environm
 
 * Internal ALB in private Subnets for internal services
 
-* Deploy sample node frontend app (React / VueJS)
-    * S3 Bucket
-    * Cloudfront CDN
-    * Custom Domain
-    * HTTPS only
+* Try to terminate the SSL at container level using nginx to ensure end to end encryption
