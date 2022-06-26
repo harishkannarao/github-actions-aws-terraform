@@ -1,6 +1,7 @@
 name: 'CI-terraform-apply-aws-from-master-development'
 
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: do-terraform-apply-aws-from-master-development
 # push:

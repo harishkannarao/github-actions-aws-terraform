@@ -1,6 +1,7 @@
 name: 'CI-terraform-destroy-aws-from-master-development'
 
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: do-terraform-destroy-aws-from-master-development
 
