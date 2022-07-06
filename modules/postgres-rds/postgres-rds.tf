@@ -65,7 +65,7 @@ resource "aws_db_instance" "rds" {
   engine_version         = "11"
   instance_class         = var.instance_class
   multi_az               = var.multi_az
-  name                   = var.database_name
+  db_name                = var.database_name
   username               = var.database_username
   password               = var.database_password
   db_subnet_group_name   = aws_db_subnet_group.rds_subnet_group.id
