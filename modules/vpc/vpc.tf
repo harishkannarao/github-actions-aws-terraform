@@ -29,9 +29,9 @@ resource "aws_internet_gateway" "ig" {
 
 /* Elastic IP for NAT */
 resource "aws_eip" "nat_eip" {
-  for_each = {for subnet in var.vpc_subnet_cidr: subnet.availablity_zone => subnet}
-  vpc        = true
-  depends_on = [aws_internet_gateway.ig]
+  for_each    = {for subnet in var.vpc_subnet_cidr: subnet.availablity_zone => subnet}
+  domain      = "vpc"
+  depends_on  = [aws_internet_gateway.ig]
 }
 
 /* NAT */
