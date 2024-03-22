@@ -7,6 +7,6 @@ module "postgres-rds" {
   database_password = var.database_password
   subnet_ids        = module.vpc.private_subnets_id
   vpc_id            = module.vpc.vpc_id
-  instance_class    = "db.t2.micro"
+  instance_class    = "db.t3.micro"
   multi_az          = var.database_multi_az
 }
