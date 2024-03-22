@@ -220,6 +220,14 @@ Verify login:
 
 ### Provision environment from Github Actions Pipeline
 
+#### Trigger through UI
+
+    https://github.com/harishkannarao/github-actions-aws-terraform/actions/workflows/CI-terraform-apply-aws-from-master-development.yml
+
+Click Run Workflow on master branch
+
+#### Trigger through command line
+
 Generate github personal access token with `repo` scope at
 
 [Generate Github Personal Token](https://github.com/settings/tokens)
@@ -269,10 +277,17 @@ Open Source Sample Java Spring Boot (API) Application at Github
 * [Building Docker Image](https://github.com/harishkannarao/MySpringBoot/blob/master/ci-build-docker.sh)
 * [Push Docker Image and Update ECS Service](https://github.com/harishkannarao/MySpringBoot/blob/master/ci-push-docker.sh)
 
-#### Generate github personal access token with `repo` scope at
+#### Trigger through UI
+
+    https://github.com/harishkannarao/MySpringBoot/actions/workflows/CI-deploy-master-to-aws-development.yml
+
+Click Run Workflow on master branch
+
+#### Trigger through command line
+
+Generate github personal access token with `repo` scope at
 
 [Generate Github Personal Token](https://github.com/settings/tokens)
-
 
     export GITHUB_PERSONAL_ACCESS_TOKEN=<<your_personal_token>>
 
@@ -302,10 +317,17 @@ Open Source Sample ReactJs + NextJs + NodeJs web application at Github
 * [react-nextjs-rest-api](https://github.com/harishkannarao/react-nextjs-rest-api)
 * [CI Configuration](https://github.com/harishkannarao/react-nextjs-rest-api/blob/main/.github/workflows/CI-deploy-main-to-aws-development.yml)
 
-#### Generate github personal access token with `repo` scope at
+#### Trigger through UI
+
+    https://github.com/harishkannarao/react-nextjs-rest-api/actions/workflows/CI-deploy-main-to-aws-development.yml
+
+Click Run Workflow on master branch
+
+#### Trigger through command line
+
+Generate github personal access token with `repo` scope at
 
 [Generate Github Personal Token](https://github.com/settings/tokens)
-
 
     export GITHUB_PERSONAL_ACCESS_TOKEN=<<your_personal_token>>
 
@@ -327,6 +349,14 @@ After successful run, the application will be accessible at:
 ## Destroying environment
 
 ### Destroy environment from Github Actions Pipeline
+
+#### Trigger through UI
+
+    https://github.com/harishkannarao/github-actions-aws-terraform/actions/workflows/CI-terraform-destroy-aws-from-master-development.yml
+
+Click Run Workflow on master branch
+
+#### Trigger through command line
 
 Generate github personal access token with `repo` scope at
 
