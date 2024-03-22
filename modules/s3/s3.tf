@@ -23,9 +23,13 @@ resource "aws_s3_bucket_website_configuration" "www_website" {
   }
 }
 
-resource "aws_s3_bucket_acl" "www_bucket_acl" {
+resource "aws_s3_bucket_public_access_block" "www_bucket_public_access_block" {
   bucket = aws_s3_bucket.www.id
-  acl    = "public-read"
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_policy" "www_bucket_policy" {
