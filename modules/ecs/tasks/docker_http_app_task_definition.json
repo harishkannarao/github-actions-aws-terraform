@@ -27,15 +27,15 @@
       },
       "environment": [
         {
-          "name": "SPRING_DATASOURCE_URL",
+          "name": "APP_DATASOURCE_HIKARI_JDBC_URL",
           "value": "${database_url}"
         },
         {
-          "name": "SPRING_DATASOURCE_USERNAME",
+          "name": "APP_DATASOURCE_HIKARI_USERNAME",
           "value": "${database_username}"
         },
         {
-          "name": "SPRING_DATASOURCE_PASSWORD",
+          "name": "APP_DATASOURCE_HIKARI_PASSWORD",
           "value": "${database_password}"
         },
         {
