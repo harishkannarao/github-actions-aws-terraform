@@ -58,6 +58,10 @@ variable "third_party_ping_url" {
   description = "The third party url to ping"
 }
 
+variable "third_party_proxy_url" {
+  description = "The third proxy url to get"
+}
+
 variable "image_tag" {
   description = "The docker image tag to be deployed in ecs"
 }

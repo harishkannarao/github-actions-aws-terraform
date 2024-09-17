@@ -259,6 +259,10 @@ Get `ALB public dns domain`
 
     aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" /dev/stdout | jq -r '.outputs["alb-dns-name"].value' | grep -E '\S' | grep -v 'null'
 
+Get `ALB internal dns domain`
+
+    aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" /dev/stdout | jq -r '.outputs["internal-alb-dns-name"].value' | grep -E '\S' | grep -v 'null'
+
 Get `Cloudfront public dns domain`
 
     aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" /dev/stdout | jq -r '.outputs["www_distribution_domain_name"].value' | grep -E '\S' | grep -v 'null'
@@ -266,6 +270,7 @@ Get `Cloudfront public dns domain`
 Setup `cname` with domain registrar as:
 
 * cname: `docker-http-app-development` pointing to: `ALB public dns domain`
+* cname: `internal-development` pointing to: `ALB internal dns domain`
 * cname: `http-web-development` pointing to: `Cloudfront public dns domain`
 
 ### Deploy sample http API using Application Pipeline

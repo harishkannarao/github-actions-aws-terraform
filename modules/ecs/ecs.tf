@@ -59,7 +59,7 @@ resource "aws_iam_role_policy" "docker_http_app_ecs_execution_role_policy" {
 }
 
 /*====
-App Load Balancer
+Public App Load Balancer
 ======*/
 
 resource "aws_alb_target_group" "docker_http_app_alb_target_group" {
@@ -84,10 +84,10 @@ resource "aws_alb_target_group" "docker_http_app_alb_target_group" {
   }
 }
 
-/* security group for ALB */
+/* security group for public ALB */
 resource "aws_security_group" "docker_http_app_inbound_sg" {
   name        = "${var.application_name}-${var.environment}-inbound-sg"
-  description = "Allow HTTP from Anywhere into ALB"
+  description = "Allow HTTP from Anywhere into public ALB"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -165,6 +165,112 @@ resource "aws_alb_listener" "docker_http_app_ssl" {
 }
 
 /*====
+Internal App Load Balancer
+======*/
+
+resource "aws_alb_target_group" "internal_alb_target_group" {
+  name     = "internal-${var.environment}-atg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+  target_type = "ip"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  health_check {    
+    healthy_threshold   = 3    
+    unhealthy_threshold = 3    
+    timeout             = 5    
+    interval            = 30    
+    path                = "/health-check"    
+    protocol            = "HTTP"
+    matcher             = "200-299"  
+  }
+}
+
+/* security group for internal ALB */
+resource "aws_security_group" "internal_inbound_sg" {
+  name        = "internal-${var.environment}-inbound-sg"
+  description = "Allow HTTP from Anywhere into private ALB"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 8
+    to_port     = 0
+    protocol    = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "internal-${var.environment}-inbound-sg"
+  }
+}
+
+resource "aws_alb" "internal_alb" {
+  name            = "internal-${var.environment}-alb"
+  subnets         = flatten(var.subnets_ids)
+  security_groups = flatten([var.security_groups_ids, aws_security_group.internal_inbound_sg.id, aws_security_group.docker_http_app_ecs_service.id])
+
+  tags = {
+    Name        = "internal-${var.environment}-alb"
+    Environment = var.environment
+  }
+}
+
+resource "aws_alb_listener" "internal_alb_listener" {
+  load_balancer_arn = aws_alb.internal_alb.arn
+  port              = "80"
+  protocol          = "HTTP"
+  depends_on        = [aws_alb_target_group.internal_alb_target_group]
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_alb_listener" "internal_alb_listener_ssl" {
+  load_balancer_arn = aws_alb.internal_alb.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  depends_on        = [aws_alb_target_group.internal_alb_target_group]
+  certificate_arn   = data.aws_acm_certificate.default.arn
+
+  default_action {
+    target_group_arn = aws_alb_target_group.internal_alb_target_group.arn
+    type             = "forward"
+  }
+}
+
+/*====
 ECR repository to store our Docker images
 ======*/
 resource "aws_ecr_repository" "docker_http_app" {
@@ -198,6 +304,7 @@ data "template_file" "docker_http_app_task" {
     database_username = var.database_username
     database_password = var.database_password
     third_party_ping_url = var.third_party_ping_url
+    third_party_proxy_url = var.third_party_proxy_url
     log_group       = aws_cloudwatch_log_group.docker_http_app.name
     ssh_public_key  = var.ssh_public_key
     app_openapi_url = var.app_openapi_url

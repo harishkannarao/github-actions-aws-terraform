@@ -47,6 +47,10 @@
           "value": "${third_party_ping_url}"
         },
         {
+          "name": "THIRDPARTY_PROXY_URL",
+          "value": "${third_party_proxy_url}"
+        },
+        {
           "name": "SSH_PUBLIC_KEY",
           "value": "${ssh_public_key}"
         },
