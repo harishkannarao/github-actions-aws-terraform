@@ -304,7 +304,7 @@ data "template_file" "docker_http_app_task" {
     database_username = var.database_username
     database_password = var.database_password
     third_party_ping_url = var.third_party_ping_url
-    third_party_proxy_url = "${aws_alb.private_alb.dns_name}"
+    third_party_proxy_url = "https://${aws_alb.private_alb.dns_name}"
     log_group       = aws_cloudwatch_log_group.docker_http_app.name
     ssh_public_key  = var.ssh_public_key
     app_openapi_url = var.app_openapi_url
