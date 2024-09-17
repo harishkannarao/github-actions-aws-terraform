@@ -258,7 +258,7 @@ resource "aws_alb_listener" "private_alb_listener" {
 }
 
 resource "aws_alb_listener" "private_alb_listener_ssl" {
-  load_balancer_arn = aws_alb.private.arn
+  load_balancer_arn = aws_alb.private_alb.arn
   port              = "443"
   protocol          = "HTTPS"
   depends_on        = [aws_alb_target_group.private_alb_target_group]
