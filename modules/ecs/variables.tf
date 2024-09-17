@@ -64,10 +64,6 @@ variable "third_party_ping_url" {
   description = "The third party url to ping"
 }
 
-variable "third_party_proxy_url" {
-  description = "The third party proxy url to get"
-}
-
 variable "ssh_public_key" {
   description = "SSH public key for Fargate containers"
 }
