@@ -165,11 +165,11 @@ resource "aws_alb_listener" "docker_http_app_ssl" {
 }
 
 /*====
-Internal App Load Balancer
+Private App Load Balancer
 ======*/
 
-resource "aws_alb_target_group" "internal_alb_target_group" {
-  name     = "internal-${var.environment}-atg"
+resource "aws_alb_target_group" "private_alb_target_group" {
+  name     = "private-${var.environment}-atg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
@@ -190,9 +190,9 @@ resource "aws_alb_target_group" "internal_alb_target_group" {
   }
 }
 
-/* security group for internal ALB */
-resource "aws_security_group" "internal_inbound_sg" {
-  name        = "internal-${var.environment}-inbound-sg"
+/* security group for private ALB */
+resource "aws_security_group" "private_inbound_sg" {
+  name        = "private-${var.environment}-inbound-sg"
   description = "Allow HTTP from Anywhere into private ALB"
   vpc_id      = var.vpc_id
 
@@ -225,26 +225,26 @@ resource "aws_security_group" "internal_inbound_sg" {
   }
 
   tags = {
-    Name = "internal-${var.environment}-inbound-sg"
+    Name = "private-${var.environment}-inbound-sg"
   }
 }
 
-resource "aws_alb" "internal_alb" {
-  name            = "internal-${var.environment}-alb"
+resource "aws_alb" "private_alb" {
+  name            = "private-${var.environment}-alb"
   subnets         = flatten(var.subnets_ids)
-  security_groups = flatten([var.security_groups_ids, aws_security_group.internal_inbound_sg.id, aws_security_group.docker_http_app_ecs_service.id])
+  security_groups = flatten([var.security_groups_ids, aws_security_group.private_inbound_sg.id, aws_security_group.docker_http_app_ecs_service.id])
 
   tags = {
-    Name        = "internal-${var.environment}-alb"
+    Name        = "private-${var.environment}-alb"
     Environment = var.environment
   }
 }
 
-resource "aws_alb_listener" "internal_alb_listener" {
-  load_balancer_arn = aws_alb.internal_alb.arn
+resource "aws_alb_listener" "private_alb_listener" {
+  load_balancer_arn = aws_alb.private_alb.arn
   port              = "80"
   protocol          = "HTTP"
-  depends_on        = [aws_alb_target_group.internal_alb_target_group]
+  depends_on        = [aws_alb_target_group.private_alb_target_group]
 
   default_action {
     type = "redirect"
@@ -257,15 +257,15 @@ resource "aws_alb_listener" "internal_alb_listener" {
   }
 }
 
-resource "aws_alb_listener" "internal_alb_listener_ssl" {
-  load_balancer_arn = aws_alb.internal_alb.arn
+resource "aws_alb_listener" "private_alb_listener_ssl" {
+  load_balancer_arn = aws_alb.private.arn
   port              = "443"
   protocol          = "HTTPS"
-  depends_on        = [aws_alb_target_group.internal_alb_target_group]
+  depends_on        = [aws_alb_target_group.private_alb_target_group]
   certificate_arn   = data.aws_acm_certificate.default.arn
 
   default_action {
-    target_group_arn = aws_alb_target_group.internal_alb_target_group.arn
+    target_group_arn = aws_alb_target_group.private_alb_target_group.arn
     type             = "forward"
   }
 }

@@ -22,12 +22,12 @@ output "alb_zone_id" {
   value = aws_alb.docker_http_app.zone_id
 }
 
-output "internal_alb_dns_name" {
-  value = aws_alb.internal_alb.dns_name
+output "private_alb_dns_name" {
+  value = aws_alb.private_alb.dns_name
 }
 
-output "internal_alb_zone_id" {
-  value = aws_alb.internal_alb.zone_id
+output "private_alb_zone_id" {
+  value = aws_alb.private_alb.zone_id
 }
 
 output "security_group_id" {

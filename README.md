@@ -259,9 +259,9 @@ Get `ALB public dns domain`
 
     aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" /dev/stdout | jq -r '.outputs["alb-dns-name"].value' | grep -E '\S' | grep -v 'null'
 
-Get `ALB internal dns domain`
+Get `ALB private dns domain`
 
-    aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" /dev/stdout | jq -r '.outputs["internal-alb-dns-name"].value' | grep -E '\S' | grep -v 'null'
+    aws s3api get-object --bucket "github-actions-ci" --key "terraform-development.tfstate" /dev/stdout | jq -r '.outputs["private-alb-dns-name"].value' | grep -E '\S' | grep -v 'null'
 
 Get `Cloudfront public dns domain`
 
@@ -270,7 +270,7 @@ Get `Cloudfront public dns domain`
 Setup `cname` with domain registrar as:
 
 * cname: `docker-http-app-development` pointing to: `ALB public dns domain`
-* cname: `internal-development` pointing to: `ALB internal dns domain`
+* cname: `private-development` pointing to: `ALB private dns domain`
 * cname: `http-web-development` pointing to: `Cloudfront public dns domain`
 
 ### Deploy sample http API using Application Pipeline
@@ -493,7 +493,5 @@ The following items can be improved or optimised to reduce AWS cost per environm
 
 
 ## Further things to explore
-
-* Internal ALB in private Subnets for internal services
 
 * Try to terminate the SSL at container level using nginx to ensure end to end encryption
