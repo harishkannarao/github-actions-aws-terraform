@@ -232,6 +232,7 @@ resource "aws_security_group" "private_inbound_sg" {
 resource "aws_alb" "private_alb" {
   name            = "private-${var.environment}-alb"
   subnets         = flatten(var.subnets_ids)
+  internal        = true
   security_groups = flatten([var.security_groups_ids, aws_security_group.private_inbound_sg.id])
 
   tags = {
@@ -265,8 +266,13 @@ resource "aws_alb_listener" "private_alb_listener_ssl" {
   certificate_arn   = data.aws_acm_certificate.default.arn
 
   default_action {
-    target_group_arn = aws_alb_target_group.private_alb_target_group.arn
-    type             = "forward"
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Success!!!"
+      status_code  = "200"
+    }
   }
 }
 
