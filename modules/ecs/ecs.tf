@@ -126,7 +126,7 @@ resource "aws_security_group" "docker_http_app_inbound_sg" {
 resource "aws_alb" "docker_http_app" {
   name            = "${var.application_name}-${var.environment}-alb"
   subnets         = flatten(var.public_subnet_ids)
-  security_groups = flatten([var.security_groups_ids, aws_security_group.docker_http_app_inbound_sg.id, aws_security_group.docker_http_app_ecs_service.id])
+  security_groups = flatten([var.security_groups_ids, aws_security_group.docker_http_app_inbound_sg.id])
 
   tags = {
     Name        = "${var.application_name}-${var.environment}-alb"
@@ -232,7 +232,7 @@ resource "aws_security_group" "private_inbound_sg" {
 resource "aws_alb" "private_alb" {
   name            = "private-${var.environment}-alb"
   subnets         = flatten(var.subnets_ids)
-  security_groups = flatten([var.security_groups_ids, aws_security_group.private_inbound_sg.id, aws_security_group.docker_http_app_ecs_service.id])
+  security_groups = flatten([var.security_groups_ids, aws_security_group.private_inbound_sg.id])
 
   tags = {
     Name        = "private-${var.environment}-alb"
@@ -366,7 +366,7 @@ resource "aws_ecs_service" "docker_http_app" {
   depends_on      = [aws_iam_role_policy.docker_http_app_ecs_service_role_policy, aws_alb_target_group.docker_http_app_alb_target_group]
 
   network_configuration {
-    security_groups = flatten([var.security_groups_ids, aws_security_group.docker_http_app_ecs_service.id])
+    security_groups = flatten([var.security_groups_ids, aws_security_group.docker_http_app_inbound_sg.id, aws_security_group.private_inbound_sg.id, aws_security_group.docker_http_app_ecs_service.id])
     subnets         = flatten(var.subnets_ids)
   }
 
