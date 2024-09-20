@@ -15,7 +15,7 @@ module "ecs" {
   database_name       = var.database_name
   database_username   = var.database_username
   database_password   = var.database_password
-  repository_name     = "${var.application_name}/${var.environment}"
+  ecr_repository_url  = module.ecr.repository_url
   third_party_ping_url = var.third_party_ping_url
   third_party_proxy_url = var.third_party_proxy_url
   image_tag           = var.image_tag

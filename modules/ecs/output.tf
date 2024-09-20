@@ -1,11 +1,3 @@
-output "registry_id" {
-  value = aws_ecr_repository.docker_http_app.registry_id
-}
-
-output "repository_url" {
-  value = aws_ecr_repository.docker_http_app.repository_url
-}
-
 output "cluster_name" {
   value = aws_ecs_cluster.docker_http_app_cluster.name
 }

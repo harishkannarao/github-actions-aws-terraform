@@ -56,8 +56,8 @@ variable "database_name" {
   description = "The database that the app will use"
 }
 
-variable "repository_name" {
-  description = "The name of the repisitory"
+variable "ecr_repository_url" {
+  description = "The ecr repository url to pull docker image"
 }
 
 variable "third_party_ping_url" {

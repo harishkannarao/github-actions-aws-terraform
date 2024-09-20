@@ -277,18 +277,6 @@ resource "aws_alb_listener" "private_alb_listener_ssl" {
 }
 
 /*====
-ECR repository to store our Docker images
-======*/
-resource "aws_ecr_repository" "docker_http_app" {
-  name = var.repository_name
-}
-
-resource "aws_ecr_lifecycle_policy" "docker_http_app_policy" {
-  repository = aws_ecr_repository.docker_http_app.name
-  policy = file("${path.module}/policies/ecr-lifecycle-policy.json")
-}
-
-/*====
 ECS cluster
 ======*/
 resource "aws_ecs_cluster" "docker_http_app_cluster" {
@@ -304,7 +292,7 @@ data "template_file" "docker_http_app_task" {
   template = file("${path.module}/tasks/docker_http_app_task_definition.json")
 
   vars = {
-    image           = "${aws_ecr_repository.docker_http_app.repository_url}:${var.image_tag}"
+    image           = "${var.ecr_repository_url}:${var.image_tag}"
     region          = var.region
     database_url    = "jdbc:postgresql://${var.database_endpoint}:5432/${var.database_name}"
     database_username = var.database_username
