@@ -7,11 +7,11 @@ output "ecr-repository-url" {
 }
 
 output "alb-dns-name" {
-  value = module.ecs.alb_dns_name
+  value = module.alb.alb_dns_name
 }
 
 output "private-alb-dns-name" {
-  value = module.ecs.private_alb_dns_name
+  value = module.alb.private_alb_dns_name
 }
 
 output "alarm_topic_arn" {

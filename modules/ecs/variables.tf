@@ -6,10 +6,6 @@ variable "application_name" {
   description = "Application Name"
 }
 
-variable "acm_cert_domain" {
-  description = "The domain name used in AWS Certificate Manager"
-}
-
 variable "min_capacity" {
   description = "Mininum number of nodes"
 }
@@ -34,10 +30,6 @@ variable "security_groups_ids" {
 
 variable "subnets_ids" {
   description = "The private subnets to use"
-}
-
-variable "public_subnet_ids" {
-  description = "The public subnets to use"
 }
 
 variable "database_endpoint" {
@@ -82,4 +74,8 @@ variable "app_cors_origins" {
 
 variable "app_openapi_url" {
   description = "Comma separated values of permittied origins allowed for CORS"
+}
+
+variable "public_alb_default_target_group_arn" {
+  description = "Public ALB default target group arn for load balancing"
 }

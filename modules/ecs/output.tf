@@ -6,28 +6,8 @@ output "service_name" {
   value = aws_ecs_service.docker_http_app.name
 }
 
-output "alb_dns_name" {
-  value = aws_alb.docker_http_app.dns_name
-}
-
-output "alb_zone_id" {
-  value = aws_alb.docker_http_app.zone_id
-}
-
-output "private_alb_dns_name" {
-  value = aws_alb.private_alb.dns_name
-}
-
-output "private_alb_zone_id" {
-  value = aws_alb.private_alb.zone_id
-}
-
 output "security_group_id" {
   value = aws_security_group.docker_http_app_ecs_service.id
-}
-
-output "app_inbound_security_group_id" {
-  value = aws_security_group.docker_http_app_inbound_sg.id
 }
 
 output "application_log_group_name" {
