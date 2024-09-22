@@ -15,7 +15,7 @@ module "ecs" {
   database_endpoint   = module.postgres-rds.rds_address
   database_name       = var.database_name
   database_username   = var.database_username
-  database_password   = var.database_password
+  database_password   = module.postgres-rds.rds_database_password
   ecr_repository_url  = module.ecr.repository_url
   third_party_ping_url = var.third_party_ping_url
   third_party_proxy_url = var.third_party_proxy_url

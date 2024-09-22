@@ -35,7 +35,3 @@ variable "database_name" {
 variable "database_username" {
   description = "The username of the database"
 }
-
-variable "database_password" {
-  description = "The password of the database"
-}

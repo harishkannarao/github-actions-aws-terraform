@@ -33,9 +33,6 @@ jobs:
       timeout-minutes: 20
       env:
         ENV_NAME: 'development'
-        TF_VAR_database_name: ${{ secrets.DatabaseNameDevelopment }}
-        TF_VAR_database_username: ${{ secrets.DatabaseUserDevelopment }}    
-        TF_VAR_database_password: ${{ secrets.DatabasePasswordDevelopment }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AwsAccessKeyId }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AwsSecretAccessKey }}
         AWS_DEFAULT_REGION: 'eu-west-2'

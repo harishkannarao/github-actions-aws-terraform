@@ -58,6 +58,29 @@ resource "aws_security_group" "rds_sg" {
   }
 }
 
+resource "random_password" "random_rds_password"{
+  length           = 16
+  special          = true
+  override_special = "_!%^"
+}
+
+resource "aws_secretsmanager_secret" "rds_password" {
+  name = "${var.environment}-rdb-db-password"
+}
+
+resource "aws_secretsmanager_secret_version" "rds_password_version" {
+  secret_id = aws_secretsmanager_secret.rds_password.id
+  secret_string = random_password.random_rds_password.result
+}
+
+data "aws_secretsmanager_secret" "rds_password_data" {
+  name = "${var.environment}-rdb-db-password"
+}
+
+data "aws_secretsmanager_secret_version" "rds_password_version" {
+  secret_id = data.aws_secretsmanager_secret.rds_password_data
+}
+
 resource "aws_db_instance" "rds" {
   identifier             = "${var.environment}-database"
   allocated_storage      = var.allocated_storage
@@ -67,8 +90,9 @@ resource "aws_db_instance" "rds" {
   multi_az               = var.multi_az
   db_name                = var.database_name
   username               = var.database_username
-  password               = var.database_password
+  password               = data.aws_secretsmanager_secret_version.rds_password_version
   db_subnet_group_name   = aws_db_subnet_group.rds_subnet_group.id
+  depends_on             = [aws_secretsmanager_secret_version.rds_password_version]
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
   skip_final_snapshot    = true
 #   snapshot_identifier    = "rds-${var.environment}-snapshot"
