@@ -4,10 +4,6 @@
 
     aws rds describe-db-instances --db-instance-identifier development-database | jq -r '.DBInstances[].Endpoint.Address'
 
-## Get RDS DB Secret
-
-    aws secretsmanager get-secret-value --secret-id development-rdb-db-password --query SecretString --output text
-
 ## Get bastions public ips
 
     aws ec2 describe-instances --filters "Name=tag:Type,Values=development-bastion" | jq -r '.Reservations[].Instances[].PublicIpAddress' | grep -E '\S' | grep -v 'null'
@@ -26,4 +22,4 @@ Example:
 
 ## Connect with psql client or any DB client from local machine
 
-    export PGPASSWORD={password_from_aws_secret} && psql -h localhost -p 5432 -d development_db -U development_db_user
+    export PGPASSWORD=development_db_password && psql -h localhost -p 5432 -d development_db -U development_db_user

@@ -146,6 +146,10 @@ Create a SSH key pair per environment as described below:
 
 [AWS SSH Key Pair Setup](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_ssh_key_pair_setup.md)
 
+Create a Secret to store db password per environment as described below:
+
+[AWS DB secret password Setup](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_db_secret_password_setup.md)
+
 ### One-off GitHub Actions Environment setup
 
 Add the following valuesto the GitHub secrets of the repository at
@@ -167,6 +171,9 @@ Add the following valuesto the GitHub secrets of the repository at
 Delete SSH Key Pair generated for the environment as described below:
 
 [AWS SSH Key Pair Teardown](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_ssh_key_pair_teardown.md)
+
+Delete AWS DB Secret Password for the environment as described below:
+[AWS DB Secret Password Teardown](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_db_secret_password_teardown.md)
 
 
 ### One-off GitHub Actions Environment tear down

@@ -11,5 +11,5 @@ output "rds_database_identifier" {
 }
 
 output "rds_database_password" {
-  value = data.aws_secretsmanager_secret_version.rds_password_version
+  value = data.aws_secretsmanager_secret_version.rds_password_version.secret_string
 }
