@@ -46,10 +46,6 @@ variable "database_username" {
   description = "The username for the database"
 }
 
-variable "database_password" {
-  description = "The user password for the database"
-}
-
 variable "database_multi_az" {
   description = "The user password for the database"
 }
