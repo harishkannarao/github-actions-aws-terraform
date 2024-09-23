@@ -150,18 +150,6 @@ Create a Secret to store db password per environment as described below:
 
 [AWS DB secret password Setup](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_db_secret_password_setup.md)
 
-### One-off GitHub Actions Environment setup
-
-Add the following valuesto the GitHub secrets of the repository at
-
-[Github Secrets](https://github.com/harishkannarao/github-actions-aws-terraform/settings/secrets)
-
-| Secret Key | Secret Value |
-|---|---|
-| DatabaseNameDevelopment | development_db |
-| DatabaseUserDevelopment | development_db_user |
-| DatabasePasswordDevelopment | development_db_password |
-
 
 ## Teardown
 
@@ -175,18 +163,6 @@ Delete SSH Key Pair generated for the environment as described below:
 Delete AWS DB Secret Password for the environment as described below:
 [AWS DB Secret Password Teardown](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_db_secret_password_teardown.md)
 
-
-### One-off GitHub Actions Environment tear down
-
-Delete the following secret keys from
-
-[Github Secrets](https://github.com/harishkannarao/github-actions-aws-terraform/settings/secrets)
-
-**Keys:**
-
-* DatabaseNameDevelopment
-* DatabaseUserDevelopment
-* DatabasePasswordDevelopment
 
 ### One-off GitHub Actions tear down
 
