@@ -1,0 +1,39 @@
+[
+    {
+      "name": "spring-security-rest-api",
+      "image": "${image}",
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
+        },
+        {
+          "containerPort": 10006,
+          "hostPort": 10006
+        },
+        {
+          "containerPort": 22,
+          "hostPort": 22
+        }
+      ],
+      "networkMode": "awsvpc",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${log_group}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "spring-security-rest-api"
+        }
+      },
+      "environment": [
+        {
+          "name": "SERVER_PORT",
+          "value": "80"
+        },
+        {
+          "name": "SSH_PUBLIC_KEY",
+          "value": "${ssh_public_key}"
+        }
+      ]
+    }
+  ]
