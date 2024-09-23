@@ -118,7 +118,7 @@ Private App Load Balancer
 ======*/
 
 resource "aws_alb_target_group" "springboot_security_rest_api_target_group" {
-  name     = "${var.application_name}-${var.environment}-sb-security-rest-api-tg"
+  name     = "${var.environment}-sb-sec-rest-tg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
