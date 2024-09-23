@@ -117,6 +117,28 @@ resource "aws_alb_listener" "docker_http_app_ssl" {
 Private App Load Balancer
 ======*/
 
+resource "aws_alb_target_group" "springboot_security_rest_api_target_group" {
+  name     = "${var.application_name}-${var.environment}-sb-security-rest-api-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+  target_type = "ip"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  health_check {    
+    healthy_threshold   = 3    
+    unhealthy_threshold = 3    
+    timeout             = 5    
+    interval            = 30    
+    path                = "/health-check"    
+    protocol            = "HTTP"
+    matcher             = "200-299"  
+  }
+}
+
 resource "aws_alb_target_group" "private_alb_target_group" {
   name     = "private-${var.environment}-atg"
   port     = 80
@@ -221,6 +243,22 @@ resource "aws_alb_listener" "private_alb_listener_ssl" {
       content_type = "text/plain"
       message_body = "Success!!!"
       status_code  = "200"
+    }
+  }
+}
+
+resource "aws_alb_listener_rule" "spring_boot_security_rest_api_listener_rule" {
+  listener_arn = aws_alb_listener.private_alb_listener_ssl.arn
+  priority     = 10
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.springboot_security_rest_api_target_group.arn
+  }
+
+  condition {
+    path_pattern {
+      values = ["/spring-security-rest-api/*"]
     }
   }
 }
