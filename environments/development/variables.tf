@@ -81,3 +81,11 @@ variable "www_domain_name" {
 variable "www_cloudfront_alias" {
   description = "Cloudfront alias"
 }
+
+variable "secruity_rest_api_app_name" {
+  description = "Name for Spring Boot Security Rest API"
+}
+
+variable "secruity_rest_api_image_tag" {
+  description = "Image tag for Spring Boot Security Rest API"
+}

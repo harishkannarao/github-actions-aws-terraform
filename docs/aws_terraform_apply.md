@@ -18,7 +18,7 @@
 
 ## Preview the resourced to be created/updated/destroyed
 
-    terraform -chdir=environments/$ENV_NAME plan -detailed-exitcode -input=false -var-file="../../variables/$ENV_NAME.tfvars"
+    terraform -chdir=environments/$ENV_NAME plan -input=false -var-file="../../variables/$ENV_NAME.tfvars"
 
 ## Apply terraform changes in AWS
 

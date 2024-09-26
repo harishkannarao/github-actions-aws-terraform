@@ -7,6 +7,9 @@ module "bastion" {
   security_groups_ids = [
     module.vpc.security_groups_ids,
     module.postgres-rds.db_access_sg_id,
-    module.ecs.security_group_id
+    module.ecs.security_group_id,
+    module.ecs-spring-security-rest-api.security_group_id,
+    module.alb.public_alb_security_group_id,
+    module.alb.private_alb_security_group_id
   ]
 }

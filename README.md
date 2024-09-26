@@ -297,6 +297,44 @@ After successful run, the application will be accessible at:
 
     https://docker-http-app-development.harishkannarao.com/swagger-ui/index.html?configUrl=/api-docs/swagger-config
 
+### Deploy a private http API using Application Pipeline
+
+Open Source Spring Boot Security Rest API Application at Github
+
+* [spring-security-rest-api](https://github.com/harishkannarao/spring-security-rest-api)
+* [CI Configuration](https://github.com/harishkannarao/spring-security-rest-api/blob/main/.github/workflows/CI-deploy-main-to-aws-development.yml)
+* [Building Docker Image](https://github.com/harishkannarao/spring-security-rest-api/blob/main/ci-build-docker.sh)
+* [Push Docker Image and Update ECS Service](https://github.com/harishkannarao/spring-security-rest-api/blob/main/ci-push-docker.sh)
+
+#### Trigger through UI
+
+    https://github.com/harishkannarao/spring-security-rest-api/blob/main/.github/workflows/CI-deploy-main-to-aws-development.yml
+
+Click Run Workflow on main branch
+
+#### Trigger through command line
+
+Generate github personal access token with `repo` scope at
+
+[Generate Github Personal Token](https://github.com/settings/tokens)
+
+    export GITHUB_PERSONAL_ACCESS_TOKEN=<<your_personal_token>>
+
+    curl -v -H "Accept: application/vnd.github.everest-preview+json" \
+    -H "Authorization: token $GITHUB_PERSONAL_ACCESS_TOKEN" \
+    --request POST \
+    --data '{"event_type": "do-deploy-main-to-aws-development"}' \
+    'https://api.github.com/repos/harishkannarao/spring-security-rest-api/dispatches'
+
+#### View the running pipeline at:
+
+[Application Pipeline](https://github.com/harishkannarao/spring-security-rest-api/actions)
+
+After successful run, the application will be accessible at:
+
+    https://private-development.harishkannarao.com/spring-security-rest-api/general-data
+
+Note: Since this is a private API, it cannot be accessed from outside the VPC. We should SSH to bastion or create local port forwarding tunnel to access this private api
 
 ### Deploy sample frontent web application using Application Pipeline
 
