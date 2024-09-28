@@ -1,4 +1,4 @@
 module "ecr" {
   source              = "../../modules/ecr"
-  repository_name     = "${var.application_name}/${var.environment}"
+  repository_name     = var.environment
 }
