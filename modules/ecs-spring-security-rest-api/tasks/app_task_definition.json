@@ -1,6 +1,6 @@
 [
     {
-      "name": "spring-security-rest-api",
+      "name": "${name}",
       "image": "${image}",
       "portMappings": [
         {
@@ -22,7 +22,7 @@
         "options": {
           "awslogs-group": "${log_group}",
           "awslogs-region": "${region}",
-          "awslogs-stream-prefix": "spring-security-rest-api"
+          "awslogs-stream-prefix": "${name}"
         }
       },
       "environment": [
