@@ -62,21 +62,14 @@ ECS task definitions
 
 /* the task definition for the docker_http_app service */
 data "template_file" "docker_http_app_task" {
-  template = file("${path.module}/tasks/docker_http_app_task_definition.json")
+  template = file("${path.module}/tasks/app_task_definition.json")
 
   vars = {
     name                  = var.application_name
     image                 = "${var.ecr_repository_url}:${var.image_tag}"
     region                = var.region
-    database_url          = "jdbc:postgresql://${var.database_endpoint}:5432/${var.database_name}"
-    database_username     = var.database_username
-    database_password     = var.database_password
-    third_party_ping_url  = var.third_party_ping_url
-    third_party_proxy_url = var.third_party_proxy_url
     log_group             = aws_cloudwatch_log_group.docker_http_app.name
-    ssh_public_key        = var.ssh_public_key
-    app_openapi_url       = var.app_openapi_url
-    app_cors_origins      = var.app_cors_origins
+    env_vars = jsonencode(var.env_vars)
   }
 }
 

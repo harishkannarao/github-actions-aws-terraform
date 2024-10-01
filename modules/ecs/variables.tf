@@ -32,50 +32,18 @@ variable "subnets_ids" {
   description = "The private subnets to use"
 }
 
-variable "database_endpoint" {
-  description = "The database endpoint"
-}
-
-variable "database_username" {
-  description = "The database username"
-}
-
-variable "database_password" {
-  description = "The database password"
-}
-
-variable "database_name" {
-  description = "The database that the app will use"
-}
-
 variable "ecr_repository_url" {
   description = "The ecr repository url to pull docker image"
-}
-
-variable "third_party_ping_url" {
-  description = "The third party url to ping"
-}
-
-variable "third_party_proxy_url" {
-  description = "The third party proxy url to get"
-}
-
-variable "ssh_public_key" {
-  description = "SSH public key for Fargate containers"
 }
 
 variable "log_retention_in_days" {
   description = "No of days to retain logs"
 }
 
-variable "app_cors_origins" {
-  description = "Comma separated values of permittied origins allowed for CORS"
-}
-
-variable "app_openapi_url" {
-  description = "Comma separated values of permittied origins allowed for CORS"
-}
-
 variable "public_alb_default_target_group_arn" {
   description = "Public ALB default target group arn for load balancing"
+}
+
+variable "env_vars" {
+  description = "Environment Variables to be passed to the docker container"
 }
