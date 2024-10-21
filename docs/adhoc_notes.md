@@ -2,7 +2,7 @@
 
 ### Run aws and terraform in docker
 
-    cd $HOME/professional/learning
+    cd $HOME//Users/harishkannarao/Professional/Learningss
 
     git clone git@github.com:harishkannarao/aws_cli_docker.git
 
@@ -18,7 +18,7 @@
     -e "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_TERRAFORM" \
     -e "AWS_DEFAULT_REGION=eu-west-2" \
     -e "AWS_DEFAULT_OUTPUT=json" \
-    -v $HOME/professional/learning/github-actions-aws-terraform:/github-actions-aws-terraform \
+    -v $HOME/Professional/Learnings/github-actions-aws-terraform:/github-actions-aws-terraform \
     harishkannarao/awscli:latest /bin/bash
 
     cd /github-actions-aws-terraform/
