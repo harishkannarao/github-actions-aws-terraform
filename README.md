@@ -1,6 +1,6 @@
 # Github Actions + AWS + Terraform
 
-Repository to demonstrate Infrastructur-As-Code using:
+Repository to demonstrate Infrastructure-As-Code using:
 
 * Github Actions Pipelines
 * AWS
@@ -14,9 +14,9 @@ Please read my blog to know about the background and purpose of this sample repo
 
 # AWS Cost Warning
 
-Provisioning cloud resources in AWS will incur cost. Please teardown the cloud resources once the usage is completed.
+Provisioning cloud resources in AWS will incur cost. Please tear down the cloud resources once the usage is completed.
 
-It is advisable to setup billing alerts or billing threshold in AWS account as a reminder to teardown of cloud resources. This will avoid incurring significant bills.
+It is advisable to setup billing alerts or billing threshold in AWS account as a reminder to tear down of cloud resources. This will avoid incurring significant bills.
 
 
 # Highlights / Achievements
