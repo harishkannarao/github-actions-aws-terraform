@@ -1,10 +1,16 @@
-variable "www_domain_name" {
+variable "s3_www_origin_id" {
+}
+
+variable "s3_www_beta_origin_id" {
 }
 
 variable "www_cloudfront_alias" {
 }
 
 variable "s3_www_website_endpoint" {
+}
+
+variable "s3_www_beta_website_endpoint" {
 }
 
 variable "acm_cert_domain" {
