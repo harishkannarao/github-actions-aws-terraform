@@ -14,31 +14,12 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-resource "aws_security_group" "bastion-sg" {
-  name   = "bastion-security-group-${var.environment}"
-  vpc_id = var.vpc_id
-
-  ingress {
-    protocol    = "tcp"
-    from_port   = 22
-    to_port     = 22
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    protocol    = -1
-    from_port   = 0 
-    to_port     = 0 
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 resource "aws_launch_configuration" "bastion_launch_configuration" {
   name = "${var.environment}-bastion-launch-configuration"
   image_id = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   user_data = file("${path.module}/bastion_setup.sh")
-  security_groups = flatten([var.security_groups_ids, aws_security_group.bastion-sg.id])
+  security_groups = var.security_groups_ids
   key_name = var.ssh_key_pair_name
   associate_public_ip_address = true
   
