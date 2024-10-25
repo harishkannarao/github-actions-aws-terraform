@@ -371,6 +371,34 @@ After successful run, the application will be accessible at:
 
     https://http-web-development.harishkannarao.com
 
+#### Trigger beta deployment through UI
+
+    https://github.com/harishkannarao/react-nextjs-rest-api/actions/workflows/CI-deploy-main-beta-to-aws-development.yml
+
+Click Run Workflow on master branch
+
+#### Trigger beta deployment through command line
+
+Generate github personal access token with `repo` scope at
+
+[Generate Github Personal Token](https://github.com/settings/tokens)
+
+    export GITHUB_PERSONAL_ACCESS_TOKEN=<<your_personal_token>>
+
+    curl -v -H "Accept: application/vnd.github.everest-preview+json" \
+    -H "Authorization: token $GITHUB_PERSONAL_ACCESS_TOKEN" \
+    --request POST \
+    --data '{"event_type": "do-deploy-main-beta-to-aws-development"}' \
+    'https://api.github.com/repos/harishkannarao/react-nextjs-rest-api/dispatches'
+
+#### View the running pipeline at:
+
+[Application Pipeline](https://github.com/harishkannarao/react-nextjs-rest-api/actions)
+
+After successful run, the application will be accessible at:
+
+    https://http-web-development.harishkannarao.com/beta/
+
 
 ## Destroying environment
 
