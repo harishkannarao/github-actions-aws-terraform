@@ -134,7 +134,7 @@ resource "aws_ecs_service" "docker_http_app" {
   }
 
   load_balancer {
-    target_group_arn = var.public_alb_default_target_group_arn
+    target_group_arn = var.alb_target_group_arn
     container_name   = var.application_name
     container_port   = "80"
   }
