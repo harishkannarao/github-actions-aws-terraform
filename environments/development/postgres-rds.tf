@@ -8,4 +8,7 @@ module "postgres-rds" {
   vpc_id            = module.vpc.vpc_id
   instance_class    = "db.t3.micro"
   multi_az          = var.database_multi_az
+  security_groups_ids = [
+    module.bastion.bastion_sg_id
+  ]
 }

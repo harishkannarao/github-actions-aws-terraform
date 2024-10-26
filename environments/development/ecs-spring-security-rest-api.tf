@@ -7,7 +7,8 @@ module "ecs-spring-security-rest-api" {
   region               = var.region
   vpc_id               = module.vpc.vpc_id
   security_groups_ids = [
-    module.alb.private_alb_security_group_id
+    module.alb.private_alb_security_group_id,
+    module.bastion.bastion_sg_id
   ]
   subnets_ids           = module.vpc.private_subnets_id
   ecr_repository_url    = module.ecr.repository_url

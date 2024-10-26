@@ -9,7 +9,8 @@ module "ecs" {
   security_groups_ids = [
     module.postgres-rds.db_access_sg_id,
     module.alb.public_alb_security_group_id,
-    module.alb.private_alb_security_group_id
+    module.alb.private_alb_security_group_id,
+    module.bastion.bastion_sg_id
   ]
   subnets_ids           = module.vpc.private_subnets_id
   ecr_repository_url    = module.ecr.repository_url

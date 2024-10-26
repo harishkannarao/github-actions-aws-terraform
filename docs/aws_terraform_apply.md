@@ -20,7 +20,7 @@
 
     terraform -chdir=environments/$ENV_NAME plan -input=false -var-file="../../variables/$ENV_NAME.tfvars"
 
-## Apply terraform changes in AWS
+## Apply changes in AWS
 
     terraform -chdir=environments/$ENV_NAME apply -auto-approve -input=false -var-file="../../variables/$ENV_NAME.tfvars"
 

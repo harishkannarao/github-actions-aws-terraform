@@ -35,3 +35,7 @@ variable "database_name" {
 variable "database_username" {
   description = "The username of the database"
 }
+
+variable "security_groups_ids" {
+  description = "The SGs to use"
+}

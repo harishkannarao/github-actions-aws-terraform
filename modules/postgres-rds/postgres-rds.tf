@@ -46,7 +46,7 @@ resource "aws_security_group" "rds_sg" {
       from_port = 5432
       to_port   = 5432
       protocol  = "tcp"
-      security_groups = [aws_security_group.db_access_sg.id]
+      security_groups = flatten([var.security_groups_ids, aws_security_group.db_access_sg.id])
   }
 
   // outbound internet access

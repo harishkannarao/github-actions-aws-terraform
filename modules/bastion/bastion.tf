@@ -1,3 +1,29 @@
+/* Security Group for Bastion */
+resource "aws_security_group" "bastion_sg" {
+  vpc_id      = var.vpc_id
+  name        = "bastion-${var.environment}-sg"
+  description = "Bastion sg"
+
+  egress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "bastion-${var.environment}-sg"
+    Environment = var.environment
+  }
+}
+
 data "aws_ami" "ubuntu" {
     most_recent = true
 
@@ -19,7 +45,7 @@ resource "aws_launch_configuration" "bastion_launch_configuration" {
   image_id = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   user_data = file("${path.module}/bastion_setup.sh")
-  security_groups = var.security_groups_ids
+  security_groups = flatten([var.security_groups_ids, aws_security_group.bastion_sg.id])
   key_name = var.ssh_key_pair_name
   associate_public_ip_address = true
   
