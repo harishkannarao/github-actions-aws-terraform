@@ -11,5 +11,6 @@ module "alb" {
   ]
   subnets_ids               = module.vpc.private_subnets_id
   public_subnet_ids         = module.vpc.public_subnets_id
+  public_alb_path_mappings = var.public_alb_path_mappings
   private_alb_path_mappings = var.private_alb_path_mappings
 }

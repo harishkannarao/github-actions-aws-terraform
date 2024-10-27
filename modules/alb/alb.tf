@@ -10,29 +10,6 @@ data "aws_acm_certificate" "default" {
 /*====
 Public App Load Balancer
 ======*/
-
-resource "aws_alb_target_group" "public_alb_default_target_group" {
-  name     = "public-${var.environment}-atg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
-  target_type = "ip"
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  health_check {    
-    healthy_threshold   = 3    
-    unhealthy_threshold = 3    
-    timeout             = 5    
-    interval            = 30    
-    path                = "/health-check"    
-    protocol            = "HTTP"
-    matcher             = "200-299"  
-  }
-}
-
 /* security group for public ALB */
 resource "aws_security_group" "public_alb_inbound_sg" {
   name        = "public-${var.environment}-inbound-sg"
@@ -110,6 +87,68 @@ resource "aws_alb_listener" "public_alb_listener_ssl" {
   default_action {
     target_group_arn = aws_alb_target_group.public_alb_default_target_group.arn
     type             = "forward"
+  }
+}
+
+resource "aws_alb_target_group" "public_alb_default_target_group" {
+  name     = "public-${var.environment}-atg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+  target_type = "ip"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  health_check {
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    timeout             = 5
+    interval            = 30
+    path                = "/health-check"
+    protocol            = "HTTP"
+    matcher             = "200-299"
+  }
+}
+
+resource "aws_alb_target_group" "public_alb_target_group_mapping" {
+  for_each = var.public_alb_path_mappings
+  name     = "${var.environment}-${each.key}"
+  port     = each.value.port
+  protocol = each.value.protocol
+  vpc_id   = var.vpc_id
+  target_type = "ip"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  health_check {
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    timeout             = 5
+    interval            = 30
+    path                = each.value.health_check_path
+    protocol            = each.value.protocol
+    matcher             = "200-299"
+  }
+}
+
+resource "aws_alb_listener_rule" "public_alb_listener_rule" {
+  for_each = var.public_alb_path_mappings
+  listener_arn = aws_alb_listener.public_alb_listener_ssl.arn
+  priority     = each.value.priority
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.public_alb_target_group_mapping[each.key].arn
+  }
+
+  condition {
+    path_pattern {
+      values = [each.value.path_pattern]
+    }
   }
 }
 

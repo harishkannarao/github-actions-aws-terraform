@@ -37,6 +37,7 @@ ssh_key_pair_name = "ssh-key-development"
 ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4UFSvLyIRKfAX+ha/v9jOMPph2ppCWs53pBC5I60sf6z5fjTYb8BKawYVMklQPbiWJ7NDL/CEFfQWEOP1XDYP9klqEHEpCcAfQSIQSMP/Q2KeqT8hq17DFGs8YMjAYGB+S+4kQnSipKvkjgDcshWTFAQF3pE1/lCbIf1ZVh48F8ZhKB1IjY1aLyXe1QHeRTUCWI2WbUrLP7SeSklCWMriN6gKWMoU+/oe3yFD6CLTz4vngK+B6qt6CCWyHi9wf1ATuAyzsaxCU2S3ITQmeXQNr/MJn1djIr+Ke3e/rvtHNMwXzFZuhsTAe6taa+AB+Lj4t5F4TzEf/e690f4bF8wP"
 database_name = "development_db"
 database_username = "development_db_user"
+public_alb_path_mappings = {}
 private_alb_path_mappings = {
     "sb-sec-rest" : {
         "priority" : 10,
