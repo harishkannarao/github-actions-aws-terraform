@@ -74,7 +74,7 @@ resource "aws_sns_topic" "alarm_topic" {
   delivery_policy = data.template_file.alarm_topic_source.rendered
 }
 
-resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_cpu_high" {
+resource "aws_cloudwatch_metric_alarm" "app_service_cpu_high" {
   alarm_name          = "${var.application_name}_${var.environment}_ecs_cpu_utilization_high_notification"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
@@ -93,7 +93,7 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_cpu_high" {
   ok_actions    = [aws_sns_topic.alarm_topic.arn]
 }
 
-resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_memory_high" {
+resource "aws_cloudwatch_metric_alarm" "app_service_memory_high" {
   alarm_name          = "${var.application_name}_${var.environment}_ecs_memory_utilization_high_notification"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "3"
@@ -112,7 +112,7 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_memory_high" {
   ok_actions    = [aws_sns_topic.alarm_topic.arn]
 }
 
-resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_task_count_low" {
+resource "aws_cloudwatch_metric_alarm" "app_service_task_count_low" {
   alarm_name          = "${var.application_name}_${var.environment}_ecs_task_count_low_notification"
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = "1"
@@ -131,7 +131,7 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_service_task_count_low" 
   ok_actions    = [aws_sns_topic.alarm_topic.arn]
 }
 
-resource "aws_cloudwatch_metric_alarm" "docker_http_app_rds_cpu_high" {
+resource "aws_cloudwatch_metric_alarm" "app_rds_cpu_high" {
   alarm_name          = "${var.application_name}_${var.environment}_rds_cpu_utilization_high_notification"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
@@ -149,7 +149,7 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_rds_cpu_high" {
   ok_actions    = [aws_sns_topic.alarm_topic.arn]
 }
 
-resource "aws_cloudwatch_metric_alarm" "docker_http_app_rds_storage_low" {
+resource "aws_cloudwatch_metric_alarm" "app_rds_storage_low" {
   alarm_name          = "${var.application_name}_${var.environment}_rds_storage_low_notification"
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = "1"
@@ -167,7 +167,7 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_rds_storage_low" {
   ok_actions    = [aws_sns_topic.alarm_topic.arn]
 }
 
-resource "aws_cloudwatch_metric_alarm" "docker_http_app_error_count_high" {
+resource "aws_cloudwatch_metric_alarm" "app_error_count_high" {
   alarm_name          = "${var.application_name}_${var.environment}_app_error_count_high_notification"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
@@ -183,7 +183,7 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_error_count_high" {
   insufficient_data_actions = [aws_sns_topic.alarm_topic.arn]
 }
 
-resource "aws_cloudwatch_metric_alarm" "docker_http_app_runtime_exception_count_high" {
+resource "aws_cloudwatch_metric_alarm" "app_runtime_exception_count_high" {
   alarm_name          = "${var.application_name}_${var.environment}_app_runtime_exception_count_high_notification"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
@@ -199,7 +199,7 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_runtime_exception_count_
   insufficient_data_actions = [aws_sns_topic.alarm_topic.arn]
 }
 
-resource "aws_cloudwatch_metric_alarm" "docker_http_app_slow_response_count_high" {
+resource "aws_cloudwatch_metric_alarm" "app_slow_response_count_high" {
   alarm_name          = "${var.application_name}_${var.environment}_app_slow_response_count_high_notification"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
@@ -215,7 +215,7 @@ resource "aws_cloudwatch_metric_alarm" "docker_http_app_slow_response_count_high
   insufficient_data_actions = [aws_sns_topic.alarm_topic.arn]
 }
 
-resource "aws_cloudwatch_metric_alarm" "docker_http_app_5XX_status_count_high" {
+resource "aws_cloudwatch_metric_alarm" "app_5XX_status_count_high" {
   alarm_name          = "${var.application_name}_${var.environment}_app_5XX_status_count_high_notification"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
