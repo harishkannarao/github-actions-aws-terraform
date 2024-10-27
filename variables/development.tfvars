@@ -43,6 +43,6 @@ private_alb_path_mappings = {
         "path_pattern" : "/spring-security-rest-api/*",
         "port" : 80,
         "protocol" : "HTTP",
-        "health_check_path" : "/spring-security-rest-api/health-check",
+        "health_check_path" : "/spring-security-rest-api/general-data",
     },
 }
