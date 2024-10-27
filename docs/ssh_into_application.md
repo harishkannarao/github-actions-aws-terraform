@@ -1,10 +1,14 @@
 # SSH into Application instance 
 
-## View all ecs tasks
+## View all ecs clusters
 
-    aws ecs list-tasks
+    aws ecs list-clusters
 
-## Get private IPs of running tasks in ECS
+## View all ecs services in a cluster
+
+    aws ecs list-services --cluster "docker-http-app-development-ecs-cluster"
+
+## Get private IPs of running tasks in an ECS Cluster by Service Name
 
     taskArns=$(aws ecs list-tasks --cluster "docker-http-app-development-ecs-cluster" --service-name "docker-http-app-development" | jq -r '.taskArns[]' | grep -E '\S' | tr '\n' ' ')
 
