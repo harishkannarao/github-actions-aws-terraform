@@ -89,3 +89,14 @@ variable "secruity_rest_api_app_name" {
 variable "secruity_rest_api_image_tag" {
   description = "Image tag for Spring Boot Security Rest API"
 }
+
+variable "private_alb_path_mappings" {
+  description = "Path mappings for private alb"
+  type = map(object({
+    priority          = number
+    path_pattern      = string
+    port              = number
+    protocol          = string
+    health_check_path = string
+  }))
+}

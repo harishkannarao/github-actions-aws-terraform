@@ -10,8 +10,10 @@ output "public_alb_default_target_group_arn" {
   value = aws_alb_target_group.docker_http_app_alb_target_group.arn
 }
 
-output "private_springboot_security_rest_api_target_group" {
-  value = aws_alb_target_group.springboot_security_rest_api_target_group.arn
+output "private_alb_target_group_map" {
+  value = {
+    for k, v in var.private_alb_path_mappings : k => aws_alb_target_group.private_alb_target_group_mapping[k].arn
+  }
 }
 
 output "alb_dns_name" {

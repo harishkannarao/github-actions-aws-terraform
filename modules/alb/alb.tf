@@ -116,51 +116,6 @@ resource "aws_alb_listener" "docker_http_app_ssl" {
 /*====
 Private App Load Balancer
 ======*/
-
-resource "aws_alb_target_group" "springboot_security_rest_api_target_group" {
-  name     = "${var.environment}-sb-sec-rest-tg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
-  target_type = "ip"
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  health_check {    
-    healthy_threshold   = 3    
-    unhealthy_threshold = 3    
-    timeout             = 5    
-    interval            = 30    
-    path                = "/health-check"    
-    protocol            = "HTTP"
-    matcher             = "200-299"  
-  }
-}
-
-resource "aws_alb_target_group" "private_alb_target_group" {
-  name     = "private-${var.environment}-atg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
-  target_type = "ip"
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  health_check {    
-    healthy_threshold   = 3    
-    unhealthy_threshold = 3    
-    timeout             = 5    
-    interval            = 30    
-    path                = "/health-check"    
-    protocol            = "HTTP"
-    matcher             = "200-299"  
-  }
-}
-
 /* security group for private ALB */
 resource "aws_security_group" "private_inbound_sg" {
   name        = "private-${var.environment}-inbound-sg"
@@ -216,7 +171,6 @@ resource "aws_alb_listener" "private_alb_listener" {
   load_balancer_arn = aws_alb.private_alb.arn
   port              = "80"
   protocol          = "HTTP"
-  depends_on        = [aws_alb_target_group.private_alb_target_group]
 
   default_action {
     type = "redirect"
@@ -233,7 +187,6 @@ resource "aws_alb_listener" "private_alb_listener_ssl" {
   load_balancer_arn = aws_alb.private_alb.arn
   port              = "443"
   protocol          = "HTTPS"
-  depends_on        = [aws_alb_target_group.private_alb_target_group]
   certificate_arn   = data.aws_acm_certificate.default.arn
 
   default_action {
@@ -247,18 +200,42 @@ resource "aws_alb_listener" "private_alb_listener_ssl" {
   }
 }
 
-resource "aws_alb_listener_rule" "spring_boot_security_rest_api_listener_rule" {
+resource "aws_alb_target_group" "private_alb_target_group_mapping" {
+  for_each = var.private_alb_path_mappings
+  name     = "${var.environment}-${each.key}"
+  port     = each.value.port
+  protocol = each.value.protocol
+  vpc_id   = var.vpc_id
+  target_type = "ip"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  health_check {
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+    timeout             = 5
+    interval            = 30
+    path                = each.value.health_check_path
+    protocol            = each.value.protocol
+    matcher             = "200-299"
+  }
+}
+
+resource "aws_alb_listener_rule" "private_alb_listener_rule" {
+  for_each = var.private_alb_path_mappings
   listener_arn = aws_alb_listener.private_alb_listener_ssl.arn
-  priority     = 10
+  priority     = each.value.priority
 
   action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.springboot_security_rest_api_target_group.arn
+    target_group_arn = aws_alb_target_group.private_alb_target_group_mapping[each.key].arn
   }
 
   condition {
     path_pattern {
-      values = ["/spring-security-rest-api/*"]
+      values = [each.value.path_pattern]
     }
   }
 }

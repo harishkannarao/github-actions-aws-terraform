@@ -29,3 +29,14 @@ variable "public_alb_security_groups_ids" {
 variable "private_alb_security_groups_ids" {
   description = "The SGs to use for private ALB"
 }
+
+variable "private_alb_path_mappings" {
+  description = "Path mappings for private alb"
+  type = map(object({
+    priority          = number
+    path_pattern      = string
+    port              = number
+    protocol          = string
+    health_check_path = string
+  }))
+}

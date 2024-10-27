@@ -2,7 +2,7 @@ module "ecs-spring-security-rest-api" {
   source               = "../../modules/ecs"
   application_name     = var.secruity_rest_api_app_name
   image_tag            = var.secruity_rest_api_image_tag
-  alb_target_group_arn = module.alb.private_springboot_security_rest_api_target_group
+  alb_target_group_arn = module.alb.private_alb_target_group_map["sb-sec-rest"]
   environment          = var.environment
   region               = var.region
   vpc_id               = module.vpc.vpc_id
