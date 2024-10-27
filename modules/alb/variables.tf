@@ -2,10 +2,6 @@ variable "environment" {
   description = "The environment"
 }
 
-variable "application_name" {
-  description = "Application Name"
-}
-
 variable "acm_cert_domain" {
   description = "The domain name used in AWS Certificate Manager"
 }

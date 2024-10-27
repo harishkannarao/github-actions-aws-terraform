@@ -1,6 +1,5 @@
 module "alb" {
   source           = "../../modules/alb"
-  application_name = var.application_name
   environment      = var.environment
   acm_cert_domain  = var.acm_cert_domain
   vpc_id           = module.vpc.vpc_id

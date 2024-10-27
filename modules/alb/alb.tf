@@ -11,8 +11,8 @@ data "aws_acm_certificate" "default" {
 Public App Load Balancer
 ======*/
 
-resource "aws_alb_target_group" "docker_http_app_alb_target_group" {
-  name     = "${var.application_name}-${var.environment}-atg"
+resource "aws_alb_target_group" "public_alb_default_target_group" {
+  name     = "public-${var.environment}-atg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
@@ -34,8 +34,8 @@ resource "aws_alb_target_group" "docker_http_app_alb_target_group" {
 }
 
 /* security group for public ALB */
-resource "aws_security_group" "docker_http_app_inbound_sg" {
-  name        = "${var.application_name}-${var.environment}-inbound-sg"
+resource "aws_security_group" "public_alb_inbound_sg" {
+  name        = "public-${var.environment}-inbound-sg"
   description = "Allow HTTP from Anywhere into public ALB"
   vpc_id      = var.vpc_id
 
@@ -68,26 +68,26 @@ resource "aws_security_group" "docker_http_app_inbound_sg" {
   }
 
   tags = {
-    Name = "${var.application_name}-${var.environment}-inbound-sg"
+    Name = "public-${var.environment}-inbound-sg"
   }
 }
 
-resource "aws_alb" "docker_http_app" {
-  name            = "${var.application_name}-${var.environment}-alb"
+resource "aws_alb" "public_alb" {
+  name            = "public-${var.environment}-alb"
   subnets         = flatten(var.public_subnet_ids)
-  security_groups = flatten([var.public_alb_security_groups_ids, aws_security_group.docker_http_app_inbound_sg.id])
+  security_groups = flatten([var.public_alb_security_groups_ids, aws_security_group.public_alb_inbound_sg.id])
 
   tags = {
-    Name        = "${var.application_name}-${var.environment}-alb"
+    Name        = "public-${var.environment}-alb"
     Environment = var.environment
   }
 }
 
-resource "aws_alb_listener" "docker_http_app" {
-  load_balancer_arn = aws_alb.docker_http_app.arn
+resource "aws_alb_listener" "public_alb_listener" {
+  load_balancer_arn = aws_alb.public_alb.arn
   port              = "80"
   protocol          = "HTTP"
-  depends_on        = [aws_alb_target_group.docker_http_app_alb_target_group]
+  depends_on        = [aws_alb_target_group.public_alb_default_target_group]
 
   default_action {
     type = "redirect"
@@ -100,15 +100,15 @@ resource "aws_alb_listener" "docker_http_app" {
   }
 }
 
-resource "aws_alb_listener" "docker_http_app_ssl" {
-  load_balancer_arn = aws_alb.docker_http_app.arn
+resource "aws_alb_listener" "public_alb_listener_ssl" {
+  load_balancer_arn = aws_alb.public_alb.arn
   port              = "443"
   protocol          = "HTTPS"
-  depends_on        = [aws_alb_target_group.docker_http_app_alb_target_group]
+  depends_on        = [aws_alb_target_group.public_alb_default_target_group]
   certificate_arn   = data.aws_acm_certificate.default.arn
 
   default_action {
-    target_group_arn = aws_alb_target_group.docker_http_app_alb_target_group.arn
+    target_group_arn = aws_alb_target_group.public_alb_default_target_group.arn
     type             = "forward"
   }
 }

@@ -1,5 +1,5 @@
 output "public_alb_security_group_id" {
-  value = aws_security_group.docker_http_app_inbound_sg.id
+  value = aws_security_group.public_alb_inbound_sg.id
 }
 
 output "private_alb_security_group_id" {
@@ -7,7 +7,7 @@ output "private_alb_security_group_id" {
 }
 
 output "public_alb_default_target_group_arn" {
-  value = aws_alb_target_group.docker_http_app_alb_target_group.arn
+  value = aws_alb_target_group.public_alb_default_target_group.arn
 }
 
 output "private_alb_target_group_map" {
@@ -17,11 +17,11 @@ output "private_alb_target_group_map" {
 }
 
 output "alb_dns_name" {
-  value = aws_alb.docker_http_app.dns_name
+  value = aws_alb.public_alb.dns_name
 }
 
 output "alb_zone_id" {
-  value = aws_alb.docker_http_app.zone_id
+  value = aws_alb.public_alb.zone_id
 }
 
 output "private_alb_dns_name" {
