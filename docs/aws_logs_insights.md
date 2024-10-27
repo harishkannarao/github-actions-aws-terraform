@@ -32,7 +32,7 @@ Choose log group as `docker-http-app-development`
     | sort @timestamp desc
     | display @message
 
-### Total requests
+### Total requests
 
     fields @timestamp, @message
     | filter @message like /ACCESS_LOG/
