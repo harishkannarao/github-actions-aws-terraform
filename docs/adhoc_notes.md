@@ -13,7 +13,7 @@
     export AWS_ACCESS_KEY_ID_TERRAFORM='<aws_account_key_id>'
     export AWS_SECRET_ACCESS_KEY_TERRAFORM='<aws_account_secret_key>'
 
-    docker run --rm -it \
+    docker run --rm --name aws-cli-latest -it \
     -e "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_TERRAFORM" \
     -e "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_TERRAFORM" \
     -e "AWS_DEFAULT_REGION=eu-west-2" \
@@ -26,6 +26,10 @@
     aws configure list
 
     aws sts get-caller-identity 
+
+### Attach to existing client in a new terminal
+
+     docker exec -it aws-cli-latest /bin/bash
 
 ### Using EC2 Instance connect
 
