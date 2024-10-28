@@ -8,9 +8,9 @@ Note the <query-id> returned from the command
 
 ## Download the query result to a file
 
-    aws logs get-query-results --output text --query-id {query-id} | grep 'RESULTS' | grep -v '@ptr' | sed 'N;s/\n/ /g' > ignored/downloaded.logs
+    aws logs get-query-results --output text --query-id {query-id} | grep 'RESULTS' | grep -v '@ptr' | sed 'N;s/\n/ /g' | sed -E 's/RESULTS//g;s/@logStream//g;s/@message//g' > ignored/downloaded.logs
 
-The grep and sed command helps to filter only useful lines and combine 2 consecutive lines into 1 line, which makes the downloaded logs more helpful
+The grep and sed command helps to filter and trim only useful lines and combine 2 consecutive lines into 1 line, which makes the downloaded logs more helpful
 
 Example:
 
