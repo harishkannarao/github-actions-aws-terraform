@@ -462,6 +462,13 @@ Download Cloudwatch Logs to local machine
 [Download Cloudwatch Logs](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_logs_download.md)
 
 
+### Download logs to local machine from multiple log streams
+
+Download Cloudwatch Logs to local machine from multiple log streams using Cloudwatch log insights
+
+[Download Cloudwatch Logs using Insights](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_logs_insight_download.md)
+
+
 ### Remote monitoring ECS Fargate JVM
 
 Monitor remote JVM using VisualVM
