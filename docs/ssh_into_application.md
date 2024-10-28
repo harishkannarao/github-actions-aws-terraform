@@ -2,15 +2,15 @@
 
 ## View all ecs clusters
 
-    aws ecs list-clusters
+    aws ecs list-clusters --output text
 
 ## View all ecs services in a cluster
 
-    aws ecs list-services --cluster "docker-http-app-development-ecs-cluster"
+    aws ecs list-services --cluster "docker-http-app-development-ecs-cluster" --output text
 
 ## Get private IPs of running tasks in an ECS Cluster by Service Name
 
-    taskArns=$(aws ecs list-tasks --cluster "docker-http-app-development-ecs-cluster" --service-name "docker-http-app-development" | jq -r '.taskArns[]' | grep -E '\S' | tr '\n' ' ')
+    taskArns=$(aws ecs list-tasks --cluster "docker-http-app-development-ecs-cluster" --service-name "docker-http-app-development" --output json | jq -r '.taskArns[]' | grep -E '\S' | tr '\n' ' ')
 
     aws ecs describe-tasks --cluster "docker-http-app-development-ecs-cluster" --tasks $taskArns | jq -r '.tasks[].containers[].networkInterfaces[].privateIpv4Address'
 
