@@ -19,9 +19,8 @@
     -e "AWS_DEFAULT_REGION=eu-west-2" \
     -e "AWS_DEFAULT_OUTPUT=json" \
     -v $HOME/Professional/Learnings/github-actions-aws-terraform:/github-actions-aws-terraform \
+    -w /github-actions-aws-terraform \
     harishkannarao/awscli:latest /bin/bash
-
-    cd /github-actions-aws-terraform/
 
     aws configure list
 
