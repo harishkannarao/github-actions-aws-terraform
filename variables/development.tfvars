@@ -47,4 +47,4 @@ private_alb_path_mappings = {
         "health_check_path" : "/spring-security-rest-api/general-data",
     },
 }
-bastion_ingress_cidr_blocks = ["0.0.0.0/0"]
+bastion_ingress_cidr_blocks = []
