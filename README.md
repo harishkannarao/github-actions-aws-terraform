@@ -503,6 +503,12 @@ Visualize AWS Infrastructure through Terraform
 
 [AWS Graph](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_terraform_graph.md)
 
+### Create terraform diagram with Rover
+
+Visualize AWS Infrastructure as component diagram through Terraform using Rover
+
+[AWS Component Diagram](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_terraform_rover_diagram.md)
+
 
 ### Quick roll back of deployment
 
