@@ -14,6 +14,8 @@
 
     aws iam create-group --group-name terraform-group-2
 
+    aws iam create-group --group-name terraform-group-3
+
 ## Attach needed policies to IAM Group using root user or adminstrator user
 
     aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonRDSFullAccess --group-name terraform-group
@@ -50,6 +52,10 @@
 
     aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser --group-name terraform-group-2
 
+    aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole --group-name terraform-group-3
+
+    aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AutoScalingFullAccess --group-name terraform-group-3
+
 ## Create AWS IAM User using root user or adminstrator user
 
     aws iam create-user --user-name terraform-user
@@ -59,6 +65,8 @@
     aws iam add-user-to-group --user-name terraform-user --group-name terraform-group
 
     aws iam add-user-to-group --user-name terraform-user --group-name terraform-group-2
+
+    aws iam add-user-to-group --user-name terraform-user --group-name terraform-group-3
 
 ## Create access key for IAM user and note down the key id and secret access key
 
