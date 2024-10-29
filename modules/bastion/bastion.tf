@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = ">= 5.54.1"
-    }
-  }
-}
-
 /* Security Group for Bastion */
 resource "aws_security_group" "bastion_sg" {
   vpc_id      = var.vpc_id
@@ -20,7 +11,7 @@ resource "aws_security_group" "bastion_sg" {
 }
 
 resource "aws_vpc_security_group_egress_rule" "bastion_egress_rule" {
-  security_group_id = aws_security_group.bastion_sg.id
+  security_group_id = aws_security_group.bastion_sg
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
   from_port         = 0
@@ -29,7 +20,7 @@ resource "aws_vpc_security_group_egress_rule" "bastion_egress_rule" {
 
 resource "aws_vpc_security_group_ingress_rule" "bastion_ingress_rule" {
   for_each          = var.bastion_ingress_rules
-  security_group_id = aws_security_group.bastion_sg.id
+  security_group_id = aws_security_group.bastion_sg
   description       = each.key
   cidr_ipv4         = each.value.cidr_ipv4
   ip_protocol       = each.value.ip_protocol
