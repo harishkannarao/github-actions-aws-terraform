@@ -2,7 +2,7 @@
 
 ## Get the group-id for bastion
 
-    aws ec2 describe-security-groups --output text --query "SecurityGroups[*].[GroupId]" --group-names bastion-development-sg
+    aws ec2 describe-security-groups --output text --query "SecurityGroups[*].[GroupId]" --filters Name=group-name,Values=bastion-development-sg
 
 ## List the current rules for bastion
 
