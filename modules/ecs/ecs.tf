@@ -144,11 +144,22 @@ resource "aws_ecs_service" "app" {
 /*====
 Auto Scaling for ECS
 ======*/
+resource "aws_iam_role" "app_ecs_autoscale_role" {
+  name = "${var.application_name}_${var.environment}_ecs_autoscale_role"
+  assume_role_policy = file("${path.module}/policies/ecs-autoscale-role.json")
+}
+
+resource "aws_iam_role_policy" "app_ecs_autoscale_role_policy" {
+  name = "${var.application_name}_${var.environment}_ecs_autoscale_role_policy"
+  policy = file("${path.module}/policies/ecs-autoscale-role-policy.json")
+  role = aws_iam_role.app_ecs_autoscale_role.id
+}
 
 resource "aws_appautoscaling_target" "app_target" {
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.app_cluster.name}/${aws_ecs_service.app.name}"
   scalable_dimension = "ecs:service:DesiredCount"
+  role_arn           = aws_iam_role.app_ecs_autoscale_role.arn
   min_capacity       = var.min_capacity
   max_capacity       = var.max_capacity
 }
