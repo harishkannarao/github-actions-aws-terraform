@@ -468,6 +468,11 @@ Download Cloudwatch Logs to local machine from multiple log streams using Cloudw
 
 [Download Cloudwatch Logs using Insights](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_logs_insight_download.md)
 
+### Temporary white list ip address for Bastion
+
+Temporarily add a given ip address to access Bastion Server
+
+[Bastion Temporary Ingress Rule](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_bastion_add_temporary_ingress_rule.md)
 
 ### Remote monitoring ECS Fargate JVM
 
