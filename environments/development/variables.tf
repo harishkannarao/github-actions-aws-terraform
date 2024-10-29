@@ -111,3 +111,13 @@ variable "private_alb_path_mappings" {
     health_check_path = string
   }))
 }
+
+variable "bastion_ingress_rules" {
+  description = "Ingress rules for bastion server"
+  type = map(object({
+    cidr_ipv4   = string
+    ip_protocol = string
+    from_port   = number
+    to_port     = number
+  }))
+}

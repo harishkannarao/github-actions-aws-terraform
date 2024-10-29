@@ -17,3 +17,13 @@ variable "public_subnet_ids" {
 variable "ssh_key_pair_name" {
   description = "SSH keypair to use"
 }
+
+variable "bastion_ingress_rules" {
+  description = "Ingress rules for bastion server"
+  type = map(object({
+    cidr_ipv4   = string
+    ip_protocol = string
+    from_port   = number
+    to_port     = number
+  }))
+}
