@@ -47,4 +47,5 @@ private_alb_path_mappings = {
         "health_check_path" : "/spring-security-rest-api/general-data",
     },
 }
+# make bastion_ingress_cidr_blocks = [] to disable public access of bastion
 bastion_ingress_cidr_blocks = ["0.0.0.0/0"]
