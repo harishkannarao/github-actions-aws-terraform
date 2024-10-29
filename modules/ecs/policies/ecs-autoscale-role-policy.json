@@ -19,6 +19,15 @@
             "Resource": [
                 "*"
             ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "application-autoscaling:ListTagsForResource"
+            ],
+            "Resource": [
+                "*"
+            ]
         }
     ]
 }
