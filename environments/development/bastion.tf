@@ -7,5 +7,4 @@ module "bastion" {
   security_groups_ids = [
     module.vpc.default_sg_id
   ]
-  bastion_ingress_rules = var.bastion_ingress_rules
 }
