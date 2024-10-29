@@ -111,3 +111,8 @@ variable "private_alb_path_mappings" {
     health_check_path = string
   }))
 }
+
+variable "bastion_ingress_cidr_blocks" {
+  description = "CIDR blocks for bastion ingress rule. Usually the cidr blocks for office IPs or VPN servers"
+  type = set(string)
+}

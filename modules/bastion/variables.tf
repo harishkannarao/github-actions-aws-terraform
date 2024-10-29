@@ -17,3 +17,8 @@ variable "public_subnet_ids" {
 variable "ssh_key_pair_name" {
   description = "SSH keypair to use"
 }
+
+variable "bastion_ingress_cidr_blocks" {
+  description = "CIDR blocks for bastion ingress rule. Usually the cidr blocks for office IPs or VPN servers"
+  type = set(string)
+}

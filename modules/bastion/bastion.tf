@@ -15,9 +15,7 @@ resource "aws_security_group" "bastion_sg" {
     from_port = 0
     to_port   = 0
     protocol  = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-    # comment the cidr_blocks line above to block public access
-    # self = true
+    cidr_blocks = var.bastion_ingress_cidr_blocks
   }
 
   tags = {
