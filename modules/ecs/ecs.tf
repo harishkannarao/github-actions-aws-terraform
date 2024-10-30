@@ -65,10 +65,11 @@ data "template_file" "app_task" {
   template = file("${path.module}/tasks/app_task_definition.json")
 
   vars = {
-    name                  = var.application_name
-    image                 = "${var.ecr_repository_url}:${var.image_tag}"
-    region                = var.region
-    log_group             = aws_cloudwatch_log_group.app.name
+    name             = var.application_name
+    image            = "${var.ecr_repository_url}:${var.image_tag}"
+    region           = var.region
+    health_check_url = var.health_check_url
+    log_group        = aws_cloudwatch_log_group.app.name
     env_vars = jsonencode(var.env_vars)
   }
 }
@@ -112,9 +113,9 @@ resource "aws_security_group" "app_ecs_service" {
   // allows traffic from the SG itself
   ingress {
     from_port = 0
-    to_port = 0
-    protocol = "-1"
-    self = true
+    to_port   = 0
+    protocol  = "-1"
+    self      = true
   }
 
   tags = {

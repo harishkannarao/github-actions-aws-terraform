@@ -47,3 +47,7 @@ variable "alb_target_group_arn" {
 variable "env_vars" {
   description = "Environment Variables to be passed to the docker container"
 }
+
+variable "health_check_url" {
+  description = "Health Check url for the container"
+}

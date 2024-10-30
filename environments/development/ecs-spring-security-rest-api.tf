@@ -15,6 +15,7 @@ module "ecs-spring-security-rest-api" {
   min_capacity          = var.min_capacity
   max_capacity          = var.max_capacity
   log_retention_in_days = var.log_retention_in_days
+  health_check_url      = "http://localhost/spring-security-rest-api/general-data"
   env_vars = [
     {
       "name" : "SERVER_PORT",

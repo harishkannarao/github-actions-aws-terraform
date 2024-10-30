@@ -17,6 +17,7 @@ module "ecs" {
   min_capacity          = var.min_capacity
   max_capacity          = var.max_capacity
   log_retention_in_days = var.log_retention_in_days
+  health_check_url      = "http://localhost/health-check"
   env_vars = [
     {
       "name" : "SERVER_PORT",

@@ -16,6 +16,16 @@
         "hostPort": 22
       }
     ],
+    "healthCheck": {
+      "retries": 10,
+      "command": [
+        "CMD-SHELL",
+        "curl -f ${health_check_url} || exit 1"
+      ],
+      "timeout": 10,
+      "interval": 150,
+      "startPeriod": 150
+    },
     "networkMode": "awsvpc",
     "logConfiguration": {
       "logDriver": "awslogs",
