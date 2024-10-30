@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.7.5"
+  required_version = ">=1.7.5"
   backend "s3" {
     bucket         = "github-actions-ci"
     key            = "terraform-development.tfstate"
