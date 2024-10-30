@@ -12,6 +12,10 @@
 
     terraform -chdir=environments/$ENV_NAME init -reconfigure -input=false
 
+## Initialise terraform and update the lock file with configuration
+
+    terraform -chdir=environments/$ENV_NAME init -upgrade -reconfigure -input=false
+
 ## Validate configuration
 
     terraform -chdir=environments/$ENV_NAME validate
