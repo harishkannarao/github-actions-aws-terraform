@@ -16,6 +16,30 @@
 
     aws iam create-group --group-name terraform-group-3
 
+## Create a custom policy for autoscaling
+
+Execute the command and note the created `policy arn`
+
+```
+aws iam create-policy \
+    --policy-name ApplicationAutoScalingCustomPolicy \
+    --policy-document \
+'{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Action": [
+				"application-autoscaling:*"
+			],
+			"Resource": [
+				"*"
+			]
+		}
+	]
+}'
+```
+
 ## Attach needed policies to IAM Group using root user or adminstrator user
 
     aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonRDSFullAccess --group-name terraform-group
@@ -55,6 +79,8 @@
     aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole --group-name terraform-group-3
 
     aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AutoScalingFullAccess --group-name terraform-group-3
+
+    aws iam attach-group-policy --policy-arn arn:aws:iam::{account-id}:policy/ApplicationAutoScalingCustomPolicy --group-name terraform-group-3
 
 ## Create AWS IAM User using root user or adminstrator user
 
