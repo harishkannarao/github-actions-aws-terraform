@@ -109,6 +109,14 @@ resource "aws_security_group" "app_ecs_service" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  // allows traffic from the SG itself
+  ingress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    self = true
+  }
+
   tags = {
     Name        = "${var.application_name}-${var.environment}-ecs-service-sg"
     Environment = var.environment
