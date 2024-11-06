@@ -23,7 +23,7 @@ module "ecs-spring-security-rest-api" {
     },
     {
       "name" : "SSH_PUBLIC_KEY",
-      "value" : var.ssh_public_key
+      "value" : module.ssh-public-key.ssh_public_key
     }
   ]
 }

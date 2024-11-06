@@ -45,7 +45,7 @@ module "ecs" {
     },
     {
       "name" : "SSH_PUBLIC_KEY",
-      "value" : var.ssh_public_key
+      "value" : module.ssh-public-key.ssh_public_key
     },
     {
       "name" : "APP_CORS_ORIGINS",
