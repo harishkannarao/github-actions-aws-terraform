@@ -6,4 +6,4 @@ chmod 700 /home/ubuntu /home/ubuntu/.ssh
 chmod 600 /home/ubuntu/.ssh/authorized_keys
 sudo apt-get update
 sudo apt-get install -y jq
-sudo apt-get install -y openjdk-11-jre-headless
+sudo apt-get install -y openjdk-21-jre-headless
