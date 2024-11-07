@@ -18,6 +18,7 @@
     -e "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_TERRAFORM" \
     -e "AWS_DEFAULT_REGION=eu-west-2" \
     -e "AWS_DEFAULT_OUTPUT=json" \
+    -e "ENV_NAME=development" \
     -v $HOME/Professional/Learnings/github-actions-aws-terraform:/github-actions-aws-terraform \
     -w /github-actions-aws-terraform \
     harishkannarao/awscli:latest /bin/bash
