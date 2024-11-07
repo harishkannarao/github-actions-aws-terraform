@@ -161,6 +161,7 @@ Delete SSH Key Pair generated for the environment as described below:
 [AWS SSH Key Pair Teardown](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_ssh_key_pair_teardown.md)
 
 Delete AWS DB Secret Password for the environment as described below:
+
 [AWS DB Secret Password Teardown](https://github.com/harishkannarao/github-actions-aws-terraform/blob/master/docs/aws_db_secret_password_teardown.md)
 
 
