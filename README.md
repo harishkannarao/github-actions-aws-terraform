@@ -80,6 +80,7 @@ It is advisable to setup billing alerts or billing threshold in AWS account as a
 * Elastic Container Service (ECS) + Fargate
 * Auto Scaling Group (ASG)
 * Elastic Cloud Compute (EC2) Bastion
+* AWS Cloud front Content Distribution Network (CDN)
 * AWS Key Pair
 * Cloudwatch Dashboard
 * Cloudwatch Logs
